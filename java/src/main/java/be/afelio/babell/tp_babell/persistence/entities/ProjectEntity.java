@@ -1,7 +1,7 @@
 package be.afelio.babell.tp_babell.persistence.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity(name = "Project")
 @Table(name = "project")

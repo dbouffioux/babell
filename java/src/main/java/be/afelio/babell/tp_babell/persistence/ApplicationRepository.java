@@ -6,6 +6,7 @@ import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -21,11 +22,15 @@ public class ApplicationRepository {
     }
 
     private List<ProjectDto> createProjectListDto(List<ProjectEntity> projectEntitiesList) {
-        List<ProjectDto> projectDtos = null;
+        List<ProjectDto> projectDtosList = new ArrayList<>();
         for (ProjectEntity project: projectEntitiesList) {
             ProjectDto projectDto = new ProjectDto();
-            
+            projectDto.setId(project.getId());
+            projectDto.setName(project.getName());
+            projectDto.setProject_start(project.getProject_start());
+            projectDto.setProject_end(project.getProject_end());
+            projectDtosList.add(projectDto);
         }
-        return projectDtos;
+        return projectDtosList;
     }
 }

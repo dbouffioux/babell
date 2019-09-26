@@ -1,12 +1,9 @@
 package be.afelio.babell.tp_babell.api.controller;
-
+/*
 import java.io.IOException;
 import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import be.afelio.beans.Person;
-import be.afelio.controllers.jsonGenerator;
-import be.afelio.repository.DataRepositoryPerson;
 
 public class LoginController extends jsonGenerator {
 
@@ -43,3 +40,4 @@ public class LoginController extends jsonGenerator {
 		return passwordValid;
 	}
 }
+*/
