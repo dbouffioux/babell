@@ -2,7 +2,7 @@ package be.afelio.babell.tp_babell.api.utils;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
@@ -21,7 +21,7 @@ public class LocalDateSerializer extends StdSerializer<LocalDate> {
 public void serialize(LocalDate value, JsonGenerator generator, SerializerProvider provider)
 
         throws IOException {
-
+		System.out.println("LocalDateSerializer.serialize()");
     generator.writeString(value.toString());
 
 }

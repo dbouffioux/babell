@@ -28,8 +28,8 @@ public class ApplicationRepository {
             projectDto.setId(project.getId());
             projectDto.setName(project.getName());
 
-            projectDto.setProject_start(project.getProject_start());
-            projectDto.setProject_end(project.getProject_end());
+            projectDto.setProjectStart(project.getProject_start());
+            projectDto.setProjectEnd(project.getProject_end());
             projectDtosList.add(projectDto);
         }
         return projectDtosList;

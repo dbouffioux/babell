@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -38,6 +38,7 @@ public class GetAllProjectTest {
 		assertEquals(200, response.getStatusCodeValue());
 		String json = response.getBody();
 		
+		System.out.println(json);
 		TypeReference<ResponseDto<List<ProjectDto>>> type = new TypeReference<ResponseDto<List<ProjectDto>>>() {};
 		ResponseDto<List<ProjectDto>> responseDto = mapper.readValue(json,  type);
 		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());

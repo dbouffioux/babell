@@ -1,7 +1,10 @@
 package be.afelio.babell.tp_babell.api.dto;
 
 import be.afelio.babell.tp_babell.api.utils.LocalDateDeserializer;
+import be.afelio.babell.tp_babell.api.utils.LocalDateSerializer;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
 
@@ -9,19 +12,21 @@ public class ProjectDto {
 	
 	private int id;
 	private String name;
+	@JsonSerialize(using=LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate projectStart;
+	@JsonSerialize(using=LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate projectEnd;
 	
 	public ProjectDto() {}
 
-	public ProjectDto(int id, String name, LocalDate project_start, LocalDate project_end) {
+	public ProjectDto(int id, String name, LocalDate projectStart, LocalDate projectEnd) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.projectStart = project_start;
-		this.projectEnd = project_end;
+		this.projectStart = projectStart;
+		this.projectEnd = projectEnd;
 	}
 
 	public int getId() {
@@ -40,25 +45,25 @@ public class ProjectDto {
 		this.name = name;
 	}
 
-	public LocalDate getProject_start() {
+	public LocalDate getProjectStart() {
 		return projectStart;
 	}
 
-	public void setProject_start(LocalDate project_start) {
-		this.projectStart = project_start;
+	public void setProjectStart(LocalDate projectStart) {
+		this.projectStart = projectStart;
 	}
 
-	public LocalDate getProject_end() {
+	public LocalDate getProjectEnd() {
 		return projectEnd;
 	}
 
-	public void setProject_end(LocalDate project_end) {
-		this.projectEnd = project_end;
+	public void setProjectEnd(LocalDate projectEnd) {
+		this.projectEnd = projectEnd;
 	}
 
 	@Override
 	public String toString() {
-		return "ProjectDto [id=" + id + ", name=" + name + ", project_start=" + projectStart + ", project_end="
+		return "ProjectDto [id=" + id + ", name=" + name + ", projectStart=" + projectStart + ", projectEnd="
 				+ projectEnd + "]";
 	}
 
@@ -103,5 +108,4 @@ public class ProjectDto {
 	}
 
 	
-    
 }

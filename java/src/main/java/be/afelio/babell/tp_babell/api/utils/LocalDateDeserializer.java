@@ -22,7 +22,11 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
 	@Override
     public LocalDate deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
-        return LocalDate.ofInstant(Instant.parse(parser.readValueAs(String.class)), ZoneOffset.UTC);
+		System.out.println("LocalDateDeserializer.deserialize()");
+		String s = parser.getValueAsString();
+		LocalDate d = LocalDate.parse(s);
+		return d;
+        //return LocalDate.ofInstant(Instant.parse(parser.readValueAs(String.class)), ZoneOffset.UTC);
     }
 	}
 
