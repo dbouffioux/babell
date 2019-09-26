@@ -9,7 +9,7 @@ public class ProjectEntity {
 
     @Id
     @GeneratedValue()
-    @Column(name = "id")
+    @Column(name = "id_project")
     private Integer id;
     private String name;
     private Date project_start;
