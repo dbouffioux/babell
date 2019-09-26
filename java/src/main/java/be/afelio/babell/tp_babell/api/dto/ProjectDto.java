@@ -101,8 +101,7 @@ public class ProjectDto {
 			return false;
 		return true;
 	}
-	
-	
+
 	
     
 }
