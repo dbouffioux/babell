@@ -1,17 +1,17 @@
 package be.afelio.babell.tp_babell.api.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class ProjectDto {
 	
 	private int id;
 	private String name;
-	private Date project_start;
-	private Date project_end;
+	private LocalDate project_start;
+	private LocalDate project_end;
 	
 	public ProjectDto() {}
 
-	public ProjectDto(int id, String name, Date project_start, Date project_end) {
+	public ProjectDto(int id, String name, LocalDate project_start, LocalDate project_end) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -35,19 +35,19 @@ public class ProjectDto {
 		this.name = name;
 	}
 
-	public Date getProject_start() {
+	public LocalDate getProject_start() {
 		return project_start;
 	}
 
-	public void setProject_start(Date project_start) {
+	public void setProject_start(LocalDate project_start) {
 		this.project_start = project_start;
 	}
 
-	public Date getProject_end() {
+	public LocalDate getProject_end() {
 		return project_end;
 	}
 
-	public void setProject_end(Date project_end) {
+	public void setProject_end(LocalDate project_end) {
 		this.project_end = project_end;
 	}
 
