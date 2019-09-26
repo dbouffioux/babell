@@ -3,7 +3,6 @@ package be.afelio.babell.tp_babell.persistence;
 import be.afelio.babell.tp_babell.api.dto.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.ProjectDto;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
-import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedNameException;
 import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedProjectException;
 import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
@@ -33,8 +32,8 @@ public class ApplicationRepository {
             projectDto.setId(project.getId());
             projectDto.setName(project.getName());
 
-            projectDto.setProject_start(project.getProjectStart());
-            projectDto.setProject_end(project.getProjectEnd());
+            projectDto.setProjectStart(project.getProjectStart());
+            projectDto.setProjectEnd(project.getProjectEnd());
             projectDtosList.add(projectDto);
         }
         return projectDtosList;
@@ -49,8 +48,8 @@ public class ApplicationRepository {
             }
             ProjectEntity projectEntity = new ProjectEntity();
             projectEntity.setName(createProjectDto.getName());
-            projectEntity.setProject_start(createProjectDto.getProjectStart());
-            projectEntity.setProject_end(createProjectDto.getProjectEnd());
+            projectEntity.setProjectStart(createProjectDto.getProjectStart());
+            projectEntity.setProjectEnd(createProjectDto.getProjectEnd());
             projectRepository.save(projectEntity);
         }
 
