@@ -1,6 +1,3 @@
 <h1> Projects List </h1>
-<ul>
-  <li *ngFor="let project of projects">
-    {{ project.name }}
-  </li>
-</ul>
+<app-project-list [projects]="projects">
+</app-project-list>
