@@ -1,11 +1,16 @@
 package be.afelio.babell.tp_babell.persistence;
 
+import be.afelio.babell.tp_babell.api.dto.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.ProjectDto;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
+import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedNameException;
+import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedProjectException;
+import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +33,34 @@ public class ApplicationRepository {
             projectDto.setId(project.getId());
             projectDto.setName(project.getName());
 
-            projectDto.setProjectStart(project.getProject_start());
-            projectDto.setProjectEnd(project.getProject_end());
+            projectDto.setProject_start(project.getProjectStart());
+            projectDto.setProject_end(project.getProjectEnd());
             projectDtosList.add(projectDto);
         }
         return projectDtosList;
     }
+
+    public void createProject(CreateProjectDto createProjectDto) {
+            if (!validateCreateParameters(createProjectDto)) {
+                throw new InvalidCreateParametersException();
+            }
+            if (projectRepository.findOneByNameIgnoreCase(createProjectDto.getName())!= null) {
+                throw new DuplicatedProjectException();
+            }
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.setName(createProjectDto.getName());
+            projectEntity.setProject_start(createProjectDto.getProjectStart());
+            projectEntity.setProject_end(createProjectDto.getProjectEnd());
+            projectRepository.save(projectEntity);
+        }
+
+    private boolean validateCreateParameters(CreateProjectDto createProjectDto) {
+        String name = createProjectDto.getName();
+        LocalDate start = createProjectDto.getProjectStart();
+        LocalDate end = createProjectDto.getProjectEnd();
+      return !name.isBlank() && name != null
+              && start != null
+              && end != null;
+    }
 }
+
