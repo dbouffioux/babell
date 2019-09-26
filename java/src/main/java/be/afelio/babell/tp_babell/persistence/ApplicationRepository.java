@@ -27,6 +27,7 @@ public class ApplicationRepository {
             ProjectDto projectDto = new ProjectDto();
             projectDto.setId(project.getId());
             projectDto.setName(project.getName());
+
             projectDto.setProject_start(project.getProject_start());
             projectDto.setProject_end(project.getProject_end());
             projectDtosList.add(projectDto);

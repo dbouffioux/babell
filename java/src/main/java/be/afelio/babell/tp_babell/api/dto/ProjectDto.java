@@ -1,13 +1,18 @@
 package be.afelio.babell.tp_babell.api.dto;
 
+import be.afelio.babell.tp_babell.api.utils.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.time.LocalDate;
 
 public class ProjectDto {
 	
 	private int id;
 	private String name;
-	private LocalDate project_start;
-	private LocalDate project_end;
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	private LocalDate projectStart;
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	private LocalDate projectEnd;
 	
 	public ProjectDto() {}
 
@@ -15,8 +20,8 @@ public class ProjectDto {
 		super();
 		this.id = id;
 		this.name = name;
-		this.project_start = project_start;
-		this.project_end = project_end;
+		this.projectStart = project_start;
+		this.projectEnd = project_end;
 	}
 
 	public int getId() {
@@ -36,25 +41,25 @@ public class ProjectDto {
 	}
 
 	public LocalDate getProject_start() {
-		return project_start;
+		return projectStart;
 	}
 
 	public void setProject_start(LocalDate project_start) {
-		this.project_start = project_start;
+		this.projectStart = project_start;
 	}
 
 	public LocalDate getProject_end() {
-		return project_end;
+		return projectEnd;
 	}
 
 	public void setProject_end(LocalDate project_end) {
-		this.project_end = project_end;
+		this.projectEnd = project_end;
 	}
 
 	@Override
 	public String toString() {
-		return "ProjectDto [id=" + id + ", name=" + name + ", project_start=" + project_start + ", project_end="
-				+ project_end + "]";
+		return "ProjectDto [id=" + id + ", name=" + name + ", project_start=" + projectStart + ", project_end="
+				+ projectEnd + "]";
 	}
 
 	@Override
@@ -63,8 +68,8 @@ public class ProjectDto {
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((project_end == null) ? 0 : project_end.hashCode());
-		result = prime * result + ((project_start == null) ? 0 : project_start.hashCode());
+		result = prime * result + ((projectEnd == null) ? 0 : projectEnd.hashCode());
+		result = prime * result + ((projectStart == null) ? 0 : projectStart.hashCode());
 		return result;
 	}
 
@@ -84,20 +89,19 @@ public class ProjectDto {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (project_end == null) {
-			if (other.project_end != null)
+		if (projectEnd == null) {
+			if (other.projectEnd != null)
 				return false;
-		} else if (!project_end.equals(other.project_end))
+		} else if (!projectEnd.equals(other.projectEnd))
 			return false;
-		if (project_start == null) {
-			if (other.project_start != null)
+		if (projectStart == null) {
+			if (other.projectStart != null)
 				return false;
-		} else if (!project_start.equals(other.project_start))
+		} else if (!projectStart.equals(other.projectStart))
 			return false;
 		return true;
 	}
-	
-	
+
 	
     
 }
