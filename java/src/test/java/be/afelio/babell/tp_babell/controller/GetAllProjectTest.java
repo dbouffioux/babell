@@ -2,8 +2,11 @@ package be.afelio.babell.tp_babell.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 import org.junit.Test;
@@ -40,12 +43,17 @@ public class GetAllProjectTest {
 		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
 		List<ProjectDto> actual = responseDto.getPayload();
 		assertNotNull(responseDto);
-		//assertEquals(1, actual.size());
+		
+		ProjectDto expected = createTestProject();
+		assertTrue(actual.contains(expected));
 	}
 	
 	ProjectDto createTestProject() {
+		LocalDate start = LocalDate.of(2019, Month.SEPTEMBER, 26);
+		LocalDate end = LocalDate.of(2019, Month.OCTOBER, 2);
 		
-		return null;
+		ProjectDto project = new ProjectDto(4, "Babell", start, end);
+		return project;
 	}
 
 }
