@@ -3,7 +3,7 @@ package be.afelio.babell.tp_babell.persistence.entities;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "Project")
+@Entity(name = "ProjectInterface")
 @Table(name = "project")
 public class ProjectEntity {
 
