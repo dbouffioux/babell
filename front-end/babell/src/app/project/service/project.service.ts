@@ -20,8 +20,7 @@ export class ProjectService {
           return projects.map((project: ProjectInterface) => {
             return ProjectBusiness.fromDTO(project);
           });
-        }),
-        catchError((error: any) => throwError(error.json()))
+        })
       );
   }
 }

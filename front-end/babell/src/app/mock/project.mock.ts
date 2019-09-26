@@ -19,9 +19,7 @@ const ProjectList: ProjectInterface[] = [
 const getProjects = (request: HttpRequest<any>): HttpResponse<any> => {
   return new HttpResponse({
     status: 200,
-    body: {
-      people: ProjectList
-    }
+    body: ProjectList
   });
 };
 

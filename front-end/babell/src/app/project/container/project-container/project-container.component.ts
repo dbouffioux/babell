@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from '../../service/project.service';
-import {ProjectInterface} from '../../model/project.interface';
+import {ProjectBusiness} from '../../model/business/project.business';
 
 @Component({
   selector: 'app-project-container',
@@ -9,7 +9,7 @@ import {ProjectInterface} from '../../model/project.interface';
 })
 export class ProjectContainerComponent implements OnInit {
 
-  projects: ProjectInterface[];
+  projects: ProjectBusiness[];
 
   constructor(private projectService: ProjectService) { }
 
