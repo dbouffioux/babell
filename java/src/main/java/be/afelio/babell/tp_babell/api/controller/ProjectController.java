@@ -47,20 +47,15 @@ public class ProjectController {
 
         try {
             repository.createProject(createProjectDto);
-            dto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "customer created");
+            dto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "project created");
         } catch(InvalidCreateParametersException e) {
             dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "invalid create parameters");
         } catch(DuplicatedProjectException e) {
-            dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated customer");
-        } catch(DuplicatedNameException e) {
-            dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated email");
+            dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated project");
         } catch(Exception e) {
             dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
         }
 
         return ResponseEntity.ok(dto);
     }
-    INSERT INTO public.project(
-            id_project, name, project_start, project_end)
-    VALUES (default, 'Nrb', 'June 26, 2019', 'December 2, 2019');
 }
