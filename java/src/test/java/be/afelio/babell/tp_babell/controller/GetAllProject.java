@@ -27,7 +27,7 @@ public class GetAllProject {
 		assertEquals(200, response.getStatusCodeValue());
 		String json = response.getBody();
 		
-		TypeReference<>
+		
 	}
 
 }
