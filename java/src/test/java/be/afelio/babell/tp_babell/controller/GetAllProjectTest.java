@@ -53,7 +53,7 @@ public class GetAllProjectTest {
 		LocalDate start = LocalDate.of(2019, Month.SEPTEMBER, 26);
 		LocalDate end = LocalDate.of(2019, Month.OCTOBER, 2);
 		
-		ProjectDto project = new ProjectDto(4, "Babell", start, end);
+		ProjectDto project = new ProjectDto(1, "Babell", start, end);
 		return project;
 	}
 
