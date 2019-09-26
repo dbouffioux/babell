@@ -16,8 +16,17 @@ public class CreateProjectDto {
     @JsonSerialize(using=LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate projectEnd;
+    
+    
 
-    public String getName() {
+    public CreateProjectDto(String name, LocalDate projectStart, LocalDate projectEnd) {
+		super();
+		this.name = name;
+		this.projectStart = projectStart;
+		this.projectEnd = projectEnd;
+	}
+
+	public String getName() {
         return name;
     }
 
