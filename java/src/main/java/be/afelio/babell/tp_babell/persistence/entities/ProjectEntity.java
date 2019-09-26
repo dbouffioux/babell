@@ -12,8 +12,10 @@ public class ProjectEntity {
     @Column(name = "id_project")
     private Integer id;
     private String name;
-    private LocalDate project_start;
-    private LocalDate project_end;
+    @Column(name = "project_start")
+    private LocalDate projectStart;
+    @Column(name = "project_end")
+    private LocalDate projectEnd;
 
 
     public Integer getId() {
@@ -32,19 +34,19 @@ public class ProjectEntity {
         this.name = name;
     }
 
-    public LocalDate getProject_start() {
-        return project_start;
+    public LocalDate getProjectStart() {
+        return projectStart;
     }
 
-    public void setProject_start(LocalDate project_start) {
-        this.project_start = project_start;
+    public void setProjectStart(LocalDate projectStart) {
+        this.projectStart = projectStart;
     }
 
-    public LocalDate getProject_end() {
-        return project_end;
+    public LocalDate getProjectEnd() {
+        return projectEnd;
     }
 
-    public void setProject_end(LocalDate project_end) {
-        this.project_end = project_end;
+    public void setProjectEnd(LocalDate projectEnd) {
+        this.projectEnd = projectEnd;
     }
 }

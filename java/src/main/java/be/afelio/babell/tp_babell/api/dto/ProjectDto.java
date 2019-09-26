@@ -5,6 +5,8 @@ import be.afelio.babell.tp_babell.api.utils.LocalDateSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import java.time.LocalDate;
 
@@ -14,9 +16,11 @@ public class ProjectDto {
 	private String name;
 	@JsonSerialize(using=LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate projectStart;
 	@JsonSerialize(using=LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate projectEnd;
 	
 	public ProjectDto() {}
