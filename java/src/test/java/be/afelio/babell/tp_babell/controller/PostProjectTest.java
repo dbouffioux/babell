@@ -40,7 +40,7 @@ public class PostProjectTest {
 		try {
 			CreateProjectDto projectDto = createProjectForTest();
 			RequestEntity<CreateProjectDto>requestEntity
-			= new RequestEntity<CreateProjectDto>(projectDto, HttpMethod.POST, URI.create("/"));
+			= new RequestEntity<CreateProjectDto>(projectDto, HttpMethod.POST, URI.create("/projects"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();

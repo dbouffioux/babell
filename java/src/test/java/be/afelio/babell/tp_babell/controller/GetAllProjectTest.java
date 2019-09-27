@@ -34,7 +34,7 @@ public class GetAllProjectTest {
 	
 	@Test
 	public void test() throws Exception {
-		ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
+		ResponseEntity<String> response = restTemplate.getForEntity("/projects", String.class);
 		assertEquals(200, response.getStatusCodeValue());
 		String json = response.getBody();
 		

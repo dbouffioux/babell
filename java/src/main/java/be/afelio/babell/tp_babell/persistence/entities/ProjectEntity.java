@@ -3,18 +3,18 @@ package be.afelio.babell.tp_babell.persistence.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity(name = "ProjectInterface")
+@Entity(name = "Project")
 @Table(name = "project")
 public class ProjectEntity {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id_project")
     private Integer id;
     private String name;
-    @Column(name = "project_start")
+    @Column(name = "projectStart")
     private LocalDate projectStart;
-    @Column(name = "project_end")
+    @Column(name = "projectEnd")
     private LocalDate projectEnd;
 
 
