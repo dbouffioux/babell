@@ -70,8 +70,6 @@ public class ApplicationRepository {
         if(!validateTodoCreateParameters(createTodoDto)){
             throw new InvalidCreateParametersException();
         }
-        System.out.println("*************************************************************");
-        System.out.println("----------------------"+todoRepository.findOneByNameIgnoreCase(createTodoDto.getName()));
         if(todoRepository.findOneByNameIgnoreCase(createTodoDto.getName())!=null){
             throw new DuplicatedTodoException();
         }
@@ -92,7 +90,22 @@ public class ApplicationRepository {
                 && description != null && !description.isBlank();
     }
 
-    public void updateTodo(UpdateTodoDto updateTodoDto) {
+    public void updateTodo(UpdateTodoDto updateTodoDto, String projectName) {
+        TodoEntity todoEntity = todoRepository.findOneById(updateTodoDto.getId());
+        if(todoEntity ==null){
+            throw new TodoNotFoundException();
+        }if(todoEntity.getName().equals(updateTodoDto.getName())){
+            todoEntity.setName(updateTodoDto.getName());
+        }if(todoEntity.getDescription().equals(updateTodoDto.getDescription())){
+            todoEntity.setDescription(updateTodoDto.getDescription());
+        }if(todoEntity.isInProgress()!= updateTodoDto.isInProgress()){
+            todoEntity.setInProgress(updateTodoDto.isInProgress());
+        }if(todoEntity.isDone()!= updateTodoDto.isDone()){
+            todoEntity.setDone(updateTodoDto.isDone());
+        }if(todoEntity.getEstimation()== null){
+            todoEntity.setEstimation(updateTodoDto.getEstimation());
+        }
+        todoRepository.save(todoEntity);
     }
 
     public List<TodoDto> findAllTodoByProjectName(String projectName) {
@@ -107,6 +120,21 @@ public class ApplicationRepository {
         }
         todoRepository.delete(todoEntity);
 
+    }
+
+    public TodoDto findOneTodoById(int todoId) {
+        return createTodoDto(todoRepository.findOneById(todoId));
+    }
+
+    private TodoDto createTodoDto(TodoEntity todoEntity) {
+        TodoDto todoDto = new TodoDto(
+                todoEntity.getId(),
+                todoEntity.getName(),
+                todoEntity.getDescription(),
+                todoEntity.isInProgress(),
+                todoEntity.isDone());
+
+        return todoDto;
     }
 }
 

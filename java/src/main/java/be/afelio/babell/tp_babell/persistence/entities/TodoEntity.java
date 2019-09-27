@@ -12,6 +12,7 @@ public class TodoEntity {
     @Column(name = "id_todo")
     private Integer id;
     private String name;
+    private Integer estimation;
     private String description;
     @Column(name = "in_progress")
     private boolean inProgress;
@@ -19,12 +20,16 @@ public class TodoEntity {
     @ManyToOne
     @JoinColumn(name="id_project")
     private ProjectEntity project;
+    /*
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="todo_person",
             joinColumns=@JoinColumn(name="id_todo"),
             inverseJoinColumns =@JoinColumn(name="id_person"))
     private List<PersonEntity> listPerson;
+    */
+
+
     public TodoEntity() {
     }
 
@@ -82,6 +87,14 @@ public class TodoEntity {
 
     public void setProject(ProjectEntity project) {
         this.project = project;
+    }
+
+    public Integer getEstimation() {
+        return estimation;
+    }
+
+    public void setEstimation(Integer estimation) {
+        this.estimation = estimation;
     }
 
     @Override

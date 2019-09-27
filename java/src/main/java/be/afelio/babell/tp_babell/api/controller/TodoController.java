@@ -24,7 +24,7 @@ public class TodoController {
     @GetMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<List<TodoDto>>> findOne(
             @PathVariable("projectName") String projectName) {
-        ResponseDto<List<TodoDto>> responseDto = null;
+        ResponseDto<List<TodoDto>> responseDto;
         try {
             List<TodoDto> todoDtoList = repository.findAllTodoByProjectName(projectName);
             if (todoDtoList == null) {
@@ -40,12 +40,32 @@ public class TodoController {
 
         return ResponseEntity.ok(responseDto);
     }
+    @GetMapping(value = "{projectName}/{todoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto<TodoDto>> findOne(
+            @PathVariable("projectName") String projectName,
+            @PathVariable("todoId") int todoId) {
+        ResponseDto<TodoDto> responseDto;
+        try {
+            TodoDto todoDto = repository.findOneTodoById(todoId);
+            if (todoDto == null) {
+                responseDto = new ResponseDto<TodoDto>(ResponseDtoStatus.FAILURE, "todo not found");
+            } else {
+                responseDto = new ResponseDto<TodoDto>(ResponseDtoStatus.SUCCESS, " todo found");
+                responseDto.setPayload(todoDto);
+            }
+        } catch (Exception e) {
+            responseDto = new ResponseDto<TodoDto>(ResponseDtoStatus.FAILURE, "unexpected exception");
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok(responseDto);
+    }
 
     @PostMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> createTodo(
             @RequestBody CreateTodoDto createTodoDto,
             @PathVariable("projectName") String projectName) {
-        ResponseDto<Void> responseDto = null;
+        ResponseDto<Void> responseDto;
 
         try {
             repository.createTodo(createTodoDto, projectName);
@@ -62,11 +82,13 @@ public class TodoController {
     }
 
     @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<Void>> updateTodo(@RequestBody UpdateTodoDto updateTodoDto) {
+    public ResponseEntity<ResponseDto<Void>> updateTodo(
+            @PathVariable("projectName") String projectName,
+            @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;
 
         try {
-            repository.updateTodo(updateTodoDto);
+            repository.updateTodo(updateTodoDto, projectName);
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo updated");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
@@ -80,13 +102,13 @@ public class TodoController {
     public ResponseEntity<ResponseDto<Void>> deleteTodo(
             @PathVariable("projectName") String projectName,
             @PathVariable("idTodo") int idTodo) {
-        ResponseDto<Void> responseDto = null;
+        ResponseDto<Void> responseDto;
 
         try {
             repository.deleteDto(projectName, idTodo);
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "customer deleted");
+            responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo deleted");
         } catch (TodoNotFoundException e) {
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "customer not found");
+            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "todo not found");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
         }

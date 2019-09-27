@@ -9,9 +9,9 @@ public class UpdateTodoDto {
     private Integer id;
     private String name;
     private String description;
+    private int estimation;
     private boolean inProgress;
     private boolean done;
-    private ProjectEntity project;
 
     public UpdateTodoDto() {
     }
@@ -21,7 +21,6 @@ public class UpdateTodoDto {
         this.description = description;
         this.inProgress = inProgress;
         this.done = done;
-        this.project = project;
     }
 
     public Integer getId() {
@@ -64,12 +63,12 @@ public class UpdateTodoDto {
         this.done = done;
     }
 
-    public ProjectEntity getProject() {
-        return project;
+    public int getEstimation() {
+        return estimation;
     }
 
-    public void setProject(ProjectEntity project) {
-        this.project = project;
+    public void setEstimation(int estimation) {
+        this.estimation = estimation;
     }
 
     @Override
@@ -81,12 +80,11 @@ public class UpdateTodoDto {
                 done == that.done &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(project, that.project);
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, inProgress, done, project);
+        return Objects.hash(id, name, description, inProgress, done);
     }
 }
