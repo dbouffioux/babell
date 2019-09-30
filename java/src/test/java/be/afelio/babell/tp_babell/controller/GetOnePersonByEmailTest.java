@@ -19,10 +19,9 @@ import be.afelio.babell.tp_babell.api.dto.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class GetOnePersonByFirstnameAndLastname {
+public class GetOnePersonByEmailTest {
 	
 	@Autowired
 	TestRestTemplate restTemplate;
@@ -34,7 +33,7 @@ public class GetOnePersonByFirstnameAndLastname {
 	public void test() throws Exception {
 		
 	
-		ResponseEntity<String> response = restTemplate.getForEntity("/person/Toto/Titi", String.class);
+		ResponseEntity<String> response = restTemplate.getForEntity("/person/toto@mail.be", String.class);
 		assertEquals(200, response.getStatusCodeValue());
 		
 		String json = response.getBody();
@@ -57,5 +56,4 @@ public class GetOnePersonByFirstnameAndLastname {
 	}
 	
 
-	
 }
