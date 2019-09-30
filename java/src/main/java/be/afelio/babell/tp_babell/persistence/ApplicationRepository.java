@@ -89,8 +89,8 @@ public class ApplicationRepository {
                 && description != null && !description.isBlank();
     }
 
-    public void updateTodo(UpdateTodoDto updateTodoDto, String projectName) {
-        TodoEntity todoEntity = todoRepository.findOneById(updateTodoDto.getId());
+    public void updateTodo(UpdateTodoDto updateTodoDto) {
+        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(updateTodoDto.getName());
         if(todoEntity ==null){
             throw new TodoNotFoundException();
         }if(todoEntity.getName().equals(updateTodoDto.getName())){
@@ -103,6 +103,8 @@ public class ApplicationRepository {
             todoEntity.setDone(updateTodoDto.isDone());
         }if(todoEntity.getEstimation()== null){
             todoEntity.setEstimation(updateTodoDto.getEstimation());
+        }if(todoEntity.getProject().getId() != updateTodoDto.getIdProject()) {
+        	todoEntity.setProject(projectRepository.findOneById(updateTodoDto.getIdProject()));
         }
         todoRepository.save(todoEntity);
     }
