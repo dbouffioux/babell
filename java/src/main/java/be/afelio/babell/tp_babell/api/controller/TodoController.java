@@ -98,14 +98,14 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @DeleteMapping(value = "{projectName}/{idTodo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{projectName}/{idName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> deleteTodo(
             @PathVariable("projectName") String projectName,
-            @PathVariable("idTodo") int idTodo) {
+            @PathVariable("idName") String idName) {
         ResponseDto<Void> responseDto;
 
         try {
-            repository.deleteDto(projectName, idTodo);
+            repository.deleteDto(projectName, idName);
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo deleted");
         } catch (TodoNotFoundException e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "todo not found");
