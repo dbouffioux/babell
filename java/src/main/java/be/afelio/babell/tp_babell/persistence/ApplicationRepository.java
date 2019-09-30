@@ -112,8 +112,8 @@ public class ApplicationRepository {
         return todoListDto;
     }
 
-    public void deleteDto(String projectName, String idTodo) {
-        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(idTodo);
+    public void deleteDto(String projectName, String todoName) {
+        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(todoName);
         if (todoEntity == null) {
             throw new TodoNotFoundException();
         }
