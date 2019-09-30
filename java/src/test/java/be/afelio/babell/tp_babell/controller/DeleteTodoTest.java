@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import be.afelio.babell.tp_babell.api.dto.CreateTodoDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
 
@@ -38,7 +38,7 @@ public class DeleteTodoTest {
 	@Test
 	public void test() throws Exception {
 
-		jdbcTemplate.update("INSERT INTO public.todo(id_todo, name, description, in_progress, done, id_project)VALUES (default, 'testTodo','test description', false, false, 2)");
+		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
 		try {	
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
 					URI.create("/todoproject/Test/testTodo" ));
@@ -61,9 +61,11 @@ public class DeleteTodoTest {
 	
 	boolean checkTodoForTestDeleted() {
 		boolean deleted = false;
-		Integer id = jdbcTemplate.queryForObject("Select id_todo from todo Where name = 'new for test'", Integer.class);
-				
-		deleted = id == null;
+		try {
+			jdbcTemplate.queryForObject("Select id_todo from todo Where name = 'testTodo'", Integer.class);
+		} catch (EmptyResultDataAccessException e) {
+			deleted = true;
+		}
 		return deleted;
 	}
 
