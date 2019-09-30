@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {MockHttpInterceptor} from './interceptor/mock-http.interceptor';
+import {LoginService} from './service/login.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MockHttpInterceptor} from './interceptor/mock-http.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: MockHttpInterceptor,
     multi: true
-  } : []],
+  } : [],
+  LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
