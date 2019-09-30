@@ -38,9 +38,10 @@ public class DeleteTodoTest {
 	@Test
 	public void test() throws Exception {
 
-			CreateTodoDto todoDto = createTodoForTest();
+		jdbcTemplate.update("INSERT INTO public.todo(id_todo, name, description, in_progress, done, id_project)VALUES (default, 'testTodo','test description', false, false, 2)");
+		try {	
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/Test/new for test"));
+					URI.create("/todoproject/Test/testTodo" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			
@@ -50,16 +51,13 @@ public class DeleteTodoTest {
 			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
 			assertTrue(checkTodoForTestDeleted());
+		}finally {
+			jdbcTemplate.update("delete from todo  Where name = 'testTodo'");
 			
-			
-		
-		
+		}
 	}
 
-	CreateTodoDto createTodoForTest() {
-		return new CreateTodoDto("new for test", "test description", 2);
 
-	}
 	
 	boolean checkTodoForTestDeleted() {
 		boolean deleted = false;
