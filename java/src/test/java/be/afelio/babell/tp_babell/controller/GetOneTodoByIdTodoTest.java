@@ -21,7 +21,7 @@ import be.afelio.babell.tp_babell.api.dto.TodoDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-public class GetOneByIdTodoTest {
+public class GetOneTodoByIdTodoTest {
 	
 	@Autowired TestRestTemplate restTemplate;
 	ObjectMapper mapper = new ObjectMapper();
