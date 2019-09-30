@@ -1,5 +1,6 @@
 package be.afelio.babell.tp_babell.persistence;
 
+import be.afelio.babell.tp_babell.api.controller.ProjectControllerRepository;
 import be.afelio.babell.tp_babell.api.dto.*;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ApplicationRepository {
+public class ApplicationRepository implements ProjectControllerRepository {
 
     @Autowired private ProjectRepository projectRepository;
     @Autowired private TodoRepository todoRepository;
@@ -89,7 +90,7 @@ public class ApplicationRepository {
                 && description != null && !description.isBlank();
     }
 
-    public void updateTodo(UpdateTodoDto updateTodoDto, String projectName) {
+    public void updateTodo(UpdateTodoDto updateTodoDto) {
         TodoEntity todoEntity = todoRepository.findOneById(updateTodoDto.getId());
         if(todoEntity ==null){
             throw new TodoNotFoundException();

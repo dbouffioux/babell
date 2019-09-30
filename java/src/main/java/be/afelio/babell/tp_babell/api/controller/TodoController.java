@@ -81,14 +81,13 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> updateTodo(
-            @PathVariable("projectName") String projectName,
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;
 
         try {
-            repository.updateTodo(updateTodoDto, projectName);
+            repository.updateTodo(updateTodoDto);
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo updated");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
