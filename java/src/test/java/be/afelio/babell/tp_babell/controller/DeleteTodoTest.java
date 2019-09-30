@@ -40,7 +40,7 @@ public class DeleteTodoTest {
 
 			CreateTodoDto todoDto = createTodoForTest();
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/Test/new for test"));
+					URI.create("/todoproject/Test/" + todoDto.getName()));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			
@@ -50,14 +50,10 @@ public class DeleteTodoTest {
 			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
 			assertTrue(checkTodoForTestDeleted());
-			
-			
-		
-		
 	}
 
 	CreateTodoDto createTodoForTest() {
-		return new CreateTodoDto("new for test", "test description", 2);
+		return new CreateTodoDto("testTodo", "test description", 2);
 
 	}
 	
