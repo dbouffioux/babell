@@ -1,90 +1,140 @@
 package be.afelio.babell.tp_babell.api.dto;
 
-import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
-
-import java.util.Objects;
-
 public class UpdateTodoDto {
 
-    private Integer id;
+    private int id;
     private String name;
     private String description;
     private int estimation;
     private boolean inProgress;
     private boolean done;
+    private Integer idProject;
 
     public UpdateTodoDto() {
     }
 
-    public UpdateTodoDto(String name, String description, boolean inProgress, boolean done, ProjectEntity project) {
-        this.name = name;
-        this.description = description;
-        this.inProgress = inProgress;
-        this.done = done;
-    }
+	public UpdateTodoDto(String name, String description, int estimation, boolean inProgress, boolean done,
+			Integer idProject) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.estimation = estimation;
+		this.inProgress = inProgress;
+		this.done = done;
+		this.idProject = idProject;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	@Override
+	public String toString() {
+		return "UpdateTodoDto [name=" + name + ", description=" + description + ", estimation=" + estimation
+				+ ", inProgress=" + inProgress + ", done=" + done + ", idProject=" + idProject + "]";
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public int getEstimation() {
+		return estimation;
+	}
 
-    public boolean isInProgress() {
-        return inProgress;
-    }
+	public void setEstimation(int estimation) {
+		this.estimation = estimation;
+	}
 
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
-    }
+	public boolean isInProgress() {
+		return inProgress;
+	}
 
-    public boolean isDone() {
-        return done;
-    }
+	public void setInProgress(boolean inProgress) {
+		this.inProgress = inProgress;
+	}
 
-    public void setDone(boolean done) {
-        this.done = done;
-    }
+	public boolean isDone() {
+		return done;
+	}
 
-    public int getEstimation() {
-        return estimation;
-    }
+	public void setDone(boolean done) {
+		this.done = done;
+	}
 
-    public void setEstimation(int estimation) {
-        this.estimation = estimation;
-    }
+	public Integer getIdProject() {
+		return idProject;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UpdateTodoDto that = (UpdateTodoDto) o;
-        return inProgress == that.inProgress &&
-                done == that.done &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description);
-    }
+	public void setIdProject(Integer idProject) {
+		this.idProject = idProject;
+	}
+	
+	
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, inProgress, done);
-    }
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + (done ? 1231 : 1237);
+		result = prime * result + estimation;
+		result = prime * result + ((idProject == null) ? 0 : idProject.hashCode());
+		result = prime * result + (inProgress ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UpdateTodoDto other = (UpdateTodoDto) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (done != other.done)
+			return false;
+		if (estimation != other.estimation)
+			return false;
+		if (idProject == null) {
+			if (other.idProject != null)
+				return false;
+		} else if (!idProject.equals(other.idProject))
+			return false;
+		if (inProgress != other.inProgress)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+    
+    
+
+
 }

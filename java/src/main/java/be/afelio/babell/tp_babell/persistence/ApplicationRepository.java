@@ -3,10 +3,8 @@ package be.afelio.babell.tp_babell.persistence;
 import be.afelio.babell.tp_babell.api.dto.*;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
-import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedProjectException;
-import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedTodoException;
-import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
-import be.afelio.babell.tp_babell.persistence.exceptions.TodoNotFoundException;
+import be.afelio.babell.tp_babell.persistence.exceptions.*;
+import be.afelio.babell.tp_babell.persistence.repositories.PersonRepository;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import be.afelio.babell.tp_babell.persistence.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ public class ApplicationRepository {
 
     @Autowired private ProjectRepository projectRepository;
     @Autowired private TodoRepository todoRepository;
+    @Autowired private PersonRepository personRepository;
 
 
     public List<ProjectDto> findAllProject() {
@@ -90,8 +89,8 @@ public class ApplicationRepository {
                 && description != null && !description.isBlank();
     }
 
-    public void updateTodo(UpdateTodoDto updateTodoDto, String projectName) {
-        TodoEntity todoEntity = todoRepository.findOneById(updateTodoDto.getId());
+    public void updateTodo(UpdateTodoDto updateTodoDto) {
+        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(updateTodoDto.getName());
         if(todoEntity ==null){
             throw new TodoNotFoundException();
         }if(todoEntity.getName().equals(updateTodoDto.getName())){
@@ -104,6 +103,8 @@ public class ApplicationRepository {
             todoEntity.setDone(updateTodoDto.isDone());
         }if(todoEntity.getEstimation()== null){
             todoEntity.setEstimation(updateTodoDto.getEstimation());
+        }if(todoEntity.getProject().getId() != updateTodoDto.getIdProject()) {
+        	todoEntity.setProject(projectRepository.findOneById(updateTodoDto.getIdProject()));
         }
         todoRepository.save(todoEntity);
     }
@@ -113,8 +114,8 @@ public class ApplicationRepository {
         return todoListDto;
     }
 
-    public void deleteDto(String projectName, int idTodo) {
-        TodoEntity todoEntity = todoRepository.findOneById(idTodo);
+    public void deleteDto(String projectName, String todoName) {
+        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(todoName);
         if (todoEntity == null) {
             throw new TodoNotFoundException();
         }
@@ -135,6 +136,21 @@ public class ApplicationRepository {
                 todoEntity.isDone());
 
         return todoDto;
+    }
+
+    public void createPerson(CreatePersonDto createPersonDto) {
+        if(!validatePersonCreateParameters(createPersonDto)){
+            throw new InvalidCreateParametersException();
+        }
+        if(personRepository.findOneByEmail(createPersonDto.getEmail())!= null){
+            throw new DuplicatedEmailException();
+        }
+
+
+    }
+
+    private boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
+        return  false;
     }
 }
 

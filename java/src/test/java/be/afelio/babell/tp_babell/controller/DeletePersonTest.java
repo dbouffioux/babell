@@ -27,8 +27,8 @@ import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class DeleteTodoTest {
-
+public class DeletePersonTest {
+	
 	@Autowired
 	TestRestTemplate restTemplate;
 	@Autowired
@@ -37,11 +37,12 @@ public class DeleteTodoTest {
 
 	@Test
 	public void test() throws Exception {
-
-		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
-		try {	
+		
+		jdbcTemplate.update("INSERT INTO person (id_person, firstname, lastname, email, password) VALUES (default, 'Toto','Titi', 'toto@mail.be', '1234')");
+		try {
+			
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/todoproject/Test/testTodo" ));
+					URI.create("/person" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			
@@ -50,19 +51,20 @@ public class DeleteTodoTest {
 			ResponseDto<Void> responseDto = mapper.readValue(json, type);
 			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
-			assertTrue(checkTodoForTestDeleted());
+			assertTrue(checkPersonForTestDeleted());
+			
+			
+			
 		}finally {
-			jdbcTemplate.update("delete from todo  Where name = 'testTodo'");
+			jdbcTemplate.update("delete from person  Where firstname = 'Toto' And lastname = 'Titi'");
 			
 		}
 	}
-
-
 	
-	boolean checkTodoForTestDeleted() {
+	boolean checkPersonForTestDeleted() {
 		boolean deleted = false;
 		try {
-			jdbcTemplate.queryForObject("Select id_todo from todo Where name = 'testTodo'", Integer.class);
+			jdbcTemplate.queryForObject("Select id_person from person Where firstname = 'Toto' AND lastname = 'Titi'", Integer.class);
 		} catch (EmptyResultDataAccessException e) {
 			deleted = true;
 		}

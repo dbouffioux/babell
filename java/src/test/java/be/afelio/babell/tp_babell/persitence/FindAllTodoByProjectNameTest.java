@@ -16,7 +16,7 @@ import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
-public class FindOneTodoByProjectNameTest {
+public class FindAllTodoByProjectNameTest {
 	
 @Autowired ApplicationRepository repository;
 	

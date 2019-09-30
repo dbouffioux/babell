@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.controller;
+/*package be.afelio.babell.tp_babell.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,11 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class DeleteTodoTest {
-
+public class DeleteProjectTest {
+	
 	@Autowired
 	TestRestTemplate restTemplate;
 	@Autowired
@@ -38,10 +37,10 @@ public class DeleteTodoTest {
 	@Test
 	public void test() throws Exception {
 
-		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
+		jdbcTemplate.update("");
 		try {	
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/todoproject/Test/testTodo" ));
+					URI.create("/todoproject/testProject" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			
@@ -50,23 +49,23 @@ public class DeleteTodoTest {
 			ResponseDto<Void> responseDto = mapper.readValue(json, type);
 			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
-			assertTrue(checkTodoForTestDeleted());
+			assertTrue(checkProjectForTestDeleted());
 		}finally {
-			jdbcTemplate.update("delete from todo  Where name = 'testTodo'");
+			jdbcTemplate.update("delete from todo  Where name = 'testProject'");
 			
 		}
 	}
 
 
 	
-	boolean checkTodoForTestDeleted() {
+	boolean checkProjectForTestDeleted() {
 		boolean deleted = false;
 		try {
-			jdbcTemplate.queryForObject("Select id_todo from todo Where name = 'testTodo'", Integer.class);
+			jdbcTemplate.queryForObject("Select id_todo from proect Where name = 'testProject'", Integer.class);
 		} catch (EmptyResultDataAccessException e) {
 			deleted = true;
 		}
 		return deleted;
 	}
 
-}
+}*/

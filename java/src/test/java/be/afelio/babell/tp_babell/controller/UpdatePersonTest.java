@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -23,50 +22,57 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.UpdatePersonDto;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class DeleteTodoTest {
-
+public class UpdatePersonTest {
+	
 	@Autowired
 	TestRestTemplate restTemplate;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	ObjectMapper mapper = new ObjectMapper();
+	ObjectMapper mapper = new ObjectMapper();	
 
 	@Test
 	public void test() throws Exception {
-
-		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
-		try {	
-			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/todoproject/Test/testTodo" ));
+		
+		jdbcTemplate.update("INSERT INTO person (id_person, firstname, lastname, email, password) VALUES (default, 'Toto','Titi', 'toto@mail.be', '1234')");
+		int id = jdbcTemplate.queryForObject("Select id_person From person Where firstname ='Toto' And lastname ='Titi'", Integer.class);
+		
+		try {
+			RequestEntity<UpdatePersonDto>requestEntity
+			= new RequestEntity<UpdatePersonDto>(updatePersonForTest(), HttpMethod.PUT, URI.create("/todoproject"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
-			
 			String json = response.getBody();
 			TypeReference<ResponseDto<Void>> type = new TypeReference<ResponseDto<Void>>() {};
 			ResponseDto<Void> responseDto = mapper.readValue(json, type);
-			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
-			assertTrue(checkTodoForTestDeleted());
+			assertTrue(checkPersonForTestUpdate(id));
+			
+			
 		}finally {
-			jdbcTemplate.update("delete from todo  Where name = 'testTodo'");
+			jdbcTemplate.update("delete from person  Where id_person = " + id);
 			
 		}
 	}
-
-
 	
-	boolean checkTodoForTestDeleted() {
-		boolean deleted = false;
-		try {
-			jdbcTemplate.queryForObject("Select id_todo from todo Where name = 'testTodo'", Integer.class);
-		} catch (EmptyResultDataAccessException e) {
-			deleted = true;
-		}
-		return deleted;
+	UpdatePersonDto updatePersonForTest() {
+		return new UpdatePersonDto("Toto", "Toutou", "toto@mail.be", "789654");
+		
 	}
-
+	
+	boolean checkPersonForTestUpdate(int id) {
+		boolean created = false;
+		String updateLastname = "Toutou";
+		String updatePassword = "789654";
+		String name = jdbcTemplate.queryForObject("Select lastname from person where id_person =  " + id, String.class);
+		String password = jdbcTemplate.queryForObject("Select password from person where id_person =  " + id, String.class);
+		if(updateLastname == name && updatePassword == password) {
+			created = true;
+		}
+		return created;
+	}
 }
