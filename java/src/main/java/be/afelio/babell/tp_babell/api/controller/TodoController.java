@@ -48,6 +48,7 @@ public class TodoController {
 
         return ResponseEntity.ok(responseDto);
     }
+
     @GetMapping(value = "{projectName}/{todoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<TodoDto>> findOne(
             @PathVariable("projectName") String projectName,
@@ -89,7 +90,7 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> updateTodo(
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;

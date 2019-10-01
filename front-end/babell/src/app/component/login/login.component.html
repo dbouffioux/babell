@@ -1,6 +1,10 @@
 <div id="container__login">
   <section id="login__left" class="left">
-    <app-login-form></app-login-form>
+    <app-login-form
+      (loginFormEmitter)="submitLoginForm($event)"
+      [isAuthenticated]="isAuthenticated"
+      [error]="error"
+    ></app-login-form>
   </section>
   <section id="login__right" class="right">
     <p>Sign up form coming soon!</p>

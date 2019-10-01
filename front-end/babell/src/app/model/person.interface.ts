@@ -4,5 +4,4 @@ export interface PersonInterface {
   lastname: string;
   email: string;
   password: string;
-  token: string;
 }

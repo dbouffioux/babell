@@ -5,7 +5,6 @@ import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 
-
 import java.util.List;
 
 public interface TodoControllerRepository {

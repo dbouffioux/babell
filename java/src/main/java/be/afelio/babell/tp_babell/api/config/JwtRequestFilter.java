@@ -1,6 +1,7 @@
 package be.afelio.babell.tp_babell.api.config;
 
 
+import be.afelio.babell.tp_babell.api.jwt.model.JwtRequest;
 import be.afelio.babell.tp_babell.api.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Base64;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -23,9 +25,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUserDetailsService jwtUserDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
@@ -44,6 +48,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
@@ -54,6 +59,32 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
+        }
+        if (username == null && request.getParameter("btoa") != null) {
+            String btoa = request.getParameter("btoa");
+            byte[] decodedBtoa = Base64.getDecoder().decode(btoa);
+            String btoaString = new String(decodedBtoa);
+
+            String[] parts = btoaString.split(":");
+            username = parts[0];
+            String password = parts[1];
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+
+            UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+
+            jwtToken = jwtTokenUtil.generateToken(userDetails);
+            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
+            }
+            JwtRequest jwtRequest = new JwtRequest(username, password);
+            request.setAttribute("jwtRequest",jwtRequest);
         }
         chain.doFilter(request, response);
     }

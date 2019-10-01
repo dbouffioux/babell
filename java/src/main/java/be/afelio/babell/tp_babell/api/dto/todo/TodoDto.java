@@ -23,6 +23,16 @@ public class TodoDto {
         this.done = done;
     }
 
+    public static TodoDto from(TodoEntity todoEntity) {
+        final TodoDto todoDto = new TodoDto(
+                todoEntity.getId(),
+                todoEntity.getName(),
+                todoEntity.getDescription(),
+                todoEntity.isInProgress(),
+                todoEntity.isDone());
+        return todoDto;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -72,6 +82,7 @@ public class TodoDto {
                 todoEntity.isDone());
         return todoDto;
     }
+
     
     
 

@@ -40,18 +40,19 @@ public class ProjectController {
         }
         return ResponseEntity.ok(responseDto);
     }
-    @PostMapping(produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<Void>>  createCustomer(@RequestBody CreateProjectDto createProjectDto) {
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto<Void>> createCustomer(@RequestBody CreateProjectDto createProjectDto) {
         ResponseDto<Void> dto = null;
 
         try {
             repository.createProject(createProjectDto);
             dto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "project created");
-        } catch(InvalidCreateParametersException e) {
+        } catch (InvalidCreateParametersException e) {
             dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "invalid create parameters");
-        } catch(DuplicatedProjectException e) {
+        } catch (DuplicatedProjectException e) {
             dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated project");
-        } catch(Exception e) {
+        } catch (Exception e) {
             dto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
         }
 

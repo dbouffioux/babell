@@ -10,6 +10,7 @@ public class JwtResponse implements Serializable {
     public JwtResponse(String token) {
         this.token = token;
     }
+
     public String getToken() {
         return this.token;
     }
