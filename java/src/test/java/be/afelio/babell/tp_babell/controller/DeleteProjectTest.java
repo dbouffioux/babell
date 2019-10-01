@@ -40,7 +40,7 @@ public class DeleteProjectTest {
 		jdbcTemplate.update("");
 		try {	
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/todoproject/testProject" ));
+					URI.create("/todoproject/deleteproject" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			

@@ -1,6 +1,7 @@
 package be.afelio.babell.tp_babell.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.dto.TodoDto;
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 
 @RunWith(SpringRunner.class)
@@ -25,23 +27,39 @@ public class GetOneTodoByIdTodoTest {
 	
 	@Autowired TestRestTemplate restTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
 	
 	@Test
-	public void test() throws Exception {
+	public void testTodoById23ReturnCode(){
 		
-		ResponseEntity<String> response = restTemplate.getForEntity("/todoproject/test/2", String.class);
-		assertEquals(200, response.getStatusCodeValue());
+		assertRest.assertReturnCode("/todoproject/test/23", 200);
 		
-		String json = response.getBody();
+		
+		/*String json = response.getBody();
 		TypeReference<ResponseDto<TodoDto>> type = new TypeReference<ResponseDto<TodoDto>>() {};
 		ResponseDto<TodoDto> responseDto = mapper.readValue(json, type);
 		
-		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
+		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());*/
+		
+		/*PersonDto expected = createTotoTitiForTest();
+		PersonDto actual = responseDto.getPayload();
+		assertEquals(expected, actual);*/
 		
 	}
 	
+	@Test
+	public void testTodoById23ReturnStatusSucces(){
+		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/test/23");
+	}
+	
+	@Test
+	public void testTodoById23PlayLoad() {
+		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/23");
+	}
+	
 	TodoDto createTodoTest() {
-		return new TodoDto(2, "test", "test description", false, false);
+		return new TodoDto(23, "test", "test description", false, false);
 		
 	}
 
