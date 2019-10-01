@@ -46,20 +46,13 @@ public class ApplicationRepository implements ProjectControllerRepository, TodoC
 
 
     public void createTodo(CreateTodoDto createTodoDto, String projectName) {
-        if(!validateTodoCreateParameters(createTodoDto)){
+        if(!utilsApplication.validateTodoCreateParameters(createTodoDto)){
             throw new InvalidCreateParametersException();
         }
         if(todoRepository.findOneByNameIgnoreCase(createTodoDto.getName())!=null){
             throw new DuplicatedTodoException();
         }
         todoRepository.save(utilsApplication.generateProjectEntity(createTodoDto, projectName));
-    }
-
-    private boolean validateTodoCreateParameters(CreateTodoDto createTodoDto) {
-        String name = createTodoDto.getName();
-        String description = createTodoDto.getDescription();
-        return name!=null && !name.isBlank()
-                && description != null && !description.isBlank();
     }
 
     public void updateTodo(UpdateTodoDto updateTodoDto) {
@@ -83,18 +76,10 @@ public class ApplicationRepository implements ProjectControllerRepository, TodoC
     }
 
     public List<TodoDto> findAllTodoByProjectName(String projectName) {
-        List<TodoDto> todoListDto = null;
-        List<TodoEntity> todoEntityList = todoRepository.findAllByProjectName(projectName);
-        return createTodoDtoList(todoEntityList);
+        return utilsApplication.createTodoDtoList(todoRepository.findAllByProjectName(projectName));
     }
 
-    private List<TodoDto> createTodoDtoList(List<TodoEntity> todoEntityList) {
-        List<TodoDto> todoDtoList = new ArrayList<>();
-        for (TodoEntity todoEntity: todoEntityList) {
-        todoDtoList.add(TodoDto.from(todoEntity));
-        }
-        return todoDtoList;
-    }
+
 
     public void deleteDto(String projectName, String todoName) {
         TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(todoName);

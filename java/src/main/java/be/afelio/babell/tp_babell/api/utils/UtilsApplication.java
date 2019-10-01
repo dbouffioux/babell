@@ -1,9 +1,6 @@
 package be.afelio.babell.tp_babell.api.utils;
 
-import be.afelio.babell.tp_babell.api.dto.CreatePersonDto;
-import be.afelio.babell.tp_babell.api.dto.CreateProjectDto;
-import be.afelio.babell.tp_babell.api.dto.CreateTodoDto;
-import be.afelio.babell.tp_babell.api.dto.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.*;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
@@ -50,6 +47,19 @@ public class UtilsApplication {
                 false,
                 projectEntity);
         return todoEntity;
+    }
+    public boolean validateTodoCreateParameters(CreateTodoDto createTodoDto) {
+        String name = createTodoDto.getName();
+        String description = createTodoDto.getDescription();
+        return name!=null && !name.isBlank()
+                && description != null && !description.isBlank();
+    }
+    public List<TodoDto> createTodoDtoList(List<TodoEntity> todoEntityList) {
+        List<TodoDto> todoDtoList = new ArrayList<>();
+        for (TodoEntity todoEntity: todoEntityList) {
+            todoDtoList.add(TodoDto.from(todoEntity));
+        }
+        return todoDtoList;
     }
 
 }
