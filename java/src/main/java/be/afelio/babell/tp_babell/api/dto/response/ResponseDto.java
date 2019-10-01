@@ -3,6 +3,11 @@ package be.afelio.babell.tp_babell.api.dto.response;
 
 public class ResponseDto<T> {
 
+	@Override
+	public String toString() {
+		return "ResponseDto [status=" + status + ", message=" + message + ", payload=" + payload + "]";
+	}
+
 	private ResponseDtoStatus status;
 	private String message;
 	private T payload;

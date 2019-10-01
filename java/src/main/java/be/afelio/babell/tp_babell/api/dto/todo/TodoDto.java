@@ -72,19 +72,27 @@ public class TodoDto {
                 todoEntity.isDone());
         return todoDto;
     }
+    
+    
+
+//    @Override
+//    public String toString() {
+//        return "TodoDto{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", description='" + description + '\'' +
+//                ", inProgress=" + inProgress +
+//                ", done=" + done +
+//                '}';
+//    }
 
     @Override
-    public String toString() {
-        return "TodoDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", inProgress=" + inProgress +
-                ", done=" + done +
-                '}';
-    }
+	public String toString() {
+		return "TodoDto [id=" + id + ", name=" + name + ", description=" + description + ", inProgress=" + inProgress
+				+ ", done=" + done + "]";
+	}
 
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
