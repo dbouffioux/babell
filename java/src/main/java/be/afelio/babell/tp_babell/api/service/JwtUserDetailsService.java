@@ -1,7 +1,7 @@
 package be.afelio.babell.tp_babell.api.service;
 
-import be.afelio.babell.tp_babell.api.dto.CreatePersonDto;
-import be.afelio.babell.tp_babell.api.dto.UserDetailsDto;
+
+import be.afelio.babell.tp_babell.api.dto.jwt.UserDetailsDto;
 import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
 import be.afelio.babell.tp_babell.persistence.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;

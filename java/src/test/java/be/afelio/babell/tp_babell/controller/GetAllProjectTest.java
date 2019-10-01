@@ -21,9 +21,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import be.afelio.babell.tp_babell.api.dto.ProjectDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.response.*;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)

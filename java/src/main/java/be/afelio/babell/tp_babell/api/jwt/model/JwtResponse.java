@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.controller.model;
+package be.afelio.babell.tp_babell.api.jwt.model;
 
 
 import java.io.Serializable;

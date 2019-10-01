@@ -1,11 +1,10 @@
 package be.afelio.babell.tp_babell.api.controller;
 
-import be.afelio.babell.tp_babell.api.dto.CreateProjectDto;
-import be.afelio.babell.tp_babell.api.dto.ProjectDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
-import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
-import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedNameException;
+
+import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedProjectException;
 import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import be.afelio.babell.tp_babell.api.dto.PersonDto;
+import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.ResponseDto;
 import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
 

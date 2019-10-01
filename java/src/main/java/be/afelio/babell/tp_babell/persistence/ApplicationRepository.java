@@ -2,7 +2,12 @@ package be.afelio.babell.tp_babell.persistence;
 
 import be.afelio.babell.tp_babell.api.controller.ProjectControllerRepository;
 import be.afelio.babell.tp_babell.api.controller.TodoControllerRepository;
-import be.afelio.babell.tp_babell.api.dto.*;
+import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
+import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.api.utils.UtilsApplication;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
@@ -13,8 +18,6 @@ import be.afelio.babell.tp_babell.persistence.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component

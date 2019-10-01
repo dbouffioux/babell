@@ -1,6 +1,10 @@
 package be.afelio.babell.tp_babell.api.utils;
 
-import be.afelio.babell.tp_babell.api.dto.*;
+
+import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;

@@ -1,10 +1,10 @@
 package be.afelio.babell.tp_babell.api.controller;
 
 import be.afelio.babell.tp_babell.api.config.JwtTokenUtil;
-import be.afelio.babell.tp_babell.api.controller.model.JwtRequest;
-import be.afelio.babell.tp_babell.api.controller.model.JwtResponse;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.jwt.model.JwtRequest;
+import be.afelio.babell.tp_babell.api.jwt.model.JwtResponse;
 import be.afelio.babell.tp_babell.api.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
