@@ -12,6 +12,7 @@ import { LoginFormComponent } from './component/login/login-form/login-form.comp
 import {ReactiveFormsModule} from '@angular/forms';
 import { ButtonComponent } from './component/form/button/button.component';
 import { ErrorComponent } from './component/form/error/error.component';
+import { LoginContainerComponent } from './container/login-container/login-container.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ErrorComponent } from './component/form/error/error.component';
     LoginComponent,
     LoginFormComponent,
     ButtonComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginContainerComponent
   ],
   imports: [
     BrowserModule,

@@ -28,21 +28,14 @@ export class LoginService {
     private auth: AuthenticationService
   ) {}
 
-  public getConnection(login: string, password: string): Observable<any[] | any> {
+  public getConnection(email: string, password: string): Observable<any[] | any> {
     this.params = new HttpParams().set(
       'btoa',
-      btoa(`{
-        "username": ${login},
-        "password": ${password}
-        }`
-      )
+      btoa(`${email}:${password}`)
     );
     return this.http.post<ResponseInterface<LoginInterface>>(`${environment.baseUrl}/login`,
       this.params,
-      {
-        withCredentials: true,
-        headers: {'Content-Type': 'application/json;charset=UTF-8'}
-      }).pipe(
+      { headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).pipe(
         map(
           (response: ResponseInterface<LoginInterface>) => {
             return HTTPResponseAdapter.adapt(response, LoginBusiness);

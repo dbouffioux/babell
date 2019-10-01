@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AuthGuardService} from './service/guard/auth-guard.service';
-import {LoginComponent} from './component/login/login.component';
+import {LoginContainerComponent} from './container/login-container/login-container.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path : '', canActivate: [AuthGuardService], loadChildren : () => import('./module/project/project.module').then(m => m.ProjectModule)},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginContainerComponent},
   {path: '**', redirectTo: '/'}
 ];
 
