@@ -47,9 +47,9 @@ public class UserDetailsDto implements UserDetails {
         }
 
         public static UserDetailsDto from(PersonEntity person) {
-            final UserDetailsDto userDetailsDto = new UserDetailsDto();
-            userDetailsDto.username = person.getEmail();
-            userDetailsDto.password = person.getPassword();
-            return userDetailsDto;
-        }
+        final UserDetailsDto userDetailsDto = new UserDetailsDto();
+        userDetailsDto.username = person.getEmail();
+        userDetailsDto.password = person.getPassword();
+        return userDetailsDto;
+    }
 }

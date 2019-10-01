@@ -22,7 +22,7 @@ public class TodoController {
 
 
     @Autowired
-    ApplicationRepository repository;
+    TodoControllerRepository repository;
 
     @GetMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<List<TodoDto>>> findOne(
