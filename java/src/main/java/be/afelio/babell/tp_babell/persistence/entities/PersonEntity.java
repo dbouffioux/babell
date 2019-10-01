@@ -10,7 +10,7 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id_project")
+    @Column(name = "id_person")
     private Integer id;
     private String firstname;
     private String lastname;
@@ -45,6 +45,26 @@ public class PersonEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
