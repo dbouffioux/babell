@@ -1,1 +1,5 @@
-<app-login></app-login>
+<app-login
+  (loginFormEmitter)="submitLoginForm($event)"
+  [isLogged]="isLogged"
+  [error]="error"
+></app-login>
