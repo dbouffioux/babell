@@ -1,7 +1,9 @@
 import {ProjectInterface} from '../project.interface';
+import {BusinessInterface} from '../../../../model/business.interface';
 
-export class ProjectBusiness {
-  public readonly id: number; // readonly = can be set only in constructor
+export class ProjectBusiness implements BusinessInterface {
+
+  public readonly id: number;
   public name: string;
   public startDate: Date;
   public endDate: Date;
@@ -13,7 +15,7 @@ export class ProjectBusiness {
     this.endDate = endDate;
   }
 
-  public static fromDTO(projectInterface: ProjectInterface): ProjectBusiness  {
+  fromDto(projectInterface: ProjectInterface): ProjectBusiness  {
     return new ProjectBusiness(
       projectInterface.idProjet,
       projectInterface.name,
@@ -22,7 +24,7 @@ export class ProjectBusiness {
     );
   }
 
-  public toDTO(): ProjectInterface {
+  toDto(): ProjectInterface {
     return {
       idProjet : this.id,
       name: this.name,

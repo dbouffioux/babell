@@ -3,6 +3,7 @@ package be.afelio.babell.tp_babell.api.dto;
 import be.afelio.babell.tp_babell.api.utils.LocalDateDeserializer;
 import be.afelio.babell.tp_babell.api.utils.LocalDateSerializer;
 
+import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -63,6 +64,16 @@ public class ProjectDto {
 
 	public void setProjectEnd(LocalDate projectEnd) {
 		this.projectEnd = projectEnd;
+	}
+
+	public static ProjectDto from(ProjectEntity projectEntity) {
+		final ProjectDto projectDto = new ProjectDto();
+		projectDto.setId(projectEntity.getId());
+		projectDto.setName(projectEntity.getName());
+
+		projectDto.setProjectStart(projectEntity.getProjectStart());
+		projectDto.setProjectEnd(projectEntity.getProjectEnd());
+		return projectDto;
 	}
 
 	@Override

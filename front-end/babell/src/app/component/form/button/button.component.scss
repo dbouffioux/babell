@@ -1,0 +1,31 @@
+@import '../../../../style/color';
+
+.form_button{
+  clear: both;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button{
+    background-color: $button-background-color;
+    cursor: pointer;
+    color: $button-text-color;
+    font-weight: bold;
+    border: 1px solid rgba(0,0,0,0);
+    padding: 10px 20px;
+    margin-top: 10px;
+  }
+  .valid{
+    &:hover{
+      background-color: $button-hover-background-color;
+      color: $button-text-hover-color;
+      border: 1px solid rgba(0,0,0,1);
+    }
+  }
+  .invalid{
+    background-color: aliceblue;
+    color: grey;
+    cursor: not-allowed;
+  }
+}

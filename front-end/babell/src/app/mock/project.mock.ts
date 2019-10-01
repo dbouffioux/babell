@@ -1,8 +1,8 @@
 import {HttpResponse, HttpRequest, HttpErrorResponse, HttpClient} from '@angular/common/http';
-import {ProjectInterface} from '../project/model/project.interface';
+import {ProjectInterface} from '../module/project/model/project.interface';
 import {ResponseInterface} from '../model/response.interface';
 
-const ProjectList: ResponseInterface = {
+const ProjectList: ResponseInterface<ProjectInterface[]> = {
   payload: [
     {
       idProjet: 1,

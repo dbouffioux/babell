@@ -24,7 +24,7 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    ApplicationRepository repository;
+    ProjectControllerRepository repository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<List<ProjectDto>>> findAll() {

@@ -9,11 +9,7 @@ export const environment = {
     enable: true,
     all: true,
     services: {
-      getTest: true,
-      getPerson: true,
-      getPersonWithFilter: true,
-      getUnknownPerson: true,
-      getBugList: true
+      getProject: true
     }
   }
 };
