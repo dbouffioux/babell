@@ -91,7 +91,7 @@ public class ApplicationRepository implements ProjectControllerRepository {
     }
 
     public void updateTodo(UpdateTodoDto updateTodoDto) {
-        TodoEntity todoEntity = todoRepository.findOneById(updateTodoDto.getId());
+        TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(updateTodoDto.getName());
         if(todoEntity ==null){
             throw new TodoNotFoundException();
         }if(todoEntity.getName().equals(updateTodoDto.getName())){
@@ -104,6 +104,8 @@ public class ApplicationRepository implements ProjectControllerRepository {
             todoEntity.setDone(updateTodoDto.isDone());
         }if(todoEntity.getEstimation()== null){
             todoEntity.setEstimation(updateTodoDto.getEstimation());
+        }if(todoEntity.getProject().getId() != updateTodoDto.getIdProject()) {
+        	todoEntity.setProject(projectRepository.findOneById(updateTodoDto.getIdProject()));
         }
         todoRepository.save(todoEntity);
     }

@@ -1,18 +1,28 @@
 package be.afelio.babell.tp_babell.api.dto;
 
-public class PersonDto {
-	
+public class UpdatePersonDto {
+	private int id;
 	private String firstname;
-	private String lastName;
+	private String lastname;
 	private String email;
+	private String password;
 	
-	public PersonDto() {}
+	public UpdatePersonDto() {}
 
-	public PersonDto(String firstname, String lastName, String email) {
+	public UpdatePersonDto(String firstname, String lastname, String email, String password) {
 		super();
 		this.firstname = firstname;
-		this.lastName = lastName;
+		this.lastname = lastname;
 		this.email = email;
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {
@@ -23,12 +33,12 @@ public class PersonDto {
 		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getEmail() {
@@ -39,9 +49,18 @@ public class PersonDto {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "PersonDto [firstname=" + firstname + ", lastName=" + lastName + ", email=" + email + "]";
+		return "UpdatePersonDto [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", password="
+				+ password + "]";
 	}
 
 	@Override
@@ -50,7 +69,8 @@ public class PersonDto {
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
 
@@ -62,7 +82,7 @@ public class PersonDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonDto other = (PersonDto) obj;
+		UpdatePersonDto other = (UpdatePersonDto) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -73,13 +93,19 @@ public class PersonDto {
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
+		if (lastname == null) {
+			if (other.lastname != null)
 				return false;
-		} else if (!lastName.equals(other.lastName))
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		return true;
-	}
-
+	};
 	
+	
+
 }
