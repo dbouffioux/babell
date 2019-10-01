@@ -21,9 +21,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import be.afelio.babell.tp_babell.api.dto.CreateTodoDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.response.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)

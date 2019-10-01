@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.project;
 
 import be.afelio.babell.tp_babell.api.utils.LocalDateDeserializer;
 import be.afelio.babell.tp_babell.api.utils.LocalDateSerializer;

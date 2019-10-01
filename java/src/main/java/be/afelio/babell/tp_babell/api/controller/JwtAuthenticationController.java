@@ -1,8 +1,10 @@
 package be.afelio.babell.tp_babell.api.controller;
 
 import be.afelio.babell.tp_babell.api.config.JwtTokenUtil;
-import be.afelio.babell.tp_babell.api.controller.model.JwtRequest;
-import be.afelio.babell.tp_babell.api.controller.model.JwtResponse;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.jwt.model.JwtRequest;
+import be.afelio.babell.tp_babell.api.jwt.model.JwtResponse;
 import be.afelio.babell.tp_babell.api.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +26,13 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<ResponseDto<JwtResponse>> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(authenticationRequest.getUsername());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new JwtResponse(token));
+            ResponseDto<JwtResponse> responseDto =new ResponseDto<JwtResponse>(ResponseDtoStatus.SUCCESS, "token created");
+            responseDto.setPayload(new JwtResponse(token));
+            return ResponseEntity.ok(responseDto);
     }
 
 }

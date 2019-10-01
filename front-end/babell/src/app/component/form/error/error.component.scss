@@ -1,0 +1,12 @@
+.error{
+  background: red;
+  color: white;
+  width: 80%;
+  margin: 0 auto;
+  &--active{
+    padding: 10px 20px;
+  }
+  &--inactive{
+    padding: 0;
+  }
+}

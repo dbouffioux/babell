@@ -7,6 +7,10 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.Month;
 
+import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +23,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import be.afelio.babell.tp_babell.api.dto.CreateProjectDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+
 ;
 
 @RunWith(SpringRunner.class)
@@ -39,7 +40,7 @@ public class PostProjectTest {
 	public void test() throws Exception {
 		try {
 			CreateProjectDto projectDto = createProjectForTest();
-			RequestEntity<CreateProjectDto>requestEntity
+			RequestEntity<CreateProjectDto> requestEntity
 			= new RequestEntity<CreateProjectDto>(projectDto, HttpMethod.POST, URI.create("/projects"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());

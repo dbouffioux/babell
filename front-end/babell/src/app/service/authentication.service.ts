@@ -9,43 +9,32 @@ export class AuthenticationService {
 
   private readonly JWTokenName: string;
   // tslint:disable-next-line:variable-name
-  private _person: PersonBusiness;
+  private _token: string;
 
   constructor() {
     this.JWTokenName = JWToken.TOKEN_NAME;
+    this.token = '';
   }
 
-  get person(): PersonBusiness {
-    return this._person;
+  get token(): string {
+    return this._token;
   }
 
-  set person(value: PersonBusiness) {
-    this._person = value;
+  set token(value: string) {
+    this._token = value;
   }
 
-  /**
-   * This check is not enough to guarantee resources access security,
-   * but token will be used for every http queries to server and without it
-   * nothing will work.
-   */
   public isLogged(): boolean {
-    return localStorage.getItem('JWToken') !== null
-      && localStorage.getItem('Person') !== null;
+    return localStorage.getItem('JWToken') !== null;
   }
 
   public removeLoginStorage(): void {
     localStorage.removeItem('JWToken');
-    localStorage.removeItem('Person');
+    this.token = '';
   }
 
-  public setLoginStorage(): void {
-    localStorage.setItem(this.JWTokenName, this.person.token);
-    localStorage.setItem('Person', JSON.stringify(this.person));
-  }
-
-  public getPerson(): PersonBusiness {
-    return this.person = localStorage.getItem('Person') !== '' ?
-      JSON.parse(localStorage.getItem('Person'))
-      : '';
+  public setLoginStorage(token: string): void {
+    this.token = token;
+    localStorage.setItem(this.JWTokenName, this.token);
   }
 }

@@ -2,7 +2,12 @@ package be.afelio.babell.tp_babell.persistence;
 
 import be.afelio.babell.tp_babell.api.controller.ProjectControllerRepository;
 import be.afelio.babell.tp_babell.api.controller.TodoControllerRepository;
-import be.afelio.babell.tp_babell.api.dto.*;
+import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
+import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.api.utils.UtilsApplication;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
@@ -13,8 +18,6 @@ import be.afelio.babell.tp_babell.persistence.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -27,7 +30,6 @@ public class ApplicationRepository implements ProjectControllerRepository, TodoC
 
 
     public List<ProjectDto> findAllProject() {
-        List<ProjectDto> projectList = null;
         List<ProjectEntity> projectEntitiesList = projectRepository.findAll();
         return utilsApplication.createProjectListDto(projectEntitiesList);
     }
@@ -35,50 +37,25 @@ public class ApplicationRepository implements ProjectControllerRepository, TodoC
 
 
     public void createProject(CreateProjectDto createProjectDto) {
-            if (!validateProjectCreateParameters(createProjectDto)) {
+            if (!utilsApplication.validateProjectCreateParameters(createProjectDto)) {
                 throw new InvalidCreateParametersException();
             }
             if (projectRepository.findOneByNameIgnoreCase(createProjectDto.getName())!= null) {
                 throw new DuplicatedProjectException();
             }
-            ProjectEntity projectEntity = new ProjectEntity();
-            projectEntity.setName(createProjectDto.getName());
-            projectEntity.setProjectStart(createProjectDto.getProjectStart());
-            projectEntity.setProjectEnd(createProjectDto.getProjectEnd());
-            projectRepository.save(projectEntity);
+        projectRepository.save(utilsApplication.generateProjectEntity(createProjectDto));
         }
 
-    private boolean validateProjectCreateParameters(CreateProjectDto createProjectDto) {
-        String name = createProjectDto.getName();
-        LocalDate start = createProjectDto.getProjectStart();
-        LocalDate end = createProjectDto.getProjectEnd();
-      return !name.isBlank() && name != null
-              && start != null
-              && end != null;
-    }
+
 
     public void createTodo(CreateTodoDto createTodoDto, String projectName) {
-        if(!validateTodoCreateParameters(createTodoDto)){
+        if(!utilsApplication.validateTodoCreateParameters(createTodoDto)){
             throw new InvalidCreateParametersException();
         }
         if(todoRepository.findOneByNameIgnoreCase(createTodoDto.getName())!=null){
             throw new DuplicatedTodoException();
         }
-        ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
-        TodoEntity todoEntity = new TodoEntity(
-                createTodoDto.getName(),
-                createTodoDto.getDescription(),
-                false,
-                false,
-                projectEntity);
-        todoRepository.save(todoEntity);
-    }
-
-    private boolean validateTodoCreateParameters(CreateTodoDto createTodoDto) {
-        String name = createTodoDto.getName();
-        String description = createTodoDto.getDescription();
-        return name!=null && !name.isBlank()
-                && description != null && !description.isBlank();
+        todoRepository.save(utilsApplication.generateProjectEntity(createTodoDto, projectName));
     }
 
     public void updateTodo(UpdateTodoDto updateTodoDto) {
@@ -102,18 +79,10 @@ public class ApplicationRepository implements ProjectControllerRepository, TodoC
     }
 
     public List<TodoDto> findAllTodoByProjectName(String projectName) {
-        List<TodoDto> todoListDto = null;
-        List<TodoEntity> todoEntityList = todoRepository.findAllByProjectName(projectName);
-        return createTodoDtoList(todoEntityList);
+        return utilsApplication.createTodoDtoList(todoRepository.findAllByProjectName(projectName));
     }
 
-    private List<TodoDto> createTodoDtoList(List<TodoEntity> todoEntityList) {
-        List<TodoDto> todoDtoList = new ArrayList<>();
-        for (TodoEntity todoEntity: todoEntityList) {
-        todoDtoList.add(TodoDto.from(todoEntity));
-        }
-        return todoDtoList;
-    }
+
 
     public void deleteDto(String projectName, String todoName) {
         TodoEntity todoEntity = todoRepository.findOneByNameIgnoreCase(todoName);

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/todo',
+  baseUrl: 'http://localhost:8080/babell',
   mock: {
-    enable: true,
+    enable: false,
     all: true,
     services: {
       getProject: true

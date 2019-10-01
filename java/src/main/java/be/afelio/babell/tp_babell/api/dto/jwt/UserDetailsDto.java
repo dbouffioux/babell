@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.jwt;
 
 import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
 import org.springframework.security.core.GrantedAuthority;

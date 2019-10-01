@@ -1,9 +1,10 @@
 package be.afelio.babell.tp_babell.api.controller;
 
 
-import be.afelio.babell.tp_babell.api.dto.CreatePersonDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+
+import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
 import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedEmailException;
 import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;

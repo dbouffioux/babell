@@ -1,6 +1,5 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.todo;
 
-import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 
 public class UpdateTodoDto {
 
