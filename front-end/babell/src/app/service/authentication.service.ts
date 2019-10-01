@@ -29,8 +29,8 @@ export class AuthenticationService {
    * nothing will work.
    */
   public isLogged(): boolean {
-    return localStorage.getItem('JWToken') !== undefined
-      && localStorage.getItem('Person') !== undefined;
+    return localStorage.getItem('JWToken') !== null
+      && localStorage.getItem('Person') !== null;
   }
 
   public removeLoginStorage(): void {
@@ -39,12 +39,12 @@ export class AuthenticationService {
   }
 
   public setLoginStorage(): void {
-    localStorage.setItem(this.JWTokenName, this._person.token);
-    localStorage.setItem('Person', JSON.stringify(this._person));
+    localStorage.setItem(this.JWTokenName, this.person.token);
+    localStorage.setItem('Person', JSON.stringify(this.person));
   }
 
   public getPerson(): PersonBusiness {
-    return this._person = localStorage.getItem('Person') !== '' ?
+    return this.person = localStorage.getItem('Person') !== '' ?
       JSON.parse(localStorage.getItem('Person'))
       : '';
   }
