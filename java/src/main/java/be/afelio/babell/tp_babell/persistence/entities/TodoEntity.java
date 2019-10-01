@@ -1,14 +1,13 @@
 package be.afelio.babell.tp_babell.persistence.entities;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "Todo")
 @Table(name = "todo")
 public class TodoEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_todo")
     private Integer id;
     private String name;
@@ -18,7 +17,7 @@ public class TodoEntity {
     private boolean inProgress;
     private boolean done;
     @ManyToOne
-    @JoinColumn(name="id_project")
+    @JoinColumn(name = "id_project")
     private ProjectEntity project;
     /*
     @ManyToMany(fetch=FetchType.EAGER)

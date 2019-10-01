@@ -3,39 +3,40 @@ package be.afelio.babell.tp_babell.api.dto.response;
 
 public class ResponseDto<T> {
 
-	private ResponseDtoStatus status;
-	private String message;
-	private T payload;
-	
-	public ResponseDto() {}
-	
-	public ResponseDto(ResponseDtoStatus status, String message) {
-		super();
-		this.status = status;
-		this.message = message;
-	}
+    private ResponseDtoStatus status;
+    private String message;
+    private T payload;
 
-	public String getMessage() {
-		return message;
-	}
+    public ResponseDto() {
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public ResponseDto(ResponseDtoStatus status, String message) {
+        super();
+        this.status = status;
+        this.message = message;
+    }
 
-	public ResponseDtoStatus getStatus() {
-		return status;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setStatus(ResponseDtoStatus status) {
-		this.status = status;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public T getPayload() {
-		return payload;
-	}
+    public ResponseDtoStatus getStatus() {
+        return status;
+    }
 
-	public void setPayload(T payload) {
-		this.payload = payload;
-	}
+    public void setStatus(ResponseDtoStatus status) {
+        this.status = status;
+    }
+
+    public T getPayload() {
+        return payload;
+    }
+
+    public void setPayload(T payload) {
+        this.payload = payload;
+    }
 }

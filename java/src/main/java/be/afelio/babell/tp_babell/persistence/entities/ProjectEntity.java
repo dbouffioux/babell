@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class ProjectEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_project")
     private Integer id;
     private String name;
@@ -17,6 +17,14 @@ public class ProjectEntity {
     @Column(name = "projectEnd")
     private LocalDate projectEnd;
 
+    public ProjectEntity() {
+    }
+
+    public ProjectEntity(String name, LocalDate projectStart, LocalDate projectEnd) {
+        this.name = name;
+        this.projectStart = projectStart;
+        this.projectEnd = projectEnd;
+    }
 
     public Integer getId() {
         return id;

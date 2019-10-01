@@ -1,4 +1,4 @@
 package be.afelio.babell.tp_babell.persistence.exceptions;
 
-public class DuplicatedTodoException extends RuntimeException{
+public class DuplicatedTodoException extends RuntimeException {
 }

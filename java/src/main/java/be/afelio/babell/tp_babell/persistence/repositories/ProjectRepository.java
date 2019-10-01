@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectRepository extends JpaRepository<ProjectEntity, Integer> {
     ProjectEntity findOneByNameIgnoreCase(String name);
+
     ProjectEntity findOneById(int id);
 }
