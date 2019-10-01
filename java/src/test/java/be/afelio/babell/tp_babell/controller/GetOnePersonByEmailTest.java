@@ -1,8 +1,6 @@
 package be.afelio.babell.tp_babell.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import be.afelio.babell.tp_babell.api.dto.PersonDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 

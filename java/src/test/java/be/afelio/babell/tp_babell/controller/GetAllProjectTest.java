@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -22,7 +21,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
-import be.afelio.babell.tp_babell.api.dto.response.*;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 
 
 @RunWith(SpringRunner.class)

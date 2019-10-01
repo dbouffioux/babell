@@ -5,24 +5,18 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import be.afelio.babell.tp_babell.api.dto.PersonDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDto;
-import be.afelio.babell.tp_babell.api.dto.ResponseDtoStatus;
-import be.afelio.babell.tp_babell.api.dto.TodoDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 
 @Component
 public class AssertRest {
