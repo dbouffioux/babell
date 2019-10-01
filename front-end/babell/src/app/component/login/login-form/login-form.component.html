@@ -1,11 +1,14 @@
 <div *ngIf="!isLogged">
   <form class="form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
     <h2>Login</h2>
+    <app-error
+      [error]="error"
+    ></app-error>
     <div class="form_input">
       <div class="label">
-        <label for="login">login : </label>
+        <label for="email">email : </label>
       </div>
-      <input formControlName="login" name="login" type="text">
+      <input formControlName="email" name="email" type="email">
     </div>
     <div class="form_input">
       <div class="label">
@@ -14,7 +17,7 @@
       <input formControlName="password" name="password" type="password">
     </div>
     <app-button
-      [type]="'submit'"
+      [typeValue]="'submit'"
       [form]="loginForm"
     ></app-button>
   </form>
