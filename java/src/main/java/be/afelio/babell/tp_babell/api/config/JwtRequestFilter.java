@@ -67,6 +67,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String[] parts = btoaString.split(":");
             username = parts[0];
             String password = parts[1];
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
 
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 
