@@ -14,14 +14,16 @@ export class LoginFormComponent implements OnInit {
 
   public loginForm: FormGroup;
   public isLogged: boolean;
+  public error: string;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthenticationService,
     private loginService: LoginService
   ) {
+    this.error = '';
     this.loginForm = this.fb.group({
-      login: this.fb.control('', [Validators.required]),
+      email: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [
         Validators.required,
         ValidationService.passwordValidator])
@@ -35,8 +37,16 @@ export class LoginFormComponent implements OnInit {
   submitForm() {
     const formValues = this.loginForm.value;
     this.loginService.getConnection(
-      formValues.login,
+      formValues.email,
       formValues.password
+    ).subscribe(
+      response => {
+        this.auth.setLoginStorage(response.token);
+      },
+      error => {
+        console.log(error);
+        this.error = error.message;
+      }
     );
   }
 }

@@ -11,13 +11,15 @@ import { LoginComponent } from './component/login/login.component';
 import { LoginFormComponent } from './component/login/login-form/login-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ButtonComponent } from './component/form/button/button.component';
+import { ErrorComponent } from './component/form/error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoginFormComponent,
-    ButtonComponent
+    ButtonComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

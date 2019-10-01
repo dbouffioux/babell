@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import {PersonBusiness} from '../model/business/person.business';
@@ -22,33 +22,23 @@ export class LoginService {
     private auth: AuthenticationService
   ) {}
 
-  public getConnection(login: string, password: string): void {
-    this.params = new HttpParams().set('btoa', btoa(`username:${login},password:${password}`));
-    console.log(this.params);
-
-    /*
-    >>> POST
-    {
-      "username": "damien.bouffioux@gmail.com",
-      "password": "test123"
-    }
-    >>> GET
-    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW1pZW4uYm91ZmZpb3V4QGdtYWlsLmNvbSIsImV4cCI6MTU2OTkzMzQ1MSwiaWF0IjoxNTY5OTE1NDUxfQ.
-    kr9kBgPIhZ-DQVJ3Jjiuc1Bd6CkeNXouyOmRy5QSt4HfMMmTbHRvt4da7AEAPeEqJ9tbmoJdcYGvfS6YtbwdfQ"
-    */
+  public getConnection(login: string, password: string): Observable<any[] | any> {
+    this.params = new HttpParams().set(
+      'btoa',
+      btoa(`{
+        "username": ${login},
+        "password": ${password}
+        }`
+      )
+    );
     this.params.set('observe', 'response');
-    this.http.post<ResponseInterface<PersonInterface>>(`${environment.baseUrl}/login`, this.params,
-      { withCredentials: true }).pipe(
+    return this.http.post<ResponseInterface<PersonInterface>>(`${environment.baseUrl}/login`, this.params,
+      { withCredentials: true, headers: {'Content-Type' : 'application/json;charset=UTF-8'}}).pipe(
       map(
         (response: ResponseInterface<PersonInterface>) => {
           return HTTPResponseAdapter.adapt(response, PersonBusiness);
         }
       )
-    ).subscribe(
-      person => {
-        this.auth.person = person;
-        this.auth.setLoginStorage();
-      }
     );
   }
 

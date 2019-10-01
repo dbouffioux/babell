@@ -19,7 +19,7 @@ public class AngularCorsFilter implements Filter {
         String origin = httpRequest.getHeader("Origin");
         httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
         httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST");
-        httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Authorization");
+        httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Authorization,Content-type");
         httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         httpResponse.setHeader(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization");
         httpResponse.setHeader(HttpHeaders.ALLOW, "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
