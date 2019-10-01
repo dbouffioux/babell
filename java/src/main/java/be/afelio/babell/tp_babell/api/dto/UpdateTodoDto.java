@@ -1,5 +1,7 @@
 package be.afelio.babell.tp_babell.api.dto;
 
+import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
+
 public class UpdateTodoDto {
 
     private int id;
@@ -87,6 +89,7 @@ public class UpdateTodoDto {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	@Override
 	public int hashCode() {

@@ -1,5 +1,7 @@
 package be.afelio.babell.tp_babell.api.dto;
 
+import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
+
 import java.util.Objects;
 
 public class TodoDto {
@@ -59,6 +61,27 @@ public class TodoDto {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public static TodoDto from(TodoEntity todoEntity) {
+        final TodoDto todoDto = new TodoDto(
+                todoEntity.getId(),
+                todoEntity.getName(),
+                todoEntity.getDescription(),
+                todoEntity.isInProgress(),
+                todoEntity.isDone());
+        return todoDto;
+    }
+
+    @Override
+    public String toString() {
+        return "TodoDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", inProgress=" + inProgress +
+                ", done=" + done +
+                '}';
     }
 
     @Override
