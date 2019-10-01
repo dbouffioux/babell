@@ -20,11 +20,10 @@ export class ProjectService {
       `${environment.baseUrl}/projects`,
       { withCredentials: true }
     ).pipe(
-        map(
-          (response: ResponseInterface<ProjectInterface[]>) => {
-              return HTTPResponseAdapter.adapt(response, ProjectBusiness);
-          }
-        )
-      );
+      map(
+      (response: ResponseInterface<ProjectInterface[]>) => {
+        return HTTPResponseAdapter.adapt(response, ProjectBusiness);
+      }
+    ));
   }
 }

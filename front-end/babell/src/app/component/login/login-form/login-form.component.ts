@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthGuardService} from '../../../service/guard/auth-guard.service';
 import {AuthenticationService} from '../../../service/authentication.service';
 import {ValidationService} from '../../../service/validation.service';
 import {LoginService} from '../../../service/login.service';
+import {LoginBusiness} from '../../../model/business/login.business';
 
 @Component({
   selector: 'app-login-form',
@@ -40,8 +40,9 @@ export class LoginFormComponent implements OnInit {
       formValues.email,
       formValues.password
     ).subscribe(
-      response => {
-        this.auth.setLoginStorage(response.token);
+      (loginBusiness: LoginBusiness) => {
+        this.auth.setLoginStorage(loginBusiness);
+        this.auth.setUser(formValues.email);
       },
       error => {
         console.log(error);

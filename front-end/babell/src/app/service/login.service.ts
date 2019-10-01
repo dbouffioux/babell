@@ -1,14 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
-import {PersonBusiness} from '../model/business/person.business';
 import {ResponseInterface} from '../model/response.interface';
 import {HTTPResponseAdapter} from '../utils/httpresponse-adapter';
-import {PersonInterface} from '../model/person.interface';
 import {AuthenticationService} from './authentication.service';
+import {LoginInterface} from '../model/login.interface';
+import {LoginBusiness} from '../model/business/login.business';
 
+/**
+ * Login service, used to get connection from server
+ * or to close connection. A JWT token is generated on
+ * server, and sent to user once successful log in.
+ * JWT is used to reach server from any HTTP query type (POST, GET, ..)
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -31,19 +37,24 @@ export class LoginService {
         }`
       )
     );
-    this.params.set('observe', 'response');
-    return this.http.post<ResponseInterface<PersonInterface>>(`${environment.baseUrl}/login`, this.params,
-      { withCredentials: true, headers: {'Content-Type' : 'application/json;charset=UTF-8'}}).pipe(
-      map(
-        (response: ResponseInterface<PersonInterface>) => {
-          return HTTPResponseAdapter.adapt(response, PersonBusiness);
-        }
-      )
+    return this.http.post<ResponseInterface<LoginInterface>>(`${environment.baseUrl}/login`,
+      this.params,
+      {
+        withCredentials: true,
+        headers: {'Content-Type': 'application/json;charset=UTF-8'}
+      }).pipe(
+        map(
+          (response: ResponseInterface<LoginInterface>) => {
+            return HTTPResponseAdapter.adapt(response, LoginBusiness);
+          }
+        )
     );
   }
 
   public closeConnection(): void {
-    this.http.get(`${environment.baseUrl}/logout`, { withCredentials: true }).subscribe(
+    this.http.get(`${environment.baseUrl}/logout`,
+      { withCredentials: true }
+      ).subscribe(
       (success: any) => this.auth.removeLoginStorage(),
       (error: any) => throwError(error.json())
     );

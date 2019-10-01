@@ -8,15 +8,13 @@ export class PersonBusiness implements BusinessInterface {
   public lastName: string;
   public email: string;
   public password: string;
-  public token: string;
 
-  constructor(id: number, firstName: string, lastName: string, email: string, password: string, token: string) {
+  constructor(id: number, firstName: string, lastName: string, email: string, password: string) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
-    this.token = token;
   }
 
   fromDto(personInterface: PersonInterface): PersonBusiness  {
@@ -25,8 +23,7 @@ export class PersonBusiness implements BusinessInterface {
       personInterface.firstname,
       personInterface.lastname,
       personInterface.email,
-      personInterface.password,
-      personInterface.token
+      personInterface.password
     );
   }
 
@@ -36,8 +33,7 @@ export class PersonBusiness implements BusinessInterface {
       firstname: this.firstName,
       lastname: this.lastName,
       email: this.email,
-      password: this.password,
-      token: this.token
+      password: this.password
     };
   }
 }
