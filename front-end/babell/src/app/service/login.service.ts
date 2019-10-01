@@ -23,7 +23,19 @@ export class LoginService {
   ) {}
 
   public getConnection(login: string, password: string): void {
-    this.params = new HttpParams().set('btoa', btoa(`${login}:${password}`));
+    this.params = new HttpParams().set('btoa', btoa(`username:${login},password:${password}`));
+    console.log(this.params);
+
+    /*
+    >>> POST
+    {
+      "username": "damien.bouffioux@gmail.com",
+      "password": "test123"
+    }
+    >>> GET
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW1pZW4uYm91ZmZpb3V4QGdtYWlsLmNvbSIsImV4cCI6MTU2OTkzMzQ1MSwiaWF0IjoxNTY5OTE1NDUxfQ.
+    kr9kBgPIhZ-DQVJ3Jjiuc1Bd6CkeNXouyOmRy5QSt4HfMMmTbHRvt4da7AEAPeEqJ9tbmoJdcYGvfS6YtbwdfQ"
+    */
     this.params.set('observe', 'response');
     this.http.post<ResponseInterface<PersonInterface>>(`${environment.baseUrl}/login`, this.params,
       { withCredentials: true }).pipe(
