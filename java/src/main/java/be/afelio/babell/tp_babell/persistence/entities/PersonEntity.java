@@ -10,7 +10,7 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id_project")
+    @Column(name = "id_person")
     private Integer id;
     private String firstname;
     private String lastname;
