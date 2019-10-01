@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.project;
 
 import be.afelio.babell.tp_babell.api.utils.LocalDateDeserializer;
 import be.afelio.babell.tp_babell.api.utils.LocalDateSerializer;
@@ -10,23 +10,22 @@ import java.util.Objects;
 
 public class CreateProjectDto {
     private String name;
-    @JsonSerialize(using= LocalDateSerializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate projectStart;
-    @JsonSerialize(using=LocalDateSerializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate projectEnd;
-    
-    
+
 
     public CreateProjectDto(String name, LocalDate projectStart, LocalDate projectEnd) {
-		super();
-		this.name = name;
-		this.projectStart = projectStart;
-		this.projectEnd = projectEnd;
-	}
+        super();
+        this.name = name;
+        this.projectStart = projectStart;
+        this.projectEnd = projectEnd;
+    }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 

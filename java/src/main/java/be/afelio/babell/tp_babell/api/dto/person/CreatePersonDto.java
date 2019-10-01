@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.person;
 
 import java.util.Objects;
 

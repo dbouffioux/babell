@@ -1,7 +1,11 @@
 package be.afelio.babell.tp_babell.api.controller;
 
-import be.afelio.babell.tp_babell.api.dto.*;
-import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
+
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedTodoException;
 import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
 import be.afelio.babell.tp_babell.persistence.exceptions.TodoNotFoundException;
@@ -44,6 +48,7 @@ public class TodoController {
 
         return ResponseEntity.ok(responseDto);
     }
+
     @GetMapping(value = "{projectName}/{todoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<TodoDto>> findOne(
             @PathVariable("projectName") String projectName,
@@ -85,7 +90,7 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> updateTodo(
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;

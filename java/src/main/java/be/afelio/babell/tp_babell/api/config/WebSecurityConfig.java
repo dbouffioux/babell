@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     @Bean
-    public DaoAuthenticationProvider authProvider()  {
+    public DaoAuthenticationProvider authProvider() {
         final DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(jwtUserDetailsService);
         auth.setPasswordEncoder(passwordEncoder());
@@ -60,12 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .antMatchers("/projects").permitAll()
                 .antMatchers("/test").permitAll().
-        anyRequest().authenticated().and().
+                anyRequest().authenticated().and().
 
-        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.addFilterBefore(new AngularCorsFilter(),JwtRequestFilter.class);
+        httpSecurity.addFilterBefore(new AngularCorsFilter(), JwtRequestFilter.class);
     }
 }

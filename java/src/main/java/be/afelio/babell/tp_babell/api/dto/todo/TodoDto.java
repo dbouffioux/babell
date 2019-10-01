@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.dto;
+package be.afelio.babell.tp_babell.api.dto.todo;
 
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 
@@ -21,6 +21,16 @@ public class TodoDto {
         this.description = description;
         this.inProgress = inProgress;
         this.done = done;
+    }
+
+    public static TodoDto from(TodoEntity todoEntity) {
+        final TodoDto todoDto = new TodoDto(
+                todoEntity.getId(),
+                todoEntity.getName(),
+                todoEntity.getDescription(),
+                todoEntity.isInProgress(),
+                todoEntity.isDone());
+        return todoDto;
     }
 
     public Integer getId() {
@@ -61,16 +71,6 @@ public class TodoDto {
 
     public void setDone(boolean done) {
         this.done = done;
-    }
-
-    public static TodoDto from(TodoEntity todoEntity) {
-        final TodoDto todoDto = new TodoDto(
-                todoEntity.getId(),
-                todoEntity.getName(),
-                todoEntity.getDescription(),
-                todoEntity.isInProgress(),
-                todoEntity.isDone());
-        return todoDto;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package be.afelio.babell.tp_babell.api.controller;
 
-import be.afelio.babell.tp_babell.api.dto.CreateTodoDto;
-import be.afelio.babell.tp_babell.api.dto.TodoDto;
-import be.afelio.babell.tp_babell.api.dto.UpdateTodoDto;
+
+import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
+import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 
 import java.util.List;
 
