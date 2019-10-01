@@ -36,13 +36,17 @@ export class AuthenticationService {
     this._token = value;
   }
 
+  public getToken(): string {
+    return localStorage.getItem(this.JWTokenName);
+  }
+
   // methods
-  public isLogged(): boolean {
-    return localStorage.getItem('JWToken') !== null;
+  public isAuthenticated(): boolean {
+    return this.getToken() !== null && this.getToken() !== undefined;
   }
 
   public removeLoginStorage(): void {
-    localStorage.removeItem('JWToken');
+    localStorage.removeItem(this.JWTokenName);
     this.token = '';
   }
 

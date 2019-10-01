@@ -12,7 +12,7 @@ export class LoginFormComponent {
 
   public loginForm: FormGroup;
   @Input() public error: string;
-  @Input() public isLogged: boolean;
+  @Input() public isAuthenticated: boolean;
   @Output() private loginFormEmitter = new EventEmitter();
 
   constructor(

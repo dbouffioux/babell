@@ -8,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class LoginComponent implements OnInit {
 
   @Input() public error: string;
-  @Input() public isLogged: boolean;
+  @Input() public isAuthenticated: boolean;
   @Output() private loginFormEmitter = new EventEmitter();
 
   constructor() { }

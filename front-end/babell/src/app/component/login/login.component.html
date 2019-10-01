@@ -2,7 +2,7 @@
   <section id="login__left" class="left">
     <app-login-form
       (loginFormEmitter)="submitLoginForm($event)"
-      [isLogged]="isLogged"
+      [isAuthenticated]="isAuthenticated"
       [error]="error"
     ></app-login-form>
   </section>

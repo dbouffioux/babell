@@ -5,8 +5,9 @@
 export class HTTPResponseAdapter {
   static adapt(responseObject: any, className: any): any[] | any {
     // if response changes, I only need to change it here. Ez.
-    return  responseObject.payload.map((project: any) => {
-      return (new className()).fromDto(project);
-    });
+    return Array.isArray(responseObject.payload) ?
+      responseObject.payload.map((obj: any) => {
+        return (new className()).fromDto(obj);
+      }) :  responseObject.payload;
   }
 }
