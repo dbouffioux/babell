@@ -1,6 +1,7 @@
 package be.afelio.babell.tp_babell.api.config;
 
 
+import be.afelio.babell.tp_babell.api.jwt.model.JwtRequest;
 import be.afelio.babell.tp_babell.api.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 
+            jwtToken = jwtTokenUtil.generateToken(userDetails);
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -81,6 +83,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
             }
+            JwtRequest jwtRequest = new JwtRequest(username, password);
+            request.setAttribute("jwtRequest",jwtRequest);
         }
         chain.doFilter(request, response);
     }
