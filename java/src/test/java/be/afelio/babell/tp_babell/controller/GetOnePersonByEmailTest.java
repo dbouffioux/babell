@@ -16,7 +16,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
-import be.afelio.babell.tp_babell.api.dto.response.*;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 
 @RunWith(SpringRunner.class)
@@ -28,27 +30,43 @@ public class GetOnePersonByEmailTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
 
 	@Test
-	public void test() throws Exception {
+	public void testForExistingEmailReturnCode() {
+
+		assertRest.assertReturnCode("/person/toto@mail.be", 200);
 		
+		/*PersonDto expected = createTotoTitiForTest();
+		PersonDto actual = responseDto.getPayload();
+		assertEquals(expected, actual);*/	
+		
+	}
 	
-		ResponseEntity<String> response = restTemplate.getForEntity("/person/toto@mail.be", String.class);
+	@Test
+	public void testExistingEmailReturnStatusSucces() {
+		
+		//ResponseDto<PersonDto> dto = assertRest.getDto("/person/toto@mail.be", new TypeReference<ResponseDto<PersonDto>>() {});
+		//assertEquals(ResponseDtoStatus.SUCCESS, dto.getStatus()); // on vérifie que le status dans responseDto est bien success
+
+	}
+	
+	@Test
+	public void testForNotExistingEmail() throws Exception{
+		ResponseEntity<String> response = restTemplate.getForEntity("/person/titi@mail.be", String.class);
 		assertEquals(200, response.getStatusCodeValue());
 		
 		String json = response.getBody();
 		TypeReference<ResponseDto<PersonDto>> type = new TypeReference<ResponseDto<PersonDto>>() {};
 		ResponseDto<PersonDto> responseDto = mapper.readValue(json, type);
 		
-		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
+		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
 		
-		PersonDto expected = createTotoTitiForTest();
-		PersonDto actual = responseDto.getPayload();
-		assertEquals(expected, actual);
-		
-		
-		
+		// assertNull(responseDto.getPayload()); il vérifie que le payload est null
 	}
+	
+	
 	
 	PersonDto createTotoTitiForTest() {
 		return new PersonDto("Toto", "Titi", "toto@mail.be");
@@ -56,4 +74,7 @@ public class GetOnePersonByEmailTest {
 	}
 	
 
+	// ne pas oublier le message
+	// un seul assert par méthode
+	
 }

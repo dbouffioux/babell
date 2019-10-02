@@ -19,7 +19,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
-import be.afelio.babell.tp_babell.api.dto.response.*;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
+import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 
 
 @RunWith(SpringRunner.class)
