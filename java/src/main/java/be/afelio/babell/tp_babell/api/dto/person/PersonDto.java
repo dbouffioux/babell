@@ -1,5 +1,7 @@
 package be.afelio.babell.tp_babell.api.dto.person;
 
+import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
+
 public class PersonDto {
 
     private String firstname;
@@ -38,6 +40,13 @@ public class PersonDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static PersonDto from(PersonEntity personEntity) {
+        return new PersonDto(
+                personEntity.getFirstname(),
+                personEntity.getLastname(),
+                personEntity.getEmail());
     }
 
     @Override

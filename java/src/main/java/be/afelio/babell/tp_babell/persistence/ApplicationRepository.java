@@ -109,7 +109,7 @@ public class ApplicationRepository implements
 
 
     public void createPerson(CreatePersonDto createPersonDto) {
-        if (!validatePersonCreateParameters(createPersonDto)) {
+        if (!utilsApplication.validatePersonCreateParameters(createPersonDto)) {
             throw new InvalidCreateParametersException();
         }
         if (personRepository.findOneByEmail(createPersonDto.getEmail()) != null) {
@@ -120,11 +120,10 @@ public class ApplicationRepository implements
 
     @Override
     public PersonDto findOneTodoByEmail(String email) {
-        return utilsApplication.createPersonDto(personRepository.findOneByEmail(email));
+        return PersonDto.from(personRepository.findOneByEmail(email));
     }
 
-    private boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
-        return false;
-    }
+
+
 }
 

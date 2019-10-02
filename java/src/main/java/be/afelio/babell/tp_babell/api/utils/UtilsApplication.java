@@ -2,7 +2,6 @@ package be.afelio.babell.tp_babell.api.utils;
 
 
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
-import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
@@ -12,6 +11,7 @@ import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -74,17 +74,22 @@ public class UtilsApplication {
     }
 
     public PersonEntity generatePersonEntity(CreatePersonDto createPersonDto) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return new PersonEntity(
                 createPersonDto.getFirstname(),
                 createPersonDto.getLastname(),
                 createPersonDto.getEmail(),
-                createPersonDto.getPassword());
+                bCryptPasswordEncoder.encode(createPersonDto.getPassword()));
     }
 
-    public PersonDto createPersonDto(PersonEntity personEntity) {
-        return new PersonDto(
-                personEntity.getFirstname(),
-                personEntity.getLastname(),
-                personEntity.getEmail());
+    public boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
+        String firstname = createPersonDto.getFirstname();
+         String lastname = createPersonDto.getLastname();
+         String email = createPersonDto.getEmail();
+         String password = createPersonDto.getPassword();
+        return !firstname.isBlank() && firstname != null
+        && !lastname.isBlank() && lastname != null
+        && !email.isBlank() && email != null
+        && !password.isBlank() && password != null;
     }
 }
