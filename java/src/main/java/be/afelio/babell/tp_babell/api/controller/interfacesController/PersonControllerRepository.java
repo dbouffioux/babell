@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.controller;
+package be.afelio.babell.tp_babell.api.controller.interfacesController;
 
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;

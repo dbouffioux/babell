@@ -1,4 +1,4 @@
-package be.afelio.babell.tp_babell.api.controller;
+package be.afelio.babell.tp_babell.api.controller.interfacesController;
 
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;

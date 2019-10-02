@@ -1,8 +1,8 @@
 package be.afelio.babell.tp_babell.persistence;
 
-import be.afelio.babell.tp_babell.api.controller.PersonControllerRepository;
-import be.afelio.babell.tp_babell.api.controller.ProjectControllerRepository;
-import be.afelio.babell.tp_babell.api.controller.TodoControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.PersonControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.ProjectControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.TodoControllerRepository;
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
