@@ -48,7 +48,7 @@ public class GetAllTodoByProjectNameTest {
 	}
 	
 	TodoDto createTestTodo() {
-		return new TodoDto(2, "test", "test description", false, false); 
+		return new TodoDto(2, "test", "test description", false, false);
 	}
 
 }

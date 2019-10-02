@@ -2,7 +2,7 @@ package be.afelio.babell.tp_babell.api.dto.person;
 
 import java.util.Objects;
 
-public class CreatePersonDto {
+public class CreatePersonDto implements TemplatePerson {
     private String firstname;
     private String lastname;
     private String email;

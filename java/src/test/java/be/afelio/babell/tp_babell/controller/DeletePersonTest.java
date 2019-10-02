@@ -42,7 +42,7 @@ public class DeletePersonTest {
 		try {
 			
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
-					URI.create("/person" ));
+					URI.create("/person/toto@mail.be" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			

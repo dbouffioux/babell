@@ -2,6 +2,8 @@ package be.afelio.babell.tp_babell.api.utils;
 
 
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
+import be.afelio.babell.tp_babell.api.dto.person.TemplatePerson;
+import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
@@ -73,23 +75,40 @@ public class UtilsApplication {
         return todoDtoList;
     }
 
-    public PersonEntity generatePersonEntity(CreatePersonDto createPersonDto) {
+    public PersonEntity generatePersonEntity(TemplatePerson templatePerson) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return new PersonEntity(
-                createPersonDto.getFirstname(),
-                createPersonDto.getLastname(),
-                createPersonDto.getEmail(),
-                bCryptPasswordEncoder.encode(createPersonDto.getPassword()));
+                templatePerson.getFirstname(),
+                templatePerson.getLastname(),
+                templatePerson.getEmail(),
+                bCryptPasswordEncoder.encode(templatePerson.getPassword()));
+    }
+
+    public PersonEntity generatePersonEntity(PersonEntity personEntity,TemplatePerson templatePerson) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        personEntity.setFirstname(templatePerson.getFirstname());
+        personEntity.setLastname(templatePerson.getLastname());
+        personEntity.setEmail(templatePerson.getEmail());
+        personEntity.setPassword(bCryptPasswordEncoder.encode(templatePerson.getPassword()));
+        return personEntity;
     }
 
     public boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
-        String firstname = createPersonDto.getFirstname();
-         String lastname = createPersonDto.getLastname();
-         String email = createPersonDto.getEmail();
-         String password = createPersonDto.getPassword();
+        return validPersonParameters(createPersonDto);
+    }
+
+    public boolean validatePersonUpdateParameters(UpdatePersonDto updatePersonDto) {
+        return validPersonParameters(updatePersonDto);
+    }
+
+    private boolean validPersonParameters(TemplatePerson templatePerson) {
+        String firstname = templatePerson.getFirstname();
+        String lastname = templatePerson.getLastname();
+        String email = templatePerson.getEmail();
+        String password = templatePerson.getPassword();
         return !firstname.isBlank() && firstname != null
-        && !lastname.isBlank() && lastname != null
-        && !email.isBlank() && email != null
-        && !password.isBlank() && password != null;
+                && !lastname.isBlank() && lastname != null
+                && !email.isBlank() && email != null
+                && !password.isBlank() && password != null;
     }
 }

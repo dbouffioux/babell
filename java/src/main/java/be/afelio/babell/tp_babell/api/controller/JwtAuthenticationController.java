@@ -14,11 +14,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
 
 @RestController
 @CrossOrigin
@@ -35,18 +33,23 @@ public class JwtAuthenticationController {
     public ResponseEntity<ResponseDto<JwtResponse>> createAuthenticationToken(HttpServletRequest request/*@RequestBody JwtRequest authenticationRequest*/) throws Exception {
         try{
             JwtRequest authenticationRequest = (JwtRequest) request.getAttribute("jwtRequest");
-            authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-            final UserDetails userDetails = userDetailsService
-                    .loadUserByUsername(authenticationRequest.getUsername());
-            final String token = jwtTokenUtil.generateToken(userDetails);
-            ResponseDto<JwtResponse> responseDto = new ResponseDto<JwtResponse>(ResponseDtoStatus.SUCCESS, "token created");
-            responseDto.setPayload(new JwtResponse(token));
+            ResponseDto<JwtResponse> responseDto = getTokenWithJwtResponse(request,authenticationRequest.getUsername(), authenticationRequest.getPassword());
             return ResponseEntity.ok(responseDto);
 
         }catch (Exception e){
             ResponseDto<JwtResponse> responseDto = new ResponseDto<>(ResponseDtoStatus.FAILURE, "failure to connect");
             return ResponseEntity.ok(responseDto);
         }
+    }
+
+    public ResponseDto<JwtResponse> getTokenWithJwtResponse(HttpServletRequest request, String username, String password) throws Exception {
+        authenticate(username, password);
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(username);
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        ResponseDto<JwtResponse> responseDto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, "token created");
+        responseDto.setPayload(new JwtResponse(token));
+        return responseDto;
     }
 
 

@@ -33,23 +33,27 @@ public class GetOnePersonByFirstnameAndLastname {
 
 	@Test
 	public void test() throws Exception {
-		
-	
+		jdbcTemplate.update("INSERT INTO public.person(\n" +
+				"\tid_person, firstname, lastname, email, password)\n" +
+				"\tVALUES (default, 'Toto', 'Titi', 'toto@mail.be', 'test1234');");
+	try{
 		ResponseEntity<String> response = restTemplate.getForEntity("/person/Toto/Titi", String.class);
 		assertEquals(200, response.getStatusCodeValue());
-		
+
 		String json = response.getBody();
 		TypeReference<ResponseDto<PersonDto>> type = new TypeReference<ResponseDto<PersonDto>>() {};
 		ResponseDto<PersonDto> responseDto = mapper.readValue(json, type);
-		
+
 		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
-		
+
 		PersonDto expected = createTotoTitiForTest();
 		PersonDto actual = responseDto.getPayload();
 		assertEquals(expected, actual);
+	}finally {
+		jdbcTemplate.update("delete from person  Where firstname = 'Toto'");
 		
 		
-		
+	}
 	}
 	
 	PersonDto createTotoTitiForTest() {

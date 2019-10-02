@@ -1,6 +1,6 @@
 package be.afelio.babell.tp_babell.api.dto.person;
 
-public class UpdatePersonDto {
+public class UpdatePersonDto implements TemplatePerson {
     private int id;
     private String firstname;
     private String lastname;

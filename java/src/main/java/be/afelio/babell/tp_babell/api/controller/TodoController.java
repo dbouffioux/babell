@@ -91,7 +91,7 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> updateTodo(
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;

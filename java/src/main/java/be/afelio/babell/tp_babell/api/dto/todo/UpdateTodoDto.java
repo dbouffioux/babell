@@ -14,9 +14,8 @@ public class UpdateTodoDto {
     public UpdateTodoDto() {
     }
 
-    public UpdateTodoDto(String name, String description, int estimation, boolean inProgress, boolean done,
-                         Integer idProject) {
-        super();
+    public UpdateTodoDto(int id, String name, String description, int estimation, boolean inProgress, boolean done, Integer idProject) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.estimation = estimation;

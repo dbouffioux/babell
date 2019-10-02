@@ -5,12 +5,14 @@ import be.afelio.babell.tp_babell.api.controller.interfacesController.ProjectCon
 import be.afelio.babell.tp_babell.api.controller.interfacesController.TodoControllerRepository;
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
+import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.api.utils.UtilsApplication;
+import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.exceptions.*;
@@ -123,6 +125,42 @@ public class ApplicationRepository implements
         return PersonDto.from(personRepository.findOneByEmail(email));
     }
 
+    @Override
+    public void updatePersonDto(UpdatePersonDto updatePersonDto) {
+        PersonEntity personEntity = personRepository.findOneById(updatePersonDto.getId());
+        if (!utilsApplication.validatePersonUpdateParameters(updatePersonDto)) {
+            throw new InvalidUpdateParametersException();
+        }if(personEntity == null) {
+            throw new PersonNotFoundException();
+        }if(!personEntity.getEmail().equals(updatePersonDto.getEmail())){
+            if(personRepository.findOneByEmail(updatePersonDto.getEmail())!= null){
+                throw new DuplicatedEmailException();
+            }
+        }
+        else if(personEntity!= null){
+            personRepository.save(utilsApplication.generatePersonEntity(personEntity,updatePersonDto));
+        }
+
+    }
+
+    @Override
+    public void deletePerson(String email) {
+        PersonEntity personEntity = personRepository.findOneByEmail(email);
+        if (personEntity == null) {
+            throw new PersonNotFoundException();
+        }
+        personRepository.delete(personEntity);
+
+    }
+
+    @Override
+    public PersonDto findOneByFirstnameAndLastname(String firstname, String lastname) {
+       PersonEntity personEntity = personRepository.findOneByFirstnameIgnoreCaseAndLastnameIgnoreCase(firstname, lastname);
+      if(personEntity == null){
+          throw new PersonNotFoundException();
+      }
+        return PersonDto.from(personEntity);
+    }
 
 
 }
