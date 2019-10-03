@@ -8,6 +8,7 @@ import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectWithTodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
@@ -95,8 +96,16 @@ public class ApplicationRepository implements
         todoRepository.save(todoEntity);
     }
 
-    public List<TodoDto> findAllTodoByProjectName(String projectName) {
-        return utilsApplication.createTodoDtoList(todoRepository.findAllByProjectName(projectName));
+    public ProjectWithTodoDto findAllTodoByProjectName(String projectName) {
+        ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
+        ProjectWithTodoDto projectWithTodoDto = new ProjectWithTodoDto(
+                projectEntity.getId(),
+                projectEntity.getName(),
+                projectEntity.getProjectStart(),
+                projectEntity.getProjectEnd(),
+                utilsApplication.createTodoDtoList(todoRepository.findAllByProjectName(projectName))
+        );
+        return projectWithTodoDto ;
     }
 
     public void deleteDto(String projectName, String todoName) {

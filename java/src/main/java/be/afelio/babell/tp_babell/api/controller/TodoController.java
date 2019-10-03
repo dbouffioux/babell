@@ -2,6 +2,7 @@ package be.afelio.babell.tp_babell.api.controller;
 
 
 import be.afelio.babell.tp_babell.api.controller.interfacesController.TodoControllerRepository;
+import be.afelio.babell.tp_babell.api.dto.project.ProjectWithTodoDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
@@ -31,20 +32,19 @@ public class TodoController {
     TodoControllerRepository repository;
 
     @GetMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<List<TodoDto>>> findOne(
-            @AuthenticationPrincipal UserDetails userdetails,
+    public ResponseEntity<ResponseDto<ProjectWithTodoDto>> findOne(
             @PathVariable("projectName") String projectName) {
-        ResponseDto<List<TodoDto>> responseDto;
+        ResponseDto<ProjectWithTodoDto> responseDto;
         try {
-            List<TodoDto> todoDtoList = repository.findAllTodoByProjectName(projectName);
-            if (todoDtoList == null) {
-                responseDto = new ResponseDto<List<TodoDto>>(ResponseDtoStatus.FAILURE, "todo not found");
+            ProjectWithTodoDto projectWithTodoDto = repository.findAllTodoByProjectName(projectName);
+            if (projectWithTodoDto == null) {
+                responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.FAILURE, "todo not found");
             } else {
-                responseDto = new ResponseDto<List<TodoDto>>(ResponseDtoStatus.SUCCESS, todoDtoList.size() + " todos found");
-                responseDto.setPayload(todoDtoList);
+                responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.SUCCESS, projectWithTodoDto.getTodoDtoList().size() + " todos found");
+                responseDto.setPayload(projectWithTodoDto);
             }
         } catch (Exception e) {
-            responseDto = new ResponseDto<List<TodoDto>>(ResponseDtoStatus.FAILURE, "unexpected exception");
+            responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.FAILURE, "unexpected exception");
             e.printStackTrace();
         }
 
