@@ -16,12 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class UtilsApplication {
+    private final SecureRandom random = new SecureRandom("bonjourcommentvastupetitsel!".getBytes());
     @Autowired
     ProjectRepository projectRepository;
 
@@ -44,7 +46,7 @@ public class UtilsApplication {
         String name = createProjectDto.getName();
         LocalDate start = createProjectDto.getProjectStart();
         LocalDate end = createProjectDto.getProjectEnd();
-        return !name.isBlank() && name != null
+        return name != null && !name.isBlank()
                 && start != null
                 && end != null;
     }
@@ -76,7 +78,7 @@ public class UtilsApplication {
     }
 
     public PersonEntity generatePersonEntity(TemplatePerson templatePerson) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(5, random);
         return new PersonEntity(
                 templatePerson.getFirstname(),
                 templatePerson.getLastname(),
