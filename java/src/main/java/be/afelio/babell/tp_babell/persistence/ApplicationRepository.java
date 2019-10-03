@@ -71,10 +71,10 @@ public class ApplicationRepository implements
         if (todoEntity == null) {
             throw new TodoNotFoundException();
         }
-        if (todoEntity.getName().equals(updateTodoDto.getName())) {
+        if (!todoEntity.getName().equals(updateTodoDto.getName())) {
             todoEntity.setName(updateTodoDto.getName());
         }
-        if (todoEntity.getDescription().equals(updateTodoDto.getDescription())) {
+        if (!todoEntity.getDescription().equals(updateTodoDto.getDescription())) {
             todoEntity.setDescription(updateTodoDto.getDescription());
         }
         if (todoEntity.isInProgress() != updateTodoDto.isInProgress()) {
@@ -83,7 +83,7 @@ public class ApplicationRepository implements
         if (todoEntity.isDone() != updateTodoDto.isDone()) {
             todoEntity.setDone(updateTodoDto.isDone());
         }
-        if (todoEntity.getEstimation() == null) {
+        if (todoEntity.getEstimation() == null || todoEntity.getEstimation() != updateTodoDto.getEstimation()) {
             todoEntity.setEstimation(updateTodoDto.getEstimation());
         }
         if (todoEntity.getProject().getId() != updateTodoDto.getIdProject()) {
