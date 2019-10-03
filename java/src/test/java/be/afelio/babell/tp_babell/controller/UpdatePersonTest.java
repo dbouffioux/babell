@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 
 @RunWith(SpringRunner.class)
@@ -33,6 +36,8 @@ public class UpdatePersonTest {
 	TestRestTemplate restTemplate;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	@Autowired
+	AssertRest assertRest;
 	ObjectMapper mapper = new ObjectMapper();	
 
 	@Test
@@ -42,8 +47,11 @@ public class UpdatePersonTest {
 		int id = jdbcTemplate.queryForObject("Select id_person From person Where firstname ='Toto' And lastname ='Titi'", Integer.class);
 		
 		try {
+			String token = assertRest.getToken();
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", "Bearer " + token);
 			RequestEntity<UpdatePersonDto>requestEntity
-			= new RequestEntity<UpdatePersonDto>(updatePersonForTest(), HttpMethod.PUT, URI.create("/todoproject"));
+			=  new RequestEntity<UpdatePersonDto>(updatePersonForTest(id), headers, HttpMethod.PUT, URI.create("/user"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
@@ -59,20 +67,19 @@ public class UpdatePersonTest {
 		}
 	}
 	
-	UpdatePersonDto updatePersonForTest() {
-		return new UpdatePersonDto("Toto", "Toutou", "toto@mail.be", "789654");
+	UpdatePersonDto updatePersonForTest(int id) {
+		
+		UpdatePersonDto person = new UpdatePersonDto("Toto", "Toutou", "toto@mail.be", "789654");
+		person.setId(id);
+		return person;
 		
 	}
 	
 	boolean checkPersonForTestUpdate(int id) {
-		boolean created = false;
+	
 		String updateLastname = "Toutou";
-		String updatePassword = "789654";
 		String name = jdbcTemplate.queryForObject("Select lastname from person where id_person =  " + id, String.class);
-		String password = jdbcTemplate.queryForObject("Select password from person where id_person =  " + id, String.class);
-		if(updateLastname == name && updatePassword == password) {
-			created = true;
-		}
-		return created;
+
+		return updateLastname.equals(name);
 	}
 }

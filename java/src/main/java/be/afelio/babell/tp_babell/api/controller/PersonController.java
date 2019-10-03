@@ -88,7 +88,7 @@ public class PersonController {
     public ResponseEntity<ResponseDto<JwtResponse>> updatePerson(
             HttpServletRequest request,
             @RequestBody UpdatePersonDto updatePersonDto) {
-
+    	System.out.println(updatePersonDto);
         ResponseDto<JwtResponse> responseDto = new ResponseDto<>();
 
         try {
