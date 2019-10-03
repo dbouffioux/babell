@@ -71,7 +71,7 @@ public class LoginTest {
 		};
 		ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
 		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
-		assertEquals("Echec de connexion", responseDto.getMessage());
+		assertEquals("failure to connect", responseDto.getMessage());
 
 	}
 
