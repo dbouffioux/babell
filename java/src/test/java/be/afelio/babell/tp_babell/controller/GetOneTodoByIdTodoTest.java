@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
@@ -25,6 +26,7 @@ public class GetOneTodoByIdTodoTest {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	AssertRest assertRest;
+	TypeReference<ResponseDto<TodoDto>> type = new TypeReference<ResponseDto<TodoDto>>() {};
 
 	@Test
 	public void testTodoById23ReturnCode() {
@@ -35,13 +37,12 @@ public class GetOneTodoByIdTodoTest {
 
 	@Test
 	public void testTodoById23ReturnStatusSucces() {
-		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/test/23");
+		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/test/23", type);
 	}
 
 	@Test
 	public void testTodoById23PlayLoad() {
-		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/23", new TypeReference<ResponseDto<TodoDto>>() {
-		});
+		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/23", type);
 	}
 
 	private TodoDto createTodoTest() {

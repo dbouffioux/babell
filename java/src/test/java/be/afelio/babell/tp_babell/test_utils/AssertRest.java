@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -39,9 +40,11 @@ public class AssertRest {
 
 		if (token == null) { // lazyCreation pour ne le créer qu'une seule fois et on en le crée que si on en
 								// a besoin.
+			String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
 			RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
-					.contentType(MediaType.APPLICATION_JSON)
-					.body("{\"username\":\"delphine@mail.be\",\"password\":\"1234\"}");
+					.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+					// .body("{\"username\":\"delphine@mail.be\",\"password\":\"1234\"}");
+					.body("btoa=" + btoa);
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
@@ -132,9 +135,9 @@ public class AssertRest {
 	 * @param status => le statut a tester
 	 * @param path   => URL
 	 */
-	public void assertDtoStatus(ResponseDtoStatus status, String path) {
+	public<T> void assertDtoStatus(ResponseDtoStatus status, String path, TypeReference<ResponseDto<T>> type) {
 
-		assertEquals(status, this.getDto(path, null).getStatus());
+		assertEquals(status, this.getDto(path, type).getStatus());
 	}
 
 	/**

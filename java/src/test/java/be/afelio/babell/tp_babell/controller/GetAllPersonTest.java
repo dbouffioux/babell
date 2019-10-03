@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 
 @RunWith(SpringRunner.class)
@@ -29,8 +30,30 @@ public class GetAllPersonTest {
 	
 	@Autowired TestRestTemplate restTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
+	TypeReference<ResponseDto<List<PersonDto>>> type = new TypeReference<ResponseDto<List<PersonDto>>>() {};
 	
 	@Test
+	public void testGetAllPersonTestReturnCode () {
+		assertRest.assertReturnCode("/persons", 200);
+	}
+	
+	@Test
+	public void testGetAllPersonTestReturnStatusSuccess () {
+		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/persons", type);
+	}
+	
+	@Test
+	public void testGetAllPersonTestPlayLoad () {
+		ResponseDto<List<PersonDto>> responseDto = assertRest.getDto("/persons", type);
+		assertEquals(1, responseDto.getPayload().size());
+		System.out.println(responseDto.getPayload());
+		assertTrue(responseDto.getPayload().contains(createTestPerson()));
+	}
+	
+	
+	/*@Test
 	public void test() throws Exception {
 		ResponseEntity<String> response = restTemplate.getForEntity("/persons", String.class);
 		assertEquals(200, response.getStatusCodeValue());
@@ -45,7 +68,7 @@ public class GetAllPersonTest {
 		
 		PersonDto expected = createTestPerson();
 		assertTrue(actual.contains(expected));
-	}
+	}*/
 	
 	PersonDto createTestPerson() {
 		

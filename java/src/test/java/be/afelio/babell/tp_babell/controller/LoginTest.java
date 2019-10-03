@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URI;
+import java.util.Base64;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,35 +28,52 @@ import be.afelio.babell.tp_babell.api.jwt.model.JwtResponse;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginTest {
-	
-	@Autowired TestRestTemplate restTemplate;
-	@Autowired JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	TestRestTemplate restTemplate;
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 	ObjectMapper mapper = new ObjectMapper();
 
 	@Test
-	public void test() throws Exception {
+	public void testLoginOk() throws Exception {
 
-			
-			RequestEntity<String> requestEntity = RequestEntity
-				     .post(URI.create("/login"))
-				     .contentType(MediaType.APPLICATION_JSON)
-				     .body(createLoginForTest());
-			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
-			assertEquals(200, response.getStatusCodeValue());
-			
-			
-			String json = response.getBody();
+		String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
 
-			TypeReference<ResponseDto<JwtResponse>> type = new TypeReference<ResponseDto<JwtResponse>>() {
-			};
-			ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
-			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
-			assertNotNull(responseDto.getPayload().getToken());
-			
+		RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED).body("btoa=" + btoa);
+		ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
+		assertEquals(200, response.getStatusCodeValue());
+
+		String json = response.getBody();
+
+		TypeReference<ResponseDto<JwtResponse>> type = new TypeReference<ResponseDto<JwtResponse>>() {
+		};
+		ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
+		assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
+		assertNotNull(responseDto.getPayload().getToken());
+
 	}
 	
-	String createLoginForTest() {
-		
-		return "{\"username\":\"delphine@mail.be\",\"password\":\"1234\"}";
+	@Test
+	public void testLoginNOk() throws Exception {
+
+		String btoa = Base64.getEncoder().encodeToString("toto@mail.be:1234".getBytes());
+
+		RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED).body("btoa=" + btoa);
+		ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
+		assertEquals(200, response.getStatusCodeValue());
+
+		String json = response.getBody();
+
+		TypeReference<ResponseDto<JwtResponse>> type = new TypeReference<ResponseDto<JwtResponse>>() {
+		};
+		ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
+		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
+		assertEquals("Echec de connexion", responseDto.getMessage());
+
 	}
+
+	
 }

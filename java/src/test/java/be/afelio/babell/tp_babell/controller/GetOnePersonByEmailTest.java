@@ -32,24 +32,24 @@ public class GetOnePersonByEmailTest {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	AssertRest assertRest;
+	TypeReference<ResponseDto<PersonDto>> type = new TypeReference<ResponseDto<PersonDto>>() {};
 
 	@Test
 	public void testForExistingEmailReturnCode() {
 
 		assertRest.assertReturnCode("/person/toto@mail.be", 200);
 		
-		/*PersonDto expected = createTotoTitiForTest();
-		PersonDto actual = responseDto.getPayload();
-		assertEquals(expected, actual);*/	
-		
 	}
 	
 	@Test
 	public void testExistingEmailReturnStatusSucces() {
 		
-		//ResponseDto<PersonDto> dto = assertRest.getDto("/person/toto@mail.be", new TypeReference<ResponseDto<PersonDto>>() {});
-		//assertEquals(ResponseDtoStatus.SUCCESS, dto.getStatus()); // on vérifie que le status dans responseDto est bien success
-
+		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/person/toto@mail.be", type);
+	}
+	
+	@Test
+	public void testExistingEmailPlayLoad() {
+		assertRest.assertPlayLoad(createTotoTitiForTest(), "/person/toto@mail.be",type);
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class GetOnePersonByEmailTest {
 		assertEquals(200, response.getStatusCodeValue());
 		
 		String json = response.getBody();
-		TypeReference<ResponseDto<PersonDto>> type = new TypeReference<ResponseDto<PersonDto>>() {};
+		
 		ResponseDto<PersonDto> responseDto = mapper.readValue(json, type);
 		
 		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
