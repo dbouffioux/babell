@@ -13,6 +13,6 @@ export class ProjectDetailComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-  }
 
+  }
 }

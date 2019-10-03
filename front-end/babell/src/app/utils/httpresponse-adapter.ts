@@ -4,10 +4,9 @@
  */
 export class HTTPResponseAdapter {
   static adapt(responseObject: any, className: any): any[] | any {
-    // if response changes, I only need to change it here. Ez.
     return Array.isArray(responseObject.payload) ?
       responseObject.payload.map((obj: any) => {
         return (new className()).fromDto(obj);
-      }) :  responseObject.payload;
+      }) : (new className()).fromDto(responseObject.payload);
   }
 }

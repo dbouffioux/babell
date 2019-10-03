@@ -11,9 +11,8 @@ import { LoginComponent } from './component/login/login.component';
 import { LoginFormComponent } from './component/login/login-form/login-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ButtonComponent } from './component/form/button/button.component';
-import { ErrorComponent } from './component/form/error/error.component';
 import { LoginContainerComponent } from './container/login-container/login-container.component';
-import {TokenInterceptor} from './utils/TokenInterceptor';
+import {TokenInterceptor} from './utils/token-interceptor';
 import {SharedModule} from './shared/shared.module';
 
 @NgModule({

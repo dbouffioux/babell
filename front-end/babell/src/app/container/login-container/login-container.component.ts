@@ -30,9 +30,13 @@ export class LoginContainerComponent implements OnInit {
       formValues.password
     ).subscribe(
       (loginBusiness: LoginBusiness) => {
-        this.auth.setLoginStorage(loginBusiness);
-        this.auth.setUser(formValues.email);
-        this.router.navigate(['/projects']).then(r => (r));
+        if (loginBusiness) {
+          this.auth.setLoginStorage(loginBusiness);
+          this.auth.setUser(formValues.email);
+          this.router.navigate(['/projects']).then(r => (r));
+        } else {
+          this.error = 'Unknown error';
+        }
       },
       error => {
         this.error = error.message;

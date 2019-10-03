@@ -1,7 +1,6 @@
 import {ProjectInterface} from '../project.interface';
 import {BusinessInterface} from '../../../../model/business.interface';
 import {TodoBusiness} from './todo.business';
-import {TodoInterface} from '../todo.interface';
 
 export class ProjectBusiness implements BusinessInterface {
 
@@ -9,23 +8,33 @@ export class ProjectBusiness implements BusinessInterface {
   public name: string;
   public startDate: Date;
   public endDate: Date;
-  public todoList: TodoInterface[];
+  public todoList: TodoBusiness[];
 
-  constructor(id: number, name: string, startDate: Date, endDate: Date, todoList: TodoInterface[]) {
-    this.id = id;
+  constructor(idProjet: number, name: string, projectStart: Date, projectEnd: Date, todoDtoList: TodoBusiness[]) {
+    this.id = idProjet;
     this.name = name;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.todoList = todoList;
+    this.startDate = projectStart;
+    this.endDate = projectEnd;
+    this.todoList = todoDtoList;
   }
 
   fromDto(projectInterface: ProjectInterface): ProjectBusiness  {
+    let todoList: TodoBusiness[];
+    console.log();
+    if (projectInterface.todoDtoList) {
+      for (const todoListItem of projectInterface.todoDtoList) {
+        // @ts-ignore (unfortunately, i want business to implements businessInterface, so that they have to implements fromDto(),
+        // but I must force it to be instance method, because I cant have static method in interface... But I cant overload constructor
+        // so I must set ts-ignore.. mmh)
+        todoList = [...todoList, (new TodoBusiness()).fromDto(todoListItem)];
+      }
+    }
     return new ProjectBusiness(
       projectInterface.idProjet,
       projectInterface.name,
-      projectInterface.startDate,
-      projectInterface.endDate,
-      projectInterface.todoList
+      projectInterface.projectStart,
+      projectInterface.projectEnd,
+      todoList
     );
   }
 
@@ -33,9 +42,9 @@ export class ProjectBusiness implements BusinessInterface {
     return {
       idProjet : this.id,
       name: this.name,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      todoList: this.todoList
+      projectStart: this.startDate,
+      projectEnd: this.endDate,
+      todoDtoList: this.todoList
     };
   }
 }

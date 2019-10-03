@@ -9,6 +9,7 @@ export const environment = {
     enable: false,
     all: true,
     services: {
+      getProjects: true,
       getProject: true
     }
   }

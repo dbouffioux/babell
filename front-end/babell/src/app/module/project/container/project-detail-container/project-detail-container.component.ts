@@ -28,8 +28,8 @@ export class ProjectDetailContainerComponent implements OnInit {
         this.projectService.getProjectByName(params.name).subscribe(
           project => {
             this.project = project;
-            },
-          error => this.error = error
+          },
+          error => {this.error = error; console.log(error)}
         );
       }
     );
