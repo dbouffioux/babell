@@ -43,6 +43,9 @@ public class TodoController {
                 responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.SUCCESS, projectWithTodoDto.getTodoDtoList().size() + " todos found");
                 responseDto.setPayload(projectWithTodoDto);
             }
+        } catch (ProjectNotFoundException e) {
+            responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.FAILURE, "project not found");
+            e.printStackTrace();
         } catch (Exception e) {
             responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.FAILURE, "unexpected exception");
             e.printStackTrace();

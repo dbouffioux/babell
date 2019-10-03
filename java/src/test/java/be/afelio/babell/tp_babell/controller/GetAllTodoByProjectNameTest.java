@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import be.afelio.babell.tp_babell.api.dto.project.ProjectWithTodoDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class GetAllTodoByProjectNameTest {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	AssertRest assertRest;
-	TypeReference<ResponseDto<List<TodoDto>>> type = new TypeReference<ResponseDto<List<TodoDto>>>() {};
+	TypeReference<ResponseDto<ProjectWithTodoDto>> type = new TypeReference<ResponseDto<ProjectWithTodoDto>>() {};
 	
 	@Test
 	public void testGetAllTodoByProjectNameTestReturnCode () {
@@ -44,10 +45,10 @@ public class GetAllTodoByProjectNameTest {
 	
 	@Test 
 	public void testGetAllTodoByProjectNameTestPlayLoad() {
-		ResponseDto<List<TodoDto>> responseDto = assertRest.getDto("/todoproject/Test", type);
-		assertEquals(2, responseDto.getPayload().size());
+		ResponseDto<ProjectWithTodoDto> responseDto = assertRest.getDto("/todoproject/Test", type);
+		assertEquals(2, responseDto.getPayload().getTodoDtoList().size());
 		System.out.println(responseDto.getPayload());
-		assertTrue( responseDto.getPayload().contains(createTestTodo()));
+		assertTrue( responseDto.getPayload().getTodoDtoList().contains(createTestTodo()));
 	}
 	
 	

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import be.afelio.babell.tp_babell.api.dto.project.ProjectWithTodoDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class FindAllTodoByProjectNameTest {
 	@Test
 	public void test() {
 		TodoDto expected = createTodoTest();
-		List<TodoDto>actual = repository.findAllTodoByProjectName("Test");
+		ProjectWithTodoDto actual = repository.findAllTodoByProjectName("Test");
 		assertNotNull(actual);
-		assertTrue(actual.contains(expected));
+		assertTrue(actual.getTodoDtoList().contains(expected));
 		
 		
 	}

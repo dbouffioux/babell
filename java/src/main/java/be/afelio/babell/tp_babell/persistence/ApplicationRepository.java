@@ -21,6 +21,7 @@ import be.afelio.babell.tp_babell.persistence.repositories.PersonRepository;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import be.afelio.babell.tp_babell.persistence.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -98,6 +99,9 @@ public class ApplicationRepository implements
 
     public ProjectWithTodoDto findAllTodoByProjectName(String projectName) {
         ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
+        if(projectEntity == null){
+            throw new ProjectNotFoundException();
+        }
         ProjectWithTodoDto projectWithTodoDto = new ProjectWithTodoDto(
                 projectEntity.getId(),
                 projectEntity.getName(),
