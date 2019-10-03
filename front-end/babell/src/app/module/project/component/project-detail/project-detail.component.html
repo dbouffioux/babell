@@ -3,7 +3,12 @@
   <ul>
     <li>Start Date: {{ project?.startDate }}</li>
     <li>End Date: {{ project?.endDate }}</li>
+    <li>
+      <div *ngIf="project?.todoList">
+        <app-todo-list
+          [list]="project.todoList">
+        </app-todo-list>
+      </div>
+    </li>
   </ul>
 </section>
-
-{{ project | json }}

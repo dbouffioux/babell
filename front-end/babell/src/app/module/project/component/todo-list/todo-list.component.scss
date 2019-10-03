@@ -1,0 +1,39 @@
+.todo {
+  display: flex;
+  clear: both;
+  margin-bottom: 20px;
+
+  .name{
+    float: left;
+    width: 250px;
+    height: 40px;
+  }
+  .status {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 20px;
+    float: left;
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+
+    &.done {
+      background-color: greenyellow;
+    }
+
+    &.todo {
+      background-color: cornflowerblue;
+    }
+
+    &.progress {
+      background-color: darkseagreen;
+    }
+
+    &.notStarted {
+      background-color: coral;
+    }
+  }
+}

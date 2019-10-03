@@ -1,14 +1,9 @@
 import {ProjectInterface} from '../project.interface';
 import {BusinessInterface} from '../../../../model/business.interface';
 import {TodoBusiness} from './todo.business';
+import {TodoInterface} from '../todo.interface';
 
 export class ProjectBusiness implements BusinessInterface {
-
-  public readonly id: number;
-  public name: string;
-  public startDate: Date;
-  public endDate: Date;
-  public todoList: TodoBusiness[];
 
   constructor(idProjet: number, name: string, projectStart: Date, projectEnd: Date, todoDtoList: TodoBusiness[]) {
     this.id = idProjet;
@@ -18,17 +13,28 @@ export class ProjectBusiness implements BusinessInterface {
     this.todoList = todoDtoList;
   }
 
-  fromDto(projectInterface: ProjectInterface): ProjectBusiness  {
-    let todoList: TodoBusiness[];
-    console.log();
-    if (projectInterface.todoDtoList) {
-      for (const todoListItem of projectInterface.todoDtoList) {
+  public readonly id: number;
+  public name: string;
+  public startDate: Date;
+  public endDate: Date;
+  public todoList: TodoBusiness[];
+
+  private static getTodoListFromDto(todoDtoList: TodoInterface[]) {
+    let todoList: TodoBusiness[] = [];
+    if (todoDtoList) {
+      for (const todoListItem of todoDtoList) {
         // @ts-ignore (unfortunately, i want business to implements businessInterface, so that they have to implements fromDto(),
         // but I must force it to be instance method, because I cant have static method in interface... But I cant overload constructor
         // so I must set ts-ignore.. mmh)
-        todoList = [...todoList, (new TodoBusiness()).fromDto(todoListItem)];
+        const todoBusiness = (new TodoBusiness()).fromDto(todoListItem);
+        todoList = [todoBusiness, ...todoList];
       }
     }
+    return todoList;
+  }
+
+  fromDto(projectInterface: ProjectInterface): ProjectBusiness  {
+    const todoList = ProjectBusiness.getTodoListFromDto(projectInterface.todoDtoList);
     return new ProjectBusiness(
       projectInterface.idProjet,
       projectInterface.name,

@@ -1,0 +1,19 @@
+<form class="form" [formGroup]="todoForm" (ngSubmit)="submitForm()">
+  <div class="form_input">
+    <div class="label">
+      <label for="todoName">Nom de la tâche : </label>
+    </div>
+    <input formControlName="todoName" name="todoName" type="text">
+  </div>
+  <div class="form_input">
+    <div class="label">
+      <label for="todoDescription">Description de la tâche : </label>
+    </div>
+    <input formControlName="todoDescription" name="todoDescription" type="text">
+  </div>
+  <button type="submit">
+    Enregistrer
+  </button>
+
+
+</form>

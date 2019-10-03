@@ -1,4 +1,9 @@
 <app-error [error]="error"></app-error>
+
 <app-project-detail
   [project]="project"
 ></app-project-detail>
+
+<app-todo-add-form
+(todoFormEmitter) = "createTodo($event)"
+></app-todo-add-form>
