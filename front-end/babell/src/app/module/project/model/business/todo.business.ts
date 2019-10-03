@@ -6,16 +6,18 @@ export class TodoBusiness implements BusinessInterface {
   public name: string;
   public description: string;
   public estimation?: number;
-  public inProgress: boolean;
+  public inProgress?: boolean;
   public done?: boolean;
+  public projectId?: number;
 
-  constructor(id: number, name: string, description: string, estimation: number, inProgress: boolean, done: boolean) {
+  constructor(id: number, name: string, description: string, estimation: number, inProgress: boolean, done: boolean, projectId: number) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.estimation = estimation;
     this.inProgress = inProgress;
     this.done = done;
+    this.projectId = projectId;
   }
 
   fromDto(interfaceDto: TodoInterface): TodoBusiness {
@@ -25,7 +27,8 @@ export class TodoBusiness implements BusinessInterface {
       interfaceDto.description,
       interfaceDto.estimation,
       interfaceDto.inProgress,
-      interfaceDto.done
+      interfaceDto.done,
+      interfaceDto.projectId
     );
   }
 
@@ -36,7 +39,8 @@ export class TodoBusiness implements BusinessInterface {
       description: this.description,
       estimation: this.estimation,
       inProgress: this.inProgress,
-      done: this.done
+      done: this.done,
+      projectId : this.projectId
     };
   }
 }

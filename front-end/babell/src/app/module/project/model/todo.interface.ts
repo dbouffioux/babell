@@ -5,4 +5,5 @@ export interface TodoInterface {
   estimation?: number;
   inProgress: boolean;
   done?: boolean;
+  projectId?: number;
 }

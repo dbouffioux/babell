@@ -7,6 +7,8 @@ import { ProjectListComponent } from './component/project-list/project-list.comp
 import { ProjectDetailComponent } from './component/project-detail/project-detail.component';
 import { ProjectDetailContainerComponent } from './container/project-detail-container/project-detail-container.component';
 import {SharedModule} from '../../shared/shared.module';
+import { TodoAddFormComponent } from './component/todo-add-form/todo-add-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,14 @@ import {SharedModule} from '../../shared/shared.module';
     ProjectContainerComponent,
     ProjectListComponent,
     ProjectDetailComponent,
-    ProjectDetailContainerComponent
+    ProjectDetailContainerComponent,
+    TodoAddFormComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ProjectModule { }
