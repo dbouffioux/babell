@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.jwt.model.JwtResponse;
@@ -87,6 +88,8 @@ public class AssertRest {
 
 		return restTemplate.exchange(requestEntity, String.class);
 	}
+	
+	
 
 	/**
 	 * Envoie une requete et renvoie la réponse sous forme d'une réponse Dto de T
@@ -153,4 +156,6 @@ public class AssertRest {
 		assertEquals(playLoad, responseDto.getPayload());
 	}
 
+
+	
 }
