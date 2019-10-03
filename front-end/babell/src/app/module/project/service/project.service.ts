@@ -32,7 +32,6 @@ export class ProjectService {
     ).pipe(
       map(
         (response) => {
-          console.log(response);
           return HTTPResponseAdapter.adapt(response, ProjectBusiness);
         }
       )
