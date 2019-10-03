@@ -38,7 +38,7 @@ public class LoginTest {
 	@Test
 	public void testLoginOk() throws Exception {
 
-		String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
+		String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:testenligne123".getBytes());
 
 		RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED).body("btoa=" + btoa);
@@ -58,7 +58,7 @@ public class LoginTest {
 	@Test
 	public void testLoginNOk() throws Exception {
 
-		String btoa = Base64.getEncoder().encodeToString("toto@mail.be:1234".getBytes());
+		String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
 
 		RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED).body("btoa=" + btoa);
