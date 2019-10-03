@@ -121,7 +121,7 @@ public class ApplicationRepository implements
     }
 
     @Override
-    public PersonDto findOneTodoByEmail(String email) {
+    public PersonDto findOnePersonByEmail(String email) {
         return PersonDto.from(personRepository.findOneByEmail(email));
     }
 

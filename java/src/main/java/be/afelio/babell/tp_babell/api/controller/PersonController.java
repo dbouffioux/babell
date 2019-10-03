@@ -33,7 +33,7 @@ public class PersonController {
             @PathVariable("email") String email) {
         ResponseDto<PersonDto> responseDto;
         try {
-            PersonDto personDto = repository.findOneTodoByEmail(email);
+            PersonDto personDto = repository.findOnePersonByEmail(email);
             if (personDto == null) {
                 responseDto = new ResponseDto<PersonDto>(ResponseDtoStatus.FAILURE, "person not found");
             } else {

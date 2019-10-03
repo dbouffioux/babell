@@ -7,7 +7,7 @@ import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 public interface PersonControllerRepository {
     void createPerson(CreatePersonDto createPersonDto);
 
-    PersonDto findOneTodoByEmail(String email);
+    PersonDto findOnePersonByEmail(String email);
 
     void updatePersonDto(UpdatePersonDto updatePersonDto);
 

@@ -98,7 +98,8 @@ public class UtilsApplication {
     }
 
     public boolean validatePersonUpdateParameters(UpdatePersonDto updatePersonDto) {
-        return validPersonParameters(updatePersonDto);
+        Integer id = updatePersonDto.getId();
+        return validPersonParameters(updatePersonDto) && id!=null;
     }
 
     private boolean validPersonParameters(TemplatePerson templatePerson) {
@@ -106,9 +107,9 @@ public class UtilsApplication {
         String lastname = templatePerson.getLastname();
         String email = templatePerson.getEmail();
         String password = templatePerson.getPassword();
-        return !firstname.isBlank() && firstname != null
-                && !lastname.isBlank() && lastname != null
-                && !email.isBlank() && email != null
-                && !password.isBlank() && password != null;
+        return  firstname != null&& !firstname.isBlank()
+               &&lastname != null && !lastname.isBlank()
+                && email != null && !email.isBlank()
+                && password != null && !password.isBlank();
     }
 }

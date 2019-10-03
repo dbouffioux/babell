@@ -95,10 +95,11 @@ public class TodoController {
     public ResponseEntity<ResponseDto<Void>> updateTodo(
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;
-
         try {
             repository.updateTodo(updateTodoDto);
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo updated");
+        } catch (TodoNotFoundException e) {
+            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "todo not found");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
             e.printStackTrace();
