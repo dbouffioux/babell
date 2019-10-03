@@ -29,7 +29,7 @@ export class ProjectDetailContainerComponent implements OnInit {
           project => {
             this.project = project;
           },
-          error => {this.error = error; console.log(error)}
+          error => { this.error = error; console.log(error); }
         );
       }
     );

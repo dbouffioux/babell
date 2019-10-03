@@ -7,6 +7,7 @@ import { ProjectListComponent } from './component/project-list/project-list.comp
 import { ProjectDetailComponent } from './component/project-detail/project-detail.component';
 import { ProjectDetailContainerComponent } from './container/project-detail-container/project-detail-container.component';
 import {SharedModule} from '../../shared/shared.module';
+import { TodoListComponent } from './component/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {SharedModule} from '../../shared/shared.module';
     ProjectContainerComponent,
     ProjectListComponent,
     ProjectDetailComponent,
-    ProjectDetailContainerComponent
+    ProjectDetailContainerComponent,
+    TodoListComponent
   ],
   imports: [
     CommonModule,
