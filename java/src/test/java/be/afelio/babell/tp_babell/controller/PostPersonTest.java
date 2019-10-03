@@ -39,7 +39,7 @@ public class PostPersonTest {
 		try {
 			CreatePersonDto personDto = createPersonForTest();
 			RequestEntity<CreatePersonDto>requestEntity
-			= new RequestEntity<CreatePersonDto>(personDto, HttpMethod.POST, URI.create("/person"));
+			= new RequestEntity<CreatePersonDto>(personDto, HttpMethod.POST, URI.create("/subscription"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
