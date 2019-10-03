@@ -49,7 +49,7 @@ public class GetOnePersonByEmailTest {
 	
 	@Test
 	public void testExistingEmailPlayLoad() {
-		assertRest.assertPlayLoad(createTotoTitiForTest(), "/person/delphine@mail.be",type);
+		assertRest.assertPlayLoad(createForTest(), "/person/delphine@mail.be",type);
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ public class GetOnePersonByEmailTest {
 	
 	
 	
-	PersonDto createTotoTitiForTest() {
+	PersonDto createForTest() {
 		return new PersonDto("Delphine", "Franquinet", "delphine@mail.be");
 		
 	}
