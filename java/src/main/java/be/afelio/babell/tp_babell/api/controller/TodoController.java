@@ -9,6 +9,7 @@ import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.persistence.exceptions.DuplicatedTodoException;
 import be.afelio.babell.tp_babell.persistence.exceptions.InvalidCreateParametersException;
+import be.afelio.babell.tp_babell.persistence.exceptions.ProjectNotFoundException;
 import be.afelio.babell.tp_babell.persistence.exceptions.TodoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -84,6 +85,8 @@ public class TodoController {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "invalid create parameters");
         } catch (DuplicatedTodoException e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated todo");
+        } catch (ProjectNotFoundException e) {
+            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "project not found");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
         }

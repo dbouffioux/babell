@@ -32,10 +32,11 @@ public class TodoEntity {
     public TodoEntity() {
     }
 
-    public TodoEntity(String name, String description, boolean inProgress, boolean done, ProjectEntity project) {
+    public TodoEntity(String name, String description,Integer estimation, boolean inProgress, boolean done, ProjectEntity project) {
         this.name = name;
         this.description = description;
         this.inProgress = inProgress;
+        this.estimation = estimation;
         this.done = done;
         this.project = project;
     }
