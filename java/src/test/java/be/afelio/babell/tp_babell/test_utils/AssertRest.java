@@ -89,6 +89,7 @@ public class AssertRest {
 
 		return restTemplate.exchange(requestEntity, String.class);
 	}
+	
 	public HttpHeaders getHeaders (){
 
 		String token = getToken();
@@ -96,8 +97,7 @@ public class AssertRest {
 		headers.add("Authorization", "Bearer " + token);
 		return headers;
 	}
-	
-	
+
 
 	/**
 	 * Envoie une requete et renvoie la réponse sous forme d'une réponse Dto de T
@@ -164,6 +164,9 @@ public class AssertRest {
 		assertEquals(playLoad, responseDto.getPayload());
 	}
 
+	public<T> void assertDtoMessage (String message, String path, TypeReference<ResponseDto<T>> type) {
+		assertEquals(message, this.getDto(path, type).getMessage());
+	}
 
 	
 }

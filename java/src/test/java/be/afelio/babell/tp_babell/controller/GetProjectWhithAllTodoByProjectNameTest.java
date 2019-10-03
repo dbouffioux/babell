@@ -28,7 +28,7 @@ import be.afelio.babell.tp_babell.test_utils.AssertRest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-public class GetAllTodoByProjectNameTest {
+public class GetProjectWhithAllTodoByProjectNameTest {
 	
 	@Autowired TestRestTemplate restTemplate;
 	ObjectMapper mapper = new ObjectMapper();
@@ -37,21 +37,26 @@ public class GetAllTodoByProjectNameTest {
 	TypeReference<ResponseDto<ProjectWithTodoDto>> type = new TypeReference<ResponseDto<ProjectWithTodoDto>>() {};
 	
 	@Test
-	public void testGetAllTodoByProjectNameTestReturnCode () {
+	public void GetProjectWhithAllTodoByProjectNameTestReturnCode () {
 		assertRest.assertReturnCode("/todoproject/Test", 200);
 	}
 	
 	@Test
-	public void testGetAllTodoByProjectNameTestReturnStatusSuccess() {
+	public void GetProjectWhithAllTodoByProjectNameTestReturnStatusSuccess() {
 		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/Test",type);
 	}
 	
 	@Test 
-	public void testGetAllTodoByProjectNameTestPlayLoad() {
+	public void GetProjectWhithAllTodoByProjectNameTestPlayLoad() {
 		ResponseDto<ProjectWithTodoDto> responseDto = assertRest.getDto("/todoproject/Test", type);
 		//assertEquals(2, responseDto.getPayload().getTodoDtoList().size());
 		System.out.println(responseDto.getPayload());
 		assertTrue( responseDto.getPayload().equals(createTestTodo()));
+	}
+	
+	@Test
+	public void GetProjectWhithAllTodoByProjectNameTestMessage() {
+		assertRest.assertDtoMessage("2 todos found", "/todoproject/Test", type);
 	}
 	
 	

@@ -45,9 +45,21 @@ public class GetOneTodoByIdTodoTest {
 		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/2", type);
 	}
 
+	@Test
+	public void GetOneTodoByIdTodoTestMessageOk() {
+		assertRest.assertDtoMessage(" todo found", "/todoproject/test/2", type);
+	}
+	
+	@Test
+	public void GetOneTodoByIdTodoTestMessageNok() {
+		assertRest.assertDtoMessage("unexpected exception", "/todoproject/test/249", type);
+	}
+	
 	private TodoDto createTodoTest() {
 		return new TodoDto(2, "test", "test description", false, false);
 
 	}
+	
+	
 
 }

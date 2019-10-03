@@ -56,6 +56,17 @@ public class GetOnePersonByEmailTest {
 		assertRest.assertDtoStatus(ResponseDtoStatus.FAILURE, "/person/titi@mail.be", type);
 
 	}
+	
+	@Test
+	public void GetOnePersonByEmailTestMessageOK() {
+		assertRest.assertDtoMessage(" person found", "/person/delphine@mail.be", type);
+	}
+	
+	@Test
+	public void GetOnePersonByEmailTestMessageNOK() {
+		assertRest.assertDtoMessage("unexpected exception", "/person/titi@mail.be", type);
+	}
+	
 
 	PersonDto createForTest() {
 		return new PersonDto("Delphine", "Franquinet", "delphine@mail.be");

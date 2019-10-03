@@ -42,6 +42,7 @@ public class GetAllProjectTest {
 	@Test
 	public void testGetAllProjectReturnStatusSuccess() {
 		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/projects", type);
+
 	}
 
 	@Test
@@ -49,6 +50,13 @@ public class GetAllProjectTest {
 		ResponseDto<List<ProjectDto>> responseDto = assertRest.getDto("/projects", type);
 		assertTrue(responseDto.getPayload().contains(createTestProject()));
 	}
+	
+	@Test 
+	public void testGetAllProjectMessage() {
+		assertRest.assertDtoMessage("5 projects found", "/projects", type);
+	}
+	
+	
 
 	ProjectDto createTestProject() {
 		LocalDate start = LocalDate.of(2019, Month.SEPTEMBER, 26);

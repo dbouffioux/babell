@@ -35,6 +35,7 @@ public class PostTodoTest {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	AssertRest assertRest;
+	TypeReference<ResponseDto<Void>> type = new TypeReference<ResponseDto<Void>>() {};
 	
 	@Test
 	public void test() throws Exception {
@@ -51,8 +52,7 @@ public class PostTodoTest {
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
 
-			TypeReference<ResponseDto<Void>> type = new TypeReference<ResponseDto<Void>>() {
-			};
+			
 			ResponseDto<Void> responseDto = mapper.readValue(json, type);
 			System.out.println(responseDto.getMessage());
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
@@ -64,6 +64,10 @@ public class PostTodoTest {
 		}
 
 	}
+	
+
+	
+	
 	
 	CreateTodoDto createTodoForTest() {
 		return new CreateTodoDto("new for test", "test description", 2);
