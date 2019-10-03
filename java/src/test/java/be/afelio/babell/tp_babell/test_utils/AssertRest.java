@@ -9,6 +9,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -87,6 +88,13 @@ public class AssertRest {
 				.header("Authorization", "Bearer " + token).build();
 
 		return restTemplate.exchange(requestEntity, String.class);
+	}
+	public HttpHeaders getHeaders (){
+
+		String token = getToken();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + token);
+		return headers;
 	}
 	
 	

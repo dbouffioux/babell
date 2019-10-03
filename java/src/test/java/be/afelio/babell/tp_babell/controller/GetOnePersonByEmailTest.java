@@ -54,11 +54,12 @@ public class GetOnePersonByEmailTest {
 	
 	@Test
 	public void testForNotExistingEmail() throws Exception{
+
 		ResponseEntity<String> response = restTemplate.getForEntity("/person/titi@mail.be", String.class);
 		assertEquals(200, response.getStatusCodeValue());
-		
+
 		String json = response.getBody();
-		
+
 		ResponseDto<PersonDto> responseDto = mapper.readValue(json, type);
 		
 		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
