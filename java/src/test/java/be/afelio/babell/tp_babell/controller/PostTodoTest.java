@@ -45,6 +45,7 @@ public class PostTodoTest {
 			TypeReference<ResponseDto<Void>> type = new TypeReference<ResponseDto<Void>>() {
 			};
 			ResponseDto<Void> responseDto = mapper.readValue(json, type);
+			System.out.println(responseDto.getMessage());
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
 			assertTrue(checkTodoForTestCreated());
 
