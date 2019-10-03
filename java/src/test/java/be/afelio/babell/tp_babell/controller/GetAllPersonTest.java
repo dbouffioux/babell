@@ -47,7 +47,7 @@ public class GetAllPersonTest {
 	@Test
 	public void testGetAllPersonTestPlayLoad () {
 		ResponseDto<List<PersonDto>> responseDto = assertRest.getDto("/persons", type);
-		assertEquals(1, responseDto.getPayload().size());
+		assertEquals(3, responseDto.getPayload().size());
 		System.out.println(responseDto.getPayload());
 		assertTrue(responseDto.getPayload().contains(createTestPerson()));
 	}
