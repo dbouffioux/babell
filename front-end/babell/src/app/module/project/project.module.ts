@@ -4,16 +4,22 @@ import { ProjectComponent } from './project.component';
 import { ProjectContainerComponent } from './container/project-container/project-container.component';
 import {ProjectRoutingModule} from './project-routing.module';
 import { ProjectListComponent } from './component/project-list/project-list.component';
+import { ProjectDetailComponent } from './component/project-detail/project-detail.component';
+import { ProjectDetailContainerComponent } from './container/project-detail-container/project-detail-container.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     ProjectComponent,
     ProjectContainerComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectDetailComponent,
+    ProjectDetailContainerComponent
   ],
   imports: [
     CommonModule,
-    ProjectRoutingModule
+    ProjectRoutingModule,
+    SharedModule
   ]
 })
 export class ProjectModule { }

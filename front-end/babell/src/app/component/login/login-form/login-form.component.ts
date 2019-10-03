@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '../../../service/authentication.service';
+import {AuthenticationService} from '../../../service/auth/authentication.service';
 import {ValidationService} from '../../../service/validation.service';
 
 @Component({

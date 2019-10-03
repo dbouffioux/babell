@@ -16,6 +16,7 @@ export class ProjectContainerComponent implements OnInit {
   ngOnInit() {
     this.getProjects();
   }
+
   private getProjects() {
     this.projectService.getProjects().subscribe(
       response => this.projects = response
