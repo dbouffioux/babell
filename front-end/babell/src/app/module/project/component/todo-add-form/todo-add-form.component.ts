@@ -13,8 +13,8 @@ export class TodoAddFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.todoForm = this.fb.group({
-      todoName: this.fb.control('', [Validators.required]),
-      todoDescription: this.fb.control('', [Validators.required])
+      name: this.fb.control('', [Validators.required]),
+      description: this.fb.control('', [Validators.required])
     });
   }
 
