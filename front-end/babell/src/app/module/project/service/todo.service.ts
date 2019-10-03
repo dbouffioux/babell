@@ -14,7 +14,7 @@ export class TodoService {
 
   public createTodo(todo: TodoBusiness, projectName: string): Observable<TodoBusiness> {
     return this.http
-      .post<TodoBusiness>(`${environment.baseUrl}//todoproject/{{projectName}}`, todo,
+      .post<TodoBusiness>(`${environment.baseUrl}/todoproject/${projectName}`, todo,
         { withCredentials: true })
       .pipe(catchError((error: any) => throwError(error.json())));
   }
