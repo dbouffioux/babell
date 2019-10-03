@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +44,6 @@ public class DeleteTodoTest {
 		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
 		try {
 
-
 			RequestEntity<Void> requestEntity = new RequestEntity<Void>(assertRest.getHeaders(),HttpMethod.DELETE,
 					URI.create("/todoproject/Test/testTodo" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
@@ -62,8 +60,6 @@ public class DeleteTodoTest {
 			
 		}
 	}
-
-
 	
 	boolean checkTodoForTestDeleted() {
 		boolean deleted = false;
