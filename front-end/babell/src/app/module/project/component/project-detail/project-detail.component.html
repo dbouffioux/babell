@@ -9,6 +9,7 @@
           [list]="project.todoList">
         </app-todo-list>
       </div>
+      <div *ngIf="project?.todoList.length === 0">Il n'y a rien a faire</div>
     </li>
   </ul>
 </section>

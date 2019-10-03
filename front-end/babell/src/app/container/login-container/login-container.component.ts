@@ -39,7 +39,7 @@ export class LoginContainerComponent implements OnInit {
         }
       },
       error => {
-        this.error = error.message;
+        this.error = 'Combinaison mot de passe / nom d\'utilisateur incorrecte';
       }
     );
   }
