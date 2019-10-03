@@ -31,22 +31,22 @@ public class GetOneTodoByIdTodoTest {
 	@Test
 	public void testTodoById23ReturnCode() {
 
-		assertRest.assertReturnCode("/todoproject/test/23", 200);
+		assertRest.assertReturnCode("/todoproject/test/2", 200);
 
 	}
 
 	@Test
 	public void testTodoById23ReturnStatusSucces() {
-		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/test/23", type);
+		assertRest.assertDtoStatus(ResponseDtoStatus.SUCCESS, "/todoproject/test/2", type);
 	}
 
 	@Test
 	public void testTodoById23PlayLoad() {
-		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/23", type);
+		assertRest.assertPlayLoad(createTodoTest(), "/todoproject/test/2", type);
 	}
 
 	private TodoDto createTodoTest() {
-		return new TodoDto(23, "test", "test description", false, false);
+		return new TodoDto(2, "test", "test description", false, false);
 
 	}
 
