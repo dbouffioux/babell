@@ -7,12 +7,14 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.Month;
 
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +38,19 @@ public class PostProjectTest {
 	@Autowired TestRestTemplate restTemplate;
 	@Autowired JdbcTemplate jdbcTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
 	
 	@Test
 	public void test() throws Exception {
 		try {
+			String token = assertRest.getToken();
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", "Bearer " + token);
+
 			CreateProjectDto projectDto = createProjectForTest();
 			RequestEntity<CreateProjectDto> requestEntity
-			= new RequestEntity<CreateProjectDto>(projectDto, HttpMethod.POST, URI.create("/projects"));
+			= new RequestEntity<CreateProjectDto>(projectDto, headers, HttpMethod.POST, URI.create("/projects"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();

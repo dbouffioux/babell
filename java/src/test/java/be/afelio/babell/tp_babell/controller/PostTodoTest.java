@@ -5,12 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
 
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +33,20 @@ public class PostTodoTest {
 	@Autowired TestRestTemplate restTemplate;
 	@Autowired JdbcTemplate jdbcTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
 	
 	@Test
 	public void test() throws Exception {
 		try {
+			String token = assertRest.getToken();
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", "Bearer " + token);
+
 			CreateTodoDto todoDto = createTodoForTest();
-			RequestEntity<CreateTodoDto> requestEntity = new RequestEntity<CreateTodoDto>(todoDto, HttpMethod.POST,
+			RequestEntity<CreateTodoDto> requestEntity = new RequestEntity<CreateTodoDto>(todoDto, headers, HttpMethod.POST,
 					URI.create("/todoproject/Test"));
+
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
