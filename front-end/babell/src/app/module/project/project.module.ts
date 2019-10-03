@@ -9,6 +9,7 @@ import { ProjectDetailContainerComponent } from './container/project-detail-cont
 import {SharedModule} from '../../shared/shared.module';
 import { TodoAddFormComponent } from './component/todo-add-form/todo-add-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TodoListComponent} from './component/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     ProjectListComponent,
     ProjectDetailComponent,
     ProjectDetailContainerComponent,
-    TodoAddFormComponent
+    TodoAddFormComponent,
+    TodoListComponent
   ],
   imports: [
     CommonModule,
