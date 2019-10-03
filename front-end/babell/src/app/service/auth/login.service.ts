@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
-import {ResponseInterface} from '../model/response.interface';
-import {HTTPResponseAdapter} from '../utils/httpresponse-adapter';
+import {ResponseInterface} from '../../model/response.interface';
+import {HTTPResponseAdapter} from '../../utils/httpresponse-adapter';
 import {AuthenticationService} from './authentication.service';
-import {LoginInterface} from '../model/login.interface';
-import {LoginBusiness} from '../model/business/login.business';
+import {LoginInterface} from '../../model/login.interface';
+import {LoginBusiness} from '../../model/business/login.business';
 
 /**
  * Login service, used to get connection from server
@@ -28,7 +28,7 @@ export class LoginService {
     private auth: AuthenticationService
   ) {}
 
-  public getConnection(email: string, password: string): Observable<any[] | any> {
+  public getConnection(email: string, password: string): Observable<LoginInterface> {
     this.params = new HttpParams().set(
       'btoa',
       btoa(`${email}:${password}`)
@@ -47,8 +47,12 @@ export class LoginService {
   public closeConnection(): void {
     this.http.get(`${environment.baseUrl}/logout`,
       { withCredentials: true }
-      ).subscribe(
-      (success: any) => this.auth.removeLoginStorage(),
+      ).pipe(
+        tap(
+          () => this.auth.removeLoginStorage()
+        )
+    ).subscribe(
+      (success: any) => '', // TODO : return a successfully disconnect message
       (error: any) => throwError(error.json())
     );
   }

@@ -17,13 +17,25 @@ export class ProjectService {
 
   public getProjects(): Observable<ProjectBusiness[]> {
     return this.http.get<ResponseInterface<ProjectInterface[]>>(
-      `${environment.baseUrl}/projects`,
-      { withCredentials: true }
+      `${environment.baseUrl}/projects`
     ).pipe(
       map(
-      (response: ResponseInterface<ProjectInterface[]>) => {
+        (response: ResponseInterface<ProjectInterface[]>) => {
         return HTTPResponseAdapter.adapt(response, ProjectBusiness);
       }
     ));
+  }
+
+  public getProjectByName(name: string): Observable<ProjectBusiness> {
+    return this.http.get<ResponseInterface<ProjectInterface>>(
+      `${environment.baseUrl}/todoproject/${name}`
+    ).pipe(
+      map(
+        (response) => {
+          console.log(response);
+          return HTTPResponseAdapter.adapt(response, ProjectBusiness);
+        }
+      )
+    );
   }
 }
