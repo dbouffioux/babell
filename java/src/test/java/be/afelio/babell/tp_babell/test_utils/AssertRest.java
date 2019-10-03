@@ -40,7 +40,7 @@ public class AssertRest {
 
 		if (token == null) { // lazyCreation pour ne le créer qu'une seule fois et on en le crée que si on en
 								// a besoin.
-			String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
+			String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:testenligne123".getBytes());
 			RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
 					.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 					// .body("{\"username\":\"delphine@mail.be\",\"password\":\"1234\"}");
