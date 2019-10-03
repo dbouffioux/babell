@@ -48,6 +48,24 @@ public class GetOnePersonByFirstnameAndLastname {
 	public void testExistingPlayLoad() {
 		assertRest.assertPlayLoad(createForTest(), "/person/Delphine/Franquinet", type);
 	}
+	
+	@Test
+	public void testNotExistingFirstnameAndLastName() {
+		assertRest.assertReturnCode("/person/Toto/tit", 200);
+		assertRest.assertDtoStatus(ResponseDtoStatus.FAILURE, "/person/Toto/tit", type);
+	}
+	
+	@Test
+	public void GetOnePersonByFirstnameAndLastnameTestMessageOk() {
+		assertRest.assertDtoMessage(" person found", "/person/Delphine/Franquinet", type);
+		
+	}
+	
+	@Test
+	public void GetOnePersonByFirstnameAndLastnameTestMessageNOk() {
+		assertRest.assertDtoMessage("unexpected exception", "/person/Toto/tit", type);
+		
+	}
 
 	PersonDto createForTest() {
 		return new PersonDto("Delphine", "Franquinet", "delphine@mail.be");
