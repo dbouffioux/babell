@@ -1,7 +1,9 @@
-<p><u>LIST OF THINGS TO DO</u></p>
+<hr>
+<u>List of things : </u>
+<br><br>
 <ul>
   <li class="todo" *ngFor="let todo of list">
-    <section *ngIf="!todo.done">
+    <section>
       <div class="name">{{ todo.name }}</div>
       <div [ngClass]="todo.done ? 'status done' : 'status todo'">{{ todo.done ? 'Done' : 'Todo' }}</div>
       <div
