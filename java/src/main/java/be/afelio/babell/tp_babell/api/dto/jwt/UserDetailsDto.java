@@ -11,6 +11,14 @@ public class UserDetailsDto implements UserDetails {
     private String username;
     private String password;
 
+    public UserDetailsDto() {
+    }
+
+    public UserDetailsDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public static UserDetailsDto from(PersonEntity person) {
         final UserDetailsDto userDetailsDto = new UserDetailsDto();
         userDetailsDto.username = person.getEmail();

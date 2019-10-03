@@ -1,16 +1,18 @@
 package be.afelio.babell.tp_babell.persistence;
 
-import be.afelio.babell.tp_babell.api.controller.PersonControllerRepository;
-import be.afelio.babell.tp_babell.api.controller.ProjectControllerRepository;
-import be.afelio.babell.tp_babell.api.controller.TodoControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.PersonControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.ProjectControllerRepository;
+import be.afelio.babell.tp_babell.api.controller.interfacesController.TodoControllerRepository;
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
+import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
 import be.afelio.babell.tp_babell.api.utils.UtilsApplication;
+import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.exceptions.*;
@@ -109,7 +111,7 @@ public class ApplicationRepository implements
 
 
     public void createPerson(CreatePersonDto createPersonDto) {
-        if (!validatePersonCreateParameters(createPersonDto)) {
+        if (!utilsApplication.validatePersonCreateParameters(createPersonDto)) {
             throw new InvalidCreateParametersException();
         }
         if (personRepository.findOneByEmail(createPersonDto.getEmail()) != null) {
@@ -119,12 +121,47 @@ public class ApplicationRepository implements
     }
 
     @Override
-    public PersonDto findOneTodoByEmail(String email) {
-        return utilsApplication.createPersonDto(personRepository.findOneByEmail(email));
+    public PersonDto findOnePersonByEmail(String email) {
+        return PersonDto.from(personRepository.findOneByEmail(email));
     }
 
-    private boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
-        return false;
+    @Override
+    public void updatePersonDto(UpdatePersonDto updatePersonDto) {
+        PersonEntity personEntity = personRepository.findOneById(updatePersonDto.getId());
+        if (!utilsApplication.validatePersonUpdateParameters(updatePersonDto)) {
+            throw new InvalidUpdateParametersException();
+        }if(personEntity == null) {
+            throw new PersonNotFoundException();
+        }if(!personEntity.getEmail().equals(updatePersonDto.getEmail())){
+            if(personRepository.findOneByEmail(updatePersonDto.getEmail())!= null){
+                throw new DuplicatedEmailException();
+            }
+        }
+        else if(personEntity!= null){
+            personRepository.save(utilsApplication.generatePersonEntity(personEntity,updatePersonDto));
+        }
+
     }
+
+    @Override
+    public void deletePerson(String email) {
+        PersonEntity personEntity = personRepository.findOneByEmail(email);
+        if (personEntity == null) {
+            throw new PersonNotFoundException();
+        }
+        personRepository.delete(personEntity);
+
+    }
+
+    @Override
+    public PersonDto findOneByFirstnameAndLastname(String firstname, String lastname) {
+       PersonEntity personEntity = personRepository.findOneByFirstnameIgnoreCaseAndLastnameIgnoreCase(firstname, lastname);
+      if(personEntity == null){
+          throw new PersonNotFoundException();
+      }
+        return PersonDto.from(personEntity);
+    }
+
+
 }
 

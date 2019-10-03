@@ -1,18 +1,20 @@
 package be.afelio.babell.tp_babell.api.dto.person;
 
+import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
+
 public class PersonDto {
 
     private String firstname;
-    private String lastName;
+    private String lastname;
     private String email;
 
     public PersonDto() {
     }
 
-    public PersonDto(String firstname, String lastName, String email) {
+    public PersonDto(String firstname, String lastname, String email) {
         super();
         this.firstname = firstname;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.email = email;
     }
 
@@ -24,12 +26,12 @@ public class PersonDto {
         this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -40,9 +42,16 @@ public class PersonDto {
         this.email = email;
     }
 
+    public static PersonDto from(PersonEntity personEntity) {
+        return new PersonDto(
+                personEntity.getFirstname(),
+                personEntity.getLastname(),
+                personEntity.getEmail());
+    }
+
     @Override
     public String toString() {
-        return "PersonDto [firstname=" + firstname + ", lastName=" + lastName + ", email=" + email + "]";
+        return "PersonDto [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + "]";
     }
 
     @Override
@@ -51,7 +60,7 @@ public class PersonDto {
         int result = 1;
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
         return result;
     }
 
@@ -74,9 +83,9 @@ public class PersonDto {
                 return false;
         } else if (!firstname.equals(other.firstname))
             return false;
-        if (lastName == null) {
-            return other.lastName == null;
-        } else return lastName.equals(other.lastName);
+        if (lastname == null) {
+            return other.lastname == null;
+        } else return lastname.equals(other.lastname);
     }
 
 

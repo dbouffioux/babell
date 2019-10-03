@@ -2,7 +2,8 @@ package be.afelio.babell.tp_babell.api.utils;
 
 
 import be.afelio.babell.tp_babell.api.dto.person.CreatePersonDto;
-import be.afelio.babell.tp_babell.api.dto.person.PersonDto;
+import be.afelio.babell.tp_babell.api.dto.person.TemplatePerson;
+import be.afelio.babell.tp_babell.api.dto.person.UpdatePersonDto;
 import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.project.ProjectDto;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
@@ -12,6 +13,7 @@ import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -73,18 +75,41 @@ public class UtilsApplication {
         return todoDtoList;
     }
 
-    public PersonEntity generatePersonEntity(CreatePersonDto createPersonDto) {
+    public PersonEntity generatePersonEntity(TemplatePerson templatePerson) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return new PersonEntity(
-                createPersonDto.getFirstname(),
-                createPersonDto.getLastname(),
-                createPersonDto.getEmail(),
-                createPersonDto.getPassword());
+                templatePerson.getFirstname(),
+                templatePerson.getLastname(),
+                templatePerson.getEmail(),
+                bCryptPasswordEncoder.encode(templatePerson.getPassword()));
     }
 
-    public PersonDto createPersonDto(PersonEntity personEntity) {
-        return new PersonDto(
-                personEntity.getFirstname(),
-                personEntity.getLastname(),
-                personEntity.getEmail());
+    public PersonEntity generatePersonEntity(PersonEntity personEntity,TemplatePerson templatePerson) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        personEntity.setFirstname(templatePerson.getFirstname());
+        personEntity.setLastname(templatePerson.getLastname());
+        personEntity.setEmail(templatePerson.getEmail());
+        personEntity.setPassword(bCryptPasswordEncoder.encode(templatePerson.getPassword()));
+        return personEntity;
+    }
+
+    public boolean validatePersonCreateParameters(CreatePersonDto createPersonDto) {
+        return validPersonParameters(createPersonDto);
+    }
+
+    public boolean validatePersonUpdateParameters(UpdatePersonDto updatePersonDto) {
+        Integer id = updatePersonDto.getId();
+        return validPersonParameters(updatePersonDto) && id!=null;
+    }
+
+    private boolean validPersonParameters(TemplatePerson templatePerson) {
+        String firstname = templatePerson.getFirstname();
+        String lastname = templatePerson.getLastname();
+        String email = templatePerson.getEmail();
+        String password = templatePerson.getPassword();
+        return  firstname != null&& !firstname.isBlank()
+               &&lastname != null && !lastname.isBlank()
+                && email != null && !email.isBlank()
+                && password != null && !password.isBlank();
     }
 }

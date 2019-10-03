@@ -42,7 +42,7 @@ public class UpdateTodoTest {
 		
 		try {
 			RequestEntity<UpdateTodoDto>requestEntity
-			= new RequestEntity<UpdateTodoDto>(updateTodoForTest(), HttpMethod.PUT, URI.create("/todoproject"));
+			= new RequestEntity<UpdateTodoDto>(updateTodoForTest(id), HttpMethod.PUT, URI.create("/todoproject"));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
 			String json = response.getBody();
@@ -60,8 +60,8 @@ public class UpdateTodoTest {
 		
 	}
 	
-	UpdateTodoDto updateTodoForTest() {
-		return new UpdateTodoDto("testForUpdate", "test description", 30, false, false, 2);
+	UpdateTodoDto updateTodoForTest(int id) {
+		return new UpdateTodoDto(id,"testForUpdate", "test description", 30, false, false, 2);
 		
 	}
 	

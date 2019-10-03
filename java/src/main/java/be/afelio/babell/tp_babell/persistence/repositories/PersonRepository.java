@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PersonRepository extends JpaRepository<PersonEntity, Integer> {
     PersonEntity findOneByEmail(String email);
 
+    PersonEntity findOneById(int id);
+
+    PersonEntity findOneByFirstnameIgnoreCaseAndLastnameIgnoreCase(String firstname, String lastname);
 }

@@ -36,6 +36,11 @@ public class GetOnePersonByEmailTest {
 
 	@Test
 	public void testForExistingEmailReturnCode() {
+		ResponseEntity<String> response = restTemplate.getForEntity("/person/toto@mail.be", String.class);
+		assertEquals(200, response.getStatusCodeValue());
+		//assertRest.assertReturnCode("", 200);
+		// il y a qqch que je ne comprends pas dans la classe assertRest qui fait échouer le test
+
 
 		assertRest.assertReturnCode("/person/toto@mail.be", 200);
 		

@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService jwtUserDetailsService;
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    DataSource dataSource;
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
@@ -46,6 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
+    }
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -59,8 +66,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .antMatchers("/projects").permitAll()
-                .antMatchers("/test").permitAll().
-                anyRequest().authenticated().and().
+                .antMatchers("/test").permitAll()
+                .antMatchers("/subscription").permitAll()
+                .antMatchers("/todoproject/Test/testTodo").permitAll()
+                .antMatchers("/person/toto@mail.be").permitAll()
+                .antMatchers("/person/titi@mail.be").permitAll()
+                .antMatchers("/todoproject/Test").permitAll()
+                .antMatchers("/person/Toto/Titi").permitAll()
+                .antMatchers("/todoproject").permitAll()
+
+                .anyRequest().authenticated().and().
 
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

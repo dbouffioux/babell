@@ -1,6 +1,7 @@
 package be.afelio.babell.tp_babell.api.controller;
 
 
+import be.afelio.babell.tp_babell.api.controller.interfacesController.TodoControllerRepository;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.dto.todo.CreateTodoDto;
@@ -90,14 +91,15 @@ public class TodoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping(value = "{projectName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<Void>> updateTodo(
             @RequestBody UpdateTodoDto updateTodoDto) {
         ResponseDto<Void> responseDto = null;
-
         try {
             repository.updateTodo(updateTodoDto);
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "todo updated");
+        } catch (TodoNotFoundException e) {
+            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "todo not found");
         } catch (Exception e) {
             responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
             e.printStackTrace();
