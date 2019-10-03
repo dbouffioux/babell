@@ -56,7 +56,7 @@ public class LoginTest {
 	}
 	
 	@Test
-	public void testLoginNOk() throws Exception {
+	public void testLoginNOkWithWrongPassword() throws Exception {
 
 		String btoa = Base64.getEncoder().encodeToString("delphine@mail.be:1234".getBytes());
 
@@ -72,6 +72,25 @@ public class LoginTest {
 		ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
 		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
 		assertEquals("failure to connect", responseDto.getMessage());
+
+	}
+	@Test
+	public void testLoginNOkWithWrongEmail() throws Exception {
+
+		String btoa = Base64.getEncoder().encodeToString("toto@mail.be:1234".getBytes());
+
+		RequestEntity<String> requestEntity = RequestEntity.post(URI.create("/login"))
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED).body("btoa=" + btoa);
+		ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
+		assertEquals(200, response.getStatusCodeValue());
+
+		String json = response.getBody();
+
+		TypeReference<ResponseDto<JwtResponse>> type = new TypeReference<ResponseDto<JwtResponse>>() {
+		};
+		ResponseDto<JwtResponse> responseDto = mapper.readValue(json, type);
+		assertEquals(ResponseDtoStatus.FAILURE, responseDto.getStatus());
+		assertEquals("person not found", responseDto.getMessage());
 
 	}
 

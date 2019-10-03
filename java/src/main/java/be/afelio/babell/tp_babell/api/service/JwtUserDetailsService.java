@@ -2,6 +2,7 @@ package be.afelio.babell.tp_babell.api.service;
 
 
 import be.afelio.babell.tp_babell.api.dto.jwt.UserDetailsDto;
+import be.afelio.babell.tp_babell.persistence.exceptions.PersonNotFoundException;
 import be.afelio.babell.tp_babell.persistence.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return Optional.ofNullable(email)
                 .map(personRepository::findOneByEmail)
                 .map(UserDetailsDto::from)
-                .orElseThrow(() -> new IllegalStateException("Aucun utilisateur correspondant."));
+                .orElseThrow(() -> new PersonNotFoundException());
     }
 
 }

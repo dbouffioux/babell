@@ -63,7 +63,7 @@ public class ApplicationRepository implements
         if (todoRepository.findOneByNameIgnoreCase(createTodoDto.getName()) != null) {
             throw new DuplicatedTodoException();
         }
-        todoRepository.save(utilsApplication.generateProjectEntity(createTodoDto, projectName));
+        todoRepository.save(utilsApplication.generateTodoEntityWithProjectProjectEntity(createTodoDto, projectName));
     }
 
     public void updateTodo(UpdateTodoDto updateTodoDto) {

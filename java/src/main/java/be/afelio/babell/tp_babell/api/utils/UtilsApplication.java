@@ -51,7 +51,7 @@ public class UtilsApplication {
                 && end != null;
     }
 
-    public TodoEntity generateProjectEntity(CreateTodoDto createTodoDto, String projectName) {
+    public  TodoEntity generateTodoEntityWithProjectProjectEntity(CreateTodoDto createTodoDto, String projectName) {
 
         ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
         return new TodoEntity(
