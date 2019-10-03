@@ -59,12 +59,8 @@ public class DeletePersonTest {
 			
 			assertEquals(ResponseDtoStatus.SUCCESS, responseDto.getStatus());
 			assertTrue(checkPersonForTestDeleted());
-			
-			
-			
 		}finally {
 			jdbcTemplate.update("delete from person  Where firstname = 'Toto' And lastname = 'Titi'");
-			
 		}
 	}
 	

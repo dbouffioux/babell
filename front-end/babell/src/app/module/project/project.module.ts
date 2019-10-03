@@ -7,7 +7,8 @@ import { ProjectListComponent } from './component/project-list/project-list.comp
 import { ProjectDetailComponent } from './component/project-detail/project-detail.component';
 import { ProjectDetailContainerComponent } from './container/project-detail-container/project-detail-container.component';
 import {SharedModule} from '../../shared/shared.module';
-import { TodoListComponent } from './component/todo-list/todo-list.component';
+import { TodoAddFormComponent } from './component/todo-add-form/todo-add-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,13 @@ import { TodoListComponent } from './component/todo-list/todo-list.component';
     ProjectListComponent,
     ProjectDetailComponent,
     ProjectDetailContainerComponent,
-    TodoListComponent
+    TodoAddFormComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ProjectModule { }

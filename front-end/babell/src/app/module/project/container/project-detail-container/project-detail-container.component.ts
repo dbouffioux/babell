@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectBusiness} from '../../model/business/project.business';
 import {ProjectService} from '../../service/project.service';
+import {TodoBusiness} from '../../model/business/todo.business';
+import {TodoService} from '../../service/todo.service';
 
 @Component({
   selector: 'app-project-detail-container',
@@ -15,7 +17,8 @@ export class ProjectDetailContainerComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private todoService: TodoService
   ) { }
 
   ngOnInit() {
@@ -33,5 +36,9 @@ export class ProjectDetailContainerComponent implements OnInit {
         );
       }
     );
+  }
+  private createTodo(todo: TodoBusiness): void {
+    todo.projectId = this.project.id;
+    this.todoService.createTodo(todo, this.project.name).subscribe();
   }
 }
