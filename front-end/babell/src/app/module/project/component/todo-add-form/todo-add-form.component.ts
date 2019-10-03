@@ -23,5 +23,6 @@ export class TodoAddFormComponent implements OnInit {
 
   submitForm(formValues: any): void {
     this.todoFormEmitter.emit(this.todoForm.value);
+    this.todoForm.reset();
   }
 }

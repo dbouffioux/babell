@@ -38,6 +38,8 @@ export class ProjectDetailContainerComponent implements OnInit {
     );
   }
   private createTodo(todo: TodoBusiness): void {
-    this.todoService.createTodo(todo, this.project.name).subscribe();
+    this.todoService.createTodo(todo, this.project.name).subscribe(() =>
+      this.getProject()
+    );
   }
 }
