@@ -19,7 +19,7 @@ import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FindAllProjectTest {
 	
 	@Autowired ApplicationRepository repository;

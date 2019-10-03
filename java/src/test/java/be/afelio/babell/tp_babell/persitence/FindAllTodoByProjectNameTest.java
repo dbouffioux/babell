@@ -15,7 +15,7 @@ import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.persistence.ApplicationRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FindAllTodoByProjectNameTest {
 	
 @Autowired ApplicationRepository repository;

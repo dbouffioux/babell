@@ -11,6 +11,7 @@ import be.afelio.babell.tp_babell.api.dto.todo.TodoDto;
 import be.afelio.babell.tp_babell.persistence.entities.PersonEntity;
 import be.afelio.babell.tp_babell.persistence.entities.ProjectEntity;
 import be.afelio.babell.tp_babell.persistence.entities.TodoEntity;
+import be.afelio.babell.tp_babell.persistence.exceptions.ProjectNotFoundException;
 import be.afelio.babell.tp_babell.persistence.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,15 +52,15 @@ public class UtilsApplication {
                 && end != null;
     }
 
-    public TodoEntity generateProjectEntity(CreateTodoDto createTodoDto, String projectName) {
-
-        ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
-        return new TodoEntity(
-                createTodoDto.getName(),
-                createTodoDto.getDescription(),
-                false,
-                false,
-                projectEntity);
+    public  TodoEntity generateTodoEntityWithProjectEntity(CreateTodoDto createTodoDto, String projectName) {
+            ProjectEntity projectEntity = projectRepository.findOneByNameIgnoreCase(projectName);
+            return new TodoEntity(
+                    createTodoDto.getName(),
+                    createTodoDto.getDescription(),
+                    0,
+                    false,
+                    false,
+                    projectEntity);
     }
 
     public boolean validateTodoCreateParameters(CreateTodoDto createTodoDto) {
