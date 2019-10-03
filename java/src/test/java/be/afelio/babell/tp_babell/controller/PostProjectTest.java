@@ -28,9 +28,6 @@ import be.afelio.babell.tp_babell.api.dto.project.CreateProjectDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 
-
-;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class PostProjectTest {
