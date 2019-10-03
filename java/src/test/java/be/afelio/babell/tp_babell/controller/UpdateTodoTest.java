@@ -1,8 +1,6 @@
 package be.afelio.babell.tp_babell.controller;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 import be.afelio.babell.tp_babell.test_utils.AssertRest;
 import org.junit.Test;
@@ -24,9 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDto;
 import be.afelio.babell.tp_babell.api.dto.response.ResponseDtoStatus;
 import be.afelio.babell.tp_babell.api.dto.todo.UpdateTodoDto;
-import org.springframework.util.MultiValueMap;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.Assert.*;
 

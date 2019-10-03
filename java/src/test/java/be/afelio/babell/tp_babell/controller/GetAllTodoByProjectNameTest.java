@@ -1,9 +1,12 @@
 package be.afelio.babell.tp_babell.controller;
 
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import be.afelio.babell.tp_babell.api.dto.project.ProjectWithTodoDto;
@@ -46,14 +49,38 @@ public class GetAllTodoByProjectNameTest {
 	@Test 
 	public void testGetAllTodoByProjectNameTestPlayLoad() {
 		ResponseDto<ProjectWithTodoDto> responseDto = assertRest.getDto("/todoproject/Test", type);
-		assertEquals(2, responseDto.getPayload().getTodoDtoList().size());
+		//assertEquals(2, responseDto.getPayload().getTodoDtoList().size());
 		System.out.println(responseDto.getPayload());
-		assertTrue( responseDto.getPayload().getTodoDtoList().contains(createTestTodo()));
+		assertTrue( responseDto.getPayload().equals(createTestTodo()));
 	}
 	
 	
-	private TodoDto createTestTodo() {
-		return new TodoDto(2, "test", "test description", false, false); 
+	private ProjectWithTodoDto createTestTodo() {
+		TodoDto todo1 = new TodoDto();
+		TodoDto todo2 = new TodoDto();
+		todo1.setId(1);
+		todo1.setName("testForUpdate3");
+		todo1.setDescription("test description");
+		todo1.setInProgress(false);
+		todo1.setDone(false);
+		todo2.setId(2);
+		todo2.setName("test");
+		todo2.setDescription("test description");
+		todo2.setInProgress(false);
+		todo2.setDone(false);
+		
+		List<TodoDto> todoDtoList = new ArrayList<TodoDto>();
+		todoDtoList.add(todo1);
+		todoDtoList.add(todo2);
+		
+		ProjectWithTodoDto projet = new ProjectWithTodoDto();
+		projet.setId(2);
+		projet.setName("Test");
+		projet.setProjectStart(LocalDate.of(2019, Month.OCTOBER, 26));
+		projet.setProjectEnd(LocalDate.of(2019, Month.NOVEMBER, 6));
+		projet.setTodoDtoList(todoDtoList);
+		
+		return projet; 
 	}
 
 }

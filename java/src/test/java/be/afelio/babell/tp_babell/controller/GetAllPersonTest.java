@@ -1,7 +1,6 @@
 package be.afelio.babell.tp_babell.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -47,7 +45,7 @@ public class GetAllPersonTest {
 	@Test
 	public void testGetAllPersonTestPlayLoad () {
 		ResponseDto<List<PersonDto>> responseDto = assertRest.getDto("/persons", type);
-		assertEquals(1, responseDto.getPayload().size());
+		assertEquals(3, responseDto.getPayload().size());
 		System.out.println(responseDto.getPayload());
 		assertTrue(responseDto.getPayload().contains(createTestPerson()));
 	}

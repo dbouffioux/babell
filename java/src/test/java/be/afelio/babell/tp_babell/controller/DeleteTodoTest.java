@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
 
+import be.afelio.babell.tp_babell.test_utils.AssertRest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +36,17 @@ public class DeleteTodoTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	AssertRest assertRest;
 
 	@Test
 	public void test() throws Exception {
 
 		jdbcTemplate.update("INSERT INTO todo (id_todo, name, description, in_progress, done, id_project) VALUES (default, 'testTodo','test description', false, false, 2)");
-		try {	
-			RequestEntity<Void> requestEntity = new RequestEntity<Void>(HttpMethod.DELETE,
+		try {
+
+
+			RequestEntity<Void> requestEntity = new RequestEntity<Void>(assertRest.getHeaders(),HttpMethod.DELETE,
 					URI.create("/todoproject/Test/testTodo" ));
 			ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 			assertEquals(200, response.getStatusCodeValue());
