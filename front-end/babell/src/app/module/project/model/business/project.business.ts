@@ -19,7 +19,7 @@ export class ProjectBusiness implements BusinessInterface {
   public endDate: Date;
   public todoList: TodoBusiness[];
 
-  private static getTodoListFromDto(todoDtoList: TodoInterface[]) {
+  private static getTodoListFromDto(todoDtoList: TodoInterface[]): TodoBusiness[] {
     let todoList: TodoBusiness[] = [];
     if (todoDtoList) {
       for (const todoListItem of todoDtoList) {
@@ -33,10 +33,22 @@ export class ProjectBusiness implements BusinessInterface {
     return todoList;
   }
 
+  private static getTodoListToDto(todoBusinessList: TodoBusiness[]): TodoInterface[] {
+    let todoList: TodoInterface[] = [];
+    if (todoBusinessList) {
+      for (const todoListItem of todoBusinessList) {
+        // @ts-ignore
+        const todoBusiness = (new TodoBusiness()).toDto(todoListItem);
+        todoList = [todoBusiness, ...todoList];
+      }
+    }
+    return todoList;
+  }
+
   fromDto(projectInterface: ProjectInterface): ProjectBusiness  {
     const todoList = ProjectBusiness.getTodoListFromDto(projectInterface.todoDtoList);
     return new ProjectBusiness(
-      projectInterface.idProjet,
+      projectInterface.idProject,
       projectInterface.name,
       projectInterface.projectStart,
       projectInterface.projectEnd,
@@ -46,11 +58,11 @@ export class ProjectBusiness implements BusinessInterface {
 
   toDto(): ProjectInterface {
     return {
-      idProjet : this.id,
+      idProject : this.id,
       name: this.name,
       projectStart: this.startDate,
       projectEnd: this.endDate,
-      todoDtoList: this.todoList
+      todoDtoList: ProjectBusiness.getTodoListToDto(this.todoList)
     };
   }
 }

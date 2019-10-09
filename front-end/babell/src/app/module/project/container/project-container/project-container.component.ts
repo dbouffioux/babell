@@ -10,6 +10,7 @@ import {ProjectBusiness} from '../../model/business/project.business';
 export class ProjectContainerComponent implements OnInit {
 
   projects: ProjectBusiness[];
+  private error: string;
 
   constructor(private projectService: ProjectService) { }
 
@@ -19,7 +20,14 @@ export class ProjectContainerComponent implements OnInit {
 
   private getProjects() {
     this.projectService.getProjects().subscribe(
-      response => this.projects = response
+      response => {
+        if (response.status !== 'SUCCESS') {
+          this.error = response.message;
+        } else {
+          this.projects = response.payload;
+        }
+      },
+      error => this.error = error
     );
   }
 }

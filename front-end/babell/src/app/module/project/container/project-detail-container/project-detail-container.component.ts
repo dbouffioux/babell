@@ -14,6 +14,7 @@ export class ProjectDetailContainerComponent implements OnInit {
 
   public project: ProjectBusiness;
   public error: string;
+  private message: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,17 +30,30 @@ export class ProjectDetailContainerComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         this.projectService.getProjectByName(params.name).subscribe(
-          project => {
-            this.project = project;
+          response => {
+            if (response.status !== 'SUCCESS') {
+              this.error = response.message;
+            } else {
+              this.project = response.payload;
+            }
           },
-          error => { this.error = error; console.log(error); }
+          error => this.error = error
         );
       }
     );
   }
+
   private createTodo(todo: TodoBusiness): void {
-    this.todoService.createTodo(todo, this.project.name).subscribe(() =>
-      this.getProject()
+    this.todoService.createTodo(todo, this.project.name).subscribe(
+      (response) => {
+         if (response.status !== 'SUCCESS') {
+            this.error = response.message;
+         } else {
+            this.message = response.message;
+         }
+         this.getProject();
+      },
+      (error) => this.error = error
     );
   }
 }

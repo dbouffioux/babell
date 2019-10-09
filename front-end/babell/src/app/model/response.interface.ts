@@ -1,5 +1,5 @@
-export interface ResponseInterface<T> {
+export class ResponseInterface<T> {
   payload: T;
-  status: number;
+  status: string;
   message: string;
 }

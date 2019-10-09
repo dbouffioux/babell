@@ -14,6 +14,7 @@ import { ButtonComponent } from './component/form/button/button.component';
 import { LoginContainerComponent } from './container/login-container/login-container.component';
 import {TokenInterceptor} from './utils/token-interceptor';
 import {SharedModule} from './shared/shared.module';
+import { SuccessfulComponent } from './component/form/successful/successful.component';
 
 @NgModule({
   declarations: [

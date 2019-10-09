@@ -8,6 +8,7 @@ import {HTTPResponseAdapter} from '../../utils/httpresponse-adapter';
 import {AuthenticationService} from './authentication.service';
 import {LoginInterface} from '../../model/login.interface';
 import {LoginBusiness} from '../../model/business/login.business';
+import {ProjectBusiness} from '../../module/project/model/business/project.business';
 
 /**
  * Login service, used to get connection from server
@@ -28,7 +29,7 @@ export class LoginService {
     private auth: AuthenticationService
   ) {}
 
-  public getConnection(email: string, password: string): Observable<LoginInterface> {
+  public getConnection(email: string, password: string): Observable<ResponseInterface<LoginBusiness>> {
     this.params = new HttpParams().set(
       'btoa',
       btoa(`${email}:${password}`)

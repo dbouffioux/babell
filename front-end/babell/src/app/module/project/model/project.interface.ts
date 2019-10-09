@@ -1,7 +1,7 @@
 import {TodoInterface} from './todo.interface';
 
 export interface ProjectInterface {
-  idProjet?: number;
+  idProject?: number;
   name: string;
   projectStart: Date;
   projectEnd: Date;

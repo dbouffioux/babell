@@ -6,14 +6,14 @@ import {TodoInterface} from '../module/project/model/todo.interface';
 const ProjectList: ResponseInterface<ProjectInterface[]> = {
   payload: [
     {
-      idProjet: 1,
+      idProject: 1,
       name: 'Uno',
       projectStart: new Date('2019-08-12'),
       projectEnd: new Date('2019-08-18'),
       todoDtoList: []
     },
     {
-      idProjet: 2,
+      idProject: 2,
       name: 'Due',
       projectStart: new Date('2019-08-18'),
       projectEnd: new Date('2019-08-28'),
@@ -26,7 +26,7 @@ const ProjectList: ResponseInterface<ProjectInterface[]> = {
 
 const Project: ResponseInterface<ProjectInterface> = {
   payload: {
-    idProjet: 1,
+    idProject: 1,
     name: 'Uno',
     projectStart: new Date('2019-08-12'),
     projectEnd: new Date('2019-08-18'),

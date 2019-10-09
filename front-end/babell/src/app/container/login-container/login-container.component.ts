@@ -3,6 +3,8 @@ import {LoginBusiness} from '../../model/business/login.business';
 import {LoginService} from '../../service/auth/login.service';
 import {AuthenticationService} from '../../service/auth/authentication.service';
 import {Router} from '@angular/router';
+import {LoginInterface} from '../../model/login.interface';
+import {ResponseInterface} from '../../model/response.interface';
 
 @Component({
   selector: 'app-login-container',
@@ -29,9 +31,9 @@ export class LoginContainerComponent implements OnInit {
       formValues.email,
       formValues.password
     ).subscribe(
-      (loginBusiness: LoginBusiness) => {
-        if (loginBusiness) {
-          this.auth.setLoginStorage(loginBusiness);
+      (response: ResponseInterface<LoginBusiness>) => {
+        if (response.payload) {
+          this.auth.setLoginStorage(response.payload);
           this.auth.setUser(formValues.email);
           this.router.navigate(['/projects']).then(r => (r));
         } else {
