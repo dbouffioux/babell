@@ -5,6 +5,8 @@ import {AuthenticationService} from '../../service/auth/authentication.service';
 import {Router} from '@angular/router';
 import {LoginInterface} from '../../model/login.interface';
 import {ResponseInterface} from '../../model/response.interface';
+import {PersonBusiness} from '../../model/business/person.business';
+import {PersonInterface} from '../../model/person.interface';
 
 @Component({
   selector: 'app-login-container',
@@ -23,7 +25,7 @@ export class LoginContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isAuthenticated = this.auth.isAuthenticated();
+    this.getIsAuthenticated();
   }
 
   submitLoginForm(formValues: any): void {
@@ -33,9 +35,7 @@ export class LoginContainerComponent implements OnInit {
     ).subscribe(
       (response: ResponseInterface<LoginBusiness>) => {
         if (response.payload) {
-          this.auth.setLoginStorage(response.payload);
-          this.auth.setUser(formValues.email);
-          this.router.navigate(['/projects']).then(r => (r));
+          this.authenticate(response, formValues);
         } else {
           this.error = 'Unknown error';
         }
@@ -44,5 +44,28 @@ export class LoginContainerComponent implements OnInit {
         this.error = 'Combinaison mot de passe / nom d\'utilisateur incorrecte';
       }
     );
+  }
+
+  submitSubscriptionForm(person: PersonInterface): void {
+
+    this.loginService.subscription(person).subscribe(
+      (response: ResponseInterface<LoginBusiness>) => {
+        this.authenticate(response, person);
+        },
+      error => {
+        this.error = 'Combinaison mot de passe / nom d\'utilisateur incorrecte';
+      }
+    );
+  }
+
+  public authenticate(response: ResponseInterface<LoginBusiness>, formValues: any) {
+    this.auth.setLoginStorage(response.payload);
+    this.auth.setUser(formValues.email);
+    this.router.navigate(['/projects']).then(r => (r));
+    this.getIsAuthenticated();
+  }
+
+  private getIsAuthenticated() {
+    this.isAuthenticated = this.auth.isAuthenticated();
   }
 }

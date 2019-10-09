@@ -20,7 +20,7 @@ const ProjectList: ResponseInterface<ProjectInterface[]> = {
       todoDtoList: []
     },
   ],
-  status: 200,
+  status: 'SUCCESS',
   message: 'success'
 };
 
@@ -49,20 +49,20 @@ const Project: ResponseInterface<ProjectInterface> = {
       }
     ]
   },
-  status: 200,
+  status: 'SUCCESS',
   message: 'success'
 };
 
 const getProjects = (request: HttpRequest<any>): HttpResponse<any> => {
   return new HttpResponse({
-    status: ProjectList.status,
+    status: 200,
     body: ProjectList
   });
 };
 
 const getProject = (request: HttpRequest<any>): HttpResponse<any> => {
   return new HttpResponse({
-    status: Project.status,
+    status: 200,
     body: Project
   });
 };

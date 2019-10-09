@@ -1,0 +1,6 @@
+<nav>
+  <a [routerLink]="'/projects'" >Projects </a>
+  <button *ngIf="isAuthenticated">
+    <a (click)="closeConnection()">Log out</a>
+  </button>
+</nav>

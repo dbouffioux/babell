@@ -14,7 +14,8 @@ import { ButtonComponent } from './component/form/button/button.component';
 import { LoginContainerComponent } from './container/login-container/login-container.component';
 import {TokenInterceptor} from './utils/token-interceptor';
 import {SharedModule} from './shared/shared.module';
-import { SuccessfulComponent } from './component/form/successful/successful.component';
+import { SubscriptionFormComponent } from './component/login/subscription-form/subscription-form.component';
+import { MenuComponent } from './component/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SuccessfulComponent } from './component/form/successful/successful.comp
     LoginComponent,
     LoginFormComponent,
     ButtonComponent,
-    LoginContainerComponent
+    LoginContainerComponent,
+    SubscriptionFormComponent
   ],
   imports: [
     BrowserModule,

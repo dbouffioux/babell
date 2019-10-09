@@ -34,6 +34,8 @@ export class ProjectDetailContainerComponent implements OnInit {
             if (response.status !== 'SUCCESS') {
               this.error = response.message;
             } else {
+              this.error = null;
+              this.message = response.message;
               this.project = response.payload;
             }
           },

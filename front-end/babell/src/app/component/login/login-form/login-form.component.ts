@@ -12,7 +12,6 @@ export class LoginFormComponent {
 
   public loginForm: FormGroup;
   @Input() public error: string;
-  @Input() public isAuthenticated: boolean;
   @Output() private loginFormEmitter = new EventEmitter();
 
   constructor(
@@ -20,7 +19,7 @@ export class LoginFormComponent {
     private auth: AuthenticationService
   ) {
     this.loginForm = this.fb.group({
-      email: this.fb.control('', [Validators.required]),
+      email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [
         Validators.required,
         ValidationService.passwordValidator])

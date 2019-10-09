@@ -1,0 +1,35 @@
+<form class="form" [formGroup]="subscriptionForm" (ngSubmit)="submitForm()">
+  <h2>Sign In</h2>
+  <app-error
+    [error]="error"
+  ></app-error>
+  <div class="form_input">
+    <div class="label">
+      <label for="firstname">prénom : </label>
+    </div>
+    <input formControlName="firstname" name="firstname" type="firstname">
+  </div>
+  <div class="form_input">
+    <div class="label">
+      <label for="lastname">nom : </label>
+    </div>
+    <input formControlName="lastname" name="lastname" type="lastname">
+  </div>
+  <div class="form_input">
+    <div class="label">
+      <label for="email">email : </label>
+    </div>
+    <input formControlName="email" name="email" type="email">
+  </div>
+  <div class="form_input">
+    <div class="label">
+      <label for="password">password : </label>
+    </div>
+    <input formControlName="password" name="password" type="password">
+  </div>
+  <app-button
+    [typeValue]="'submit'"
+    [form]="subscriptionForm"
+  ></app-button>
+</form>
+

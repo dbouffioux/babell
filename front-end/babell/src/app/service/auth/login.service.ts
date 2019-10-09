@@ -9,6 +9,7 @@ import {AuthenticationService} from './authentication.service';
 import {LoginInterface} from '../../model/login.interface';
 import {LoginBusiness} from '../../model/business/login.business';
 import {ProjectBusiness} from '../../module/project/model/business/project.business';
+import {PersonInterface} from '../../model/person.interface';
 
 /**
  * Login service, used to get connection from server
@@ -45,16 +46,16 @@ export class LoginService {
     );
   }
 
-  public closeConnection(): void {
-    this.http.get(`${environment.baseUrl}/logout`,
-      { withCredentials: true }
+  subscription(person: PersonInterface): Observable<ResponseInterface<LoginBusiness>> {
+    return this.http.post(`${environment.baseUrl}/subscription`,
+      person,
+      { headers: {'Content-Type': 'application/json'}}
       ).pipe(
-        tap(
-          () => this.auth.removeLoginStorage()
-        )
-    ).subscribe(
-      (success: any) => '', // TODO : return a successfully disconnect message
-      (error: any) => throwError(error.json())
+      map(
+        (response: ResponseInterface<LoginInterface>) => {
+          return HTTPResponseAdapter.adapt(response, LoginBusiness);
+        }
+      )
     );
   }
 }

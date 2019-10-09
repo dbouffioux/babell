@@ -30,7 +30,8 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<ResponseDto<JwtResponse>> createAuthenticationToken(HttpServletRequest request/*@RequestBody JwtRequest authenticationRequest*/) throws Exception {
+    public ResponseEntity<ResponseDto<JwtResponse>> createAuthenticationToken(
+    		HttpServletRequest request/*@RequestBody JwtRequest authenticationRequest*/) throws Exception {
         try{
             JwtRequest authenticationRequest = (JwtRequest) request.getAttribute("jwtRequest");
             ResponseDto<JwtResponse> responseDto = getTokenWithJwtResponse(request,authenticationRequest.getUsername(), authenticationRequest.getPassword());

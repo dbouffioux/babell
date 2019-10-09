@@ -1,5 +1,7 @@
+<app-menu></app-menu>
 <app-login
   (loginFormEmitter)="submitLoginForm($event)"
+  (subscriptionFormEmitter)="submitSubscriptionForm($event)"
   [isAuthenticated]="isAuthenticated"
   [error]="error"
 ></app-login>

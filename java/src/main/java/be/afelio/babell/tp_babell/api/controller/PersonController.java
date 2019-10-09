@@ -68,18 +68,22 @@ public class PersonController {
 
 
     @PostMapping(value = "/subscription", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<Void>> createPerson(
+    public  ResponseEntity<ResponseDto<JwtResponse>> createPerson(
+    		 HttpServletRequest request,
             @RequestBody CreatePersonDto createPersonDto) {
-        ResponseDto<Void> responseDto;
+        ResponseDto<JwtResponse> responseDto;
         try {
             repository.createPerson(createPersonDto);
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.SUCCESS, "person created");
+            responseDto =  jwtAuthenticationController.getTokenWithJwtResponse(
+            		request, 
+            		createPersonDto.getEmail(), 
+            		createPersonDto.getPassword());
         } catch (InvalidCreateParametersException e) {
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "invalid create parameters");
+            responseDto = new ResponseDto<JwtResponse>(ResponseDtoStatus.FAILURE, "invalid create parameters");
         } catch (DuplicatedEmailException e) {
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "duplicated email");
+            responseDto = new ResponseDto<JwtResponse>(ResponseDtoStatus.FAILURE, "duplicated email");
         } catch (Exception e) {
-            responseDto = new ResponseDto<Void>(ResponseDtoStatus.FAILURE, "unexpected exception");
+            responseDto = new ResponseDto<JwtResponse>(ResponseDtoStatus.FAILURE, "unexpected exception");
         }
 
         return ResponseEntity.ok(responseDto);
