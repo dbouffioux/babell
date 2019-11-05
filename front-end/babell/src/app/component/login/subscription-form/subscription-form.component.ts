@@ -32,13 +32,13 @@ export class SubscriptionFormComponent implements OnInit {
   submitForm() {
     const person = this.getPersonFromFormValues();
     this.subscriptionFormEmitter.emit(person);
-    //this.subscriptionForm.reset();
+    // this.subscriptionForm.reset();
   }
 
   ngOnInit() {
   }
 
-  private getPersonFromFormValues(): PersonInterface {
+  public getPersonFromFormValues(): PersonInterface {
     const formValues = this.subscriptionForm.value;
     const person = new PersonBusiness(
       null,

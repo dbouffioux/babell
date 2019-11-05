@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProjectBusiness} from '../../model/business/project.business';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TodoBusiness } from '../../model/business/todo.business';
 
 @Component({
   selector: 'app-todo-add-form',
@@ -21,8 +21,21 @@ export class TodoAddFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitForm(formValues: any): void {
-    this.todoFormEmitter.emit(this.todoForm.value);
+  submitForm(): void {
+    const todo: TodoBusiness = this.createTodoBusiness();
+    this.todoFormEmitter.emit(todo);
     this.todoForm.reset();
+  }
+
+  createTodoBusiness(): TodoBusiness {
+    return new TodoBusiness(
+      null,
+      this.todoForm.value.name,
+      this.todoForm.value.description,
+      null,
+      null,
+      null,
+      null
+    );
   }
 }

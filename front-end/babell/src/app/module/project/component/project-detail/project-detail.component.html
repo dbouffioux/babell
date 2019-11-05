@@ -1,15 +1,17 @@
-<h2>{{ project?.name }}</h2>
-<section>
-  <ul>
-    <li>Start Date: {{ project?.startDate }}</li>
-    <li>End Date: {{ project?.endDate }}</li>
-    <li>
-      <div *ngIf="project?.todoList">
-        <app-todo-list
-          [list]="project.todoList">
-        </app-todo-list>
-      </div>
-      <div *ngIf="project?.todoList.length === 0">Il n'y a rien a faire</div>
-    </li>
-  </ul>
-</section>
+<ng-container *ngIf="( project$ | async ) as project">
+  <h2>{{ project.name }}</h2>
+  <section>
+    <ul>
+      <li>Start Date: {{ project.startDate }}</li>
+      <li>End Date: {{ project.endDate }}</li>
+      <li>
+        <div *ngIf="project.todoList">
+          <app-todo-list
+            [list]="project.todoList">
+          </app-todo-list>
+        </div>
+        <div *ngIf="project.todoList.length === 0">Il n'y a rien a faire</div>
+      </li>
+    </ul>
+  </section>
+</ng-container>

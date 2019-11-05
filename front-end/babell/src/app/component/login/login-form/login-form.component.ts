@@ -15,8 +15,7 @@ export class LoginFormComponent {
   @Output() private loginFormEmitter = new EventEmitter();
 
   constructor(
-    private fb: FormBuilder,
-    private auth: AuthenticationService
+    private fb: FormBuilder
   ) {
     this.loginForm = this.fb.group({
       email: this.fb.control('', [Validators.required, Validators.email]),

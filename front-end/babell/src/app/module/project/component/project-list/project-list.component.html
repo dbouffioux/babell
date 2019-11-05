@@ -1,5 +1,11 @@
-<ul>
-  <li *ngFor="let project of projects">
-    <a [routerLink]="['/projects', project.name]">{{ project.name }}</a>
-  </li>
-</ul>
+
+<div *ngIf="(projects$ | async) as projects">
+  <div *ngIf="!((projects)?.length)">
+    No projects yet
+  </div>
+  <ul>
+    <li *ngFor="let project of projects">
+      <a [routerLink]="['/projects', project.name]">{{ project.name }}</a>
+    </li>
+  </ul>
+</div>

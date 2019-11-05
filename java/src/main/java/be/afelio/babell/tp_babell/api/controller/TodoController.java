@@ -32,8 +32,11 @@ public class TodoController {
     public ResponseEntity<ResponseDto<ProjectWithTodoDto>> findOne(
             @PathVariable("projectName") String projectName) {
         ResponseDto<ProjectWithTodoDto> responseDto;
+        System.out.println("ok");
         try {
+        	
             ProjectWithTodoDto projectWithTodoDto = repository.findAllTodoByProjectName(projectName);
+            System.out.println(projectWithTodoDto);
             if (projectWithTodoDto == null) {
                 responseDto = new ResponseDto<ProjectWithTodoDto>(ResponseDtoStatus.FAILURE, "todo not found");
             } else {

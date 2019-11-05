@@ -4,6 +4,10 @@ import {ProjectBusiness} from '../../model/business/project.business';
 import {ProjectService} from '../../service/project.service';
 import {TodoBusiness} from '../../model/business/todo.business';
 import {TodoService} from '../../service/todo.service';
+import { Store, Select } from '@ngxs/store';
+import { ProjectAction } from 'src/app/store/project-action';
+import { ProjectState } from 'src/app/store/project-state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-project-detail-container',
@@ -14,12 +18,16 @@ export class ProjectDetailContainerComponent implements OnInit {
 
   public project: ProjectBusiness;
   public error: string;
-  private message: string;
+  public message: string;
+  public projectName: string;
+
+  @Select(ProjectState.selectedProject)
+  public project$: Observable<ProjectBusiness>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private projectService: ProjectService,
-    private todoService: TodoService
+    private todoService: TodoService,
+    private store: Store
   ) { }
 
   ngOnInit() {
@@ -29,33 +37,16 @@ export class ProjectDetailContainerComponent implements OnInit {
   private getProject() {
     this.activatedRoute.params.subscribe(
       params => {
-        this.projectService.getProjectByName(params.name).subscribe(
-          response => {
-            if (response.status !== 'SUCCESS') {
-              this.error = response.message;
-            } else {
-              this.error = null;
-              this.message = response.message;
-              this.project = response.payload;
-            }
-          },
-          error => this.error = error
-        );
+        this.store.dispatch(new ProjectAction.LoadProject(params.name));
       }
     );
   }
 
   private createTodo(todo: TodoBusiness): void {
-    this.todoService.createTodo(todo, this.project.name).subscribe(
-      (response) => {
-         if (response.status !== 'SUCCESS') {
-            this.error = response.message;
-         } else {
-            this.message = response.message;
-         }
-         this.getProject();
-      },
-      (error) => this.error = error
-    );
+    this.project$.subscribe(project => {
+      this.store.dispatch(
+        new ProjectAction.AddTodo(todo, project.name)
+      );
+    });
   }
 }

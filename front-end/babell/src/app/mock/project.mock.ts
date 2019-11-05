@@ -2,6 +2,7 @@ import {HttpResponse, HttpRequest, HttpErrorResponse, HttpClient} from '@angular
 import {ProjectInterface} from '../module/project/model/project.interface';
 import {ResponseInterface} from '../model/response.interface';
 import {TodoInterface} from '../module/project/model/todo.interface';
+import { HTTPResponseStatuses } from '../utils/httpresponse-adapter';
 
 const ProjectList: ResponseInterface<ProjectInterface[]> = {
   payload: [
@@ -20,8 +21,8 @@ const ProjectList: ResponseInterface<ProjectInterface[]> = {
       todoDtoList: []
     },
   ],
-  status: 'SUCCESS',
-  message: 'success'
+  status: HTTPResponseStatuses.SUCCESS,
+  message: 'success message'
 };
 
 const Project: ResponseInterface<ProjectInterface> = {
@@ -49,8 +50,8 @@ const Project: ResponseInterface<ProjectInterface> = {
       }
     ]
   },
-  status: 'SUCCESS',
-  message: 'success'
+  status: HTTPResponseStatuses.SUCCESS,
+  message: 'success message'
 };
 
 const getProjects = (request: HttpRequest<any>): HttpResponse<any> => {

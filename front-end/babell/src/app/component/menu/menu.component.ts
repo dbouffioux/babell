@@ -20,8 +20,8 @@ export class MenuComponent implements OnInit {
   }
 
   closeConnection() {
-    this.setIsAuthenticated();
     this.auth.removeLoginStorage();
+    this.setIsAuthenticated();
     this.router.navigate(['/login']).then(r => (r));
   }
 

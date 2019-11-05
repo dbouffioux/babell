@@ -4,7 +4,7 @@ import {LoginContainerComponent} from './container/login-container/login-contain
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 
-const routes: Routes = [
+export const ROUTES: Routes = [
   {path: '', redirectTo: '/projects', pathMatch: 'full'},
   {path : 'projects',
     canActivate: [AuthGuardService],
@@ -15,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(ROUTES)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

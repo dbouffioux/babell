@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from '../../service/project.service';
 import {ProjectBusiness} from '../../model/business/project.business';
+import { Store, Select } from '@ngxs/store';
+import { ProjectState } from 'src/app/store/project-state';
+import { Observable } from 'rxjs';
+import { ProjectAction } from 'src/app/store/project-action';
 
 @Component({
   selector: 'app-project-container',
@@ -9,17 +13,27 @@ import {ProjectBusiness} from '../../model/business/project.business';
 })
 export class ProjectContainerComponent implements OnInit {
 
-  projects: ProjectBusiness[];
-  private error: string;
+  @Select(ProjectState.projects)
+  public projects$: Observable<ProjectBusiness[]>;
 
-  constructor(private projectService: ProjectService) { }
+  // projects: ProjectBusiness[];
+  // private error: string;
+
+  constructor(
+    // private projectService: ProjectService,
+    private store: Store
+  ) {}
 
   ngOnInit() {
     this.getProjects();
   }
 
   private getProjects() {
-    this.projectService.getProjects().subscribe(
+    // with store
+    this.store.dispatch(new ProjectAction.LoadList());
+
+    // before with direct service call
+    /*this.projectService.getProjects().subscribe(
       response => {
         if (response.status !== 'SUCCESS') {
           this.error = response.message;
@@ -28,6 +42,6 @@ export class ProjectContainerComponent implements OnInit {
         }
       },
       error => this.error = error
-    );
+    );*/
   }
 }
